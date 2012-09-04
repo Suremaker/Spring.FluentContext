@@ -19,7 +19,7 @@ namespace Spring.FluentContext.UnitTests
 		public void Bind_lookup_method_to_prototype()
 		{
 			_ctx.Register<TypeWithFactoryMethod>("test")
-				.BindLookupMethod(t => t.CreateType(), "counting");
+				.BindLookupMethod(t => t.CreateType()).ToReference("counting");
 
 			_ctx.Register<CountingType>("counting").AsPrototype();
 
@@ -36,7 +36,7 @@ namespace Spring.FluentContext.UnitTests
 		public void Bind_lookup_method_to_singleton()
 		{
 			_ctx.Register<TypeWithFactoryMethod>("test")
-				.BindLookupMethod(t => t.CreateType(), "counting");
+				.BindLookupMethod(t => t.CreateType()).ToReference("counting");
 
 			_ctx.Register<CountingType>("counting").AsSingleton();
 
@@ -48,12 +48,12 @@ namespace Spring.FluentContext.UnitTests
 			Assert.That(object1.CurrentCount, Is.EqualTo(1));
 			Assert.That(object2.CurrentCount, Is.EqualTo(1));
 		}
-		
+
 		[Test]
 		public void Bind_protected_lookup_method_to_prototype()
 		{
 			_ctx.Register<TypeWithProtectedFactoryMethod>("test")
-				.BindLookupMethodByName("CreateType", "counting");
+				.BindLookupMethodByName<CountingType>("CreateType").ToReference("counting");
 
 			_ctx.Register<CountingType>("counting").AsPrototype();
 

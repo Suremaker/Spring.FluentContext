@@ -49,7 +49,9 @@
     <Compile Include="ContextExtensions.cs" />
     <Compile Include="FluentApplicationContext.cs" />
     <Compile Include="ICtorDefinitionBuilder.cs" />
+    <Compile Include="ILookupMethodDefinitionBuilder.cs" />
     <Compile Include="Impl\CtorDefinitionBuilder.cs" />
+    <Compile Include="Impl\LookupMethodDefinitionBuilder.cs" />
     <Compile Include="Impl\ObjectDefinitionBuilder.cs" />
     <Compile Include="Impl\PropertyDefinitionBuilder.cs" />
     <Compile Include="IObjectDefinitionBuilder.cs" />

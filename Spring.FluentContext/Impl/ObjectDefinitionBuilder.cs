@@ -50,16 +50,14 @@ namespace Spring.FluentContext.Impl
 			return new CtorDefinitionBuilder<TObject, TProperty>(this);
 		}
 
-		public IObjectDefinitionBuilder<TObject> BindLookupMethod<TResult>(Expression<Func<TObject, TResult>> methodSelector, string objectId)
+		public ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethod<TResult>(Expression<Func<TObject, TResult>> methodSelector)
 		{
-			_definition.MethodOverrides.Add(new LookupMethodOverride(ReflectionUtils.GetMethodName(methodSelector),objectId));
-			return this;
+			return new LookupMethodDefinitionBuilder<TObject, TResult>(this, ReflectionUtils.GetMethodName(methodSelector));
 		}
 
-		public IObjectDefinitionBuilder<TObject> BindLookupMethodByName(string methodName, string objectId)
+		public ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethodByName<TResult>(string methodName)
 		{
-			_definition.MethodOverrides.Add(new LookupMethodOverride(methodName, objectId));
-			return this;
+			return new LookupMethodDefinitionBuilder<TObject, TResult>(this, methodName);
 		}
 
 		private void SetObjectType()
