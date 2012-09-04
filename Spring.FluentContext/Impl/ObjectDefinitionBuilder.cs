@@ -42,6 +42,17 @@ namespace Spring.FluentContext.Impl
 			return this;
 		}
 
+		public IObjectDefinitionBuilder<TObject> CheckDependencies()
+		{
+			return CheckDependencies(DependencyCheckingMode.All);
+		}
+
+		public IObjectDefinitionBuilder<TObject> CheckDependencies(DependencyCheckingMode mode)
+		{
+			_definition.DependencyCheck = mode;
+			return this;
+		}
+
 		public IPropertyDefinitionBuilder<TObject, TProperty> BindProperty<TProperty>(Expression<Func<TObject, TProperty>> propertySelector)
 		{
 			return new PropertyDefinitionBuilder<TObject, TProperty>(this, ReflectionUtils.GetPropertyName(propertySelector));

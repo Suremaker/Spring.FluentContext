@@ -1,6 +1,7 @@
 using System;
 using System.Linq.Expressions;
 using Spring.Objects.Factory.Config;
+using Spring.Objects.Factory.Support;
 
 namespace Spring.FluentContext
 {
@@ -10,6 +11,8 @@ namespace Spring.FluentContext
 		IObjectDefinitionBuilder<TObject> AsSingleton();
 		IObjectDefinitionBuilder<TObject> Autowire();
 		IObjectDefinitionBuilder<TObject> Autowire(AutoWiringMode mode);
+		IObjectDefinitionBuilder<TObject> CheckDependencies();
+		IObjectDefinitionBuilder<TObject> CheckDependencies(DependencyCheckingMode mode);
 
 		IPropertyDefinitionBuilder<TObject, TProperty> BindProperty<TProperty>(Expression<Func<TObject, TProperty>> propertySelector);
 		IPropertyDefinitionBuilder<TObject, TProperty> BindPropertyByName<TProperty>(string propertyName);

@@ -13,7 +13,6 @@ namespace Spring.FluentContext.UnitTests
 		public void SetUp()
 		{
 			_ctx = new FluentApplicationContext();
-			CountingType.ClearCounter();
 		}
 
 		[Test]

@@ -48,7 +48,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LookupMethodInjectionTests.cs" />
     <Compile Include="ObjectConstructorInjectionTests.cs" />
     <Compile Include="ObjectInstantiationModeTests.cs" />
     <Compile Include="ContextExtensionTests.cs" />
@@ -65,6 +64,9 @@
     <Compile Include="TestTypes\TypeWithProtectedFactoryMethod.cs" />
     <Compile Include="ObjectAutowiringTests.cs" />
     <Compile Include="TestTypes\OtherType.cs" />
+    <Compile Include="ObjectDependencyVerificationTests.cs" />
+    <Compile Include="TestTypes\ComplexType.cs" />
+    <Compile Include="ObjectLookupMethodInjectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
