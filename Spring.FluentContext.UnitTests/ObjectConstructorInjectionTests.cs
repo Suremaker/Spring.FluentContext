@@ -64,6 +64,20 @@ namespace Spring.FluentContext.UnitTests
 		public void Inject_references_by_ctor_using_indexed_constructor_arguments()
 		{
 			_ctx.Register<CtorHavingType>("test")
+				.BindConstructorArg<NestingType>(0).ToReference("nesting");
+
+			_ctx.Register<NestingType>("nesting");
+
+			NestingType actual = _ctx.GetObject<CtorHavingType>("test").Nesting;
+			NestingType expected = _ctx.GetObject<NestingType>("nesting");
+
+			Assert.That(actual, Is.SameAs(expected));
+		}
+
+		[Test]
+		public void Inject_references_by_ctor_using_generic_constructor_arguments()
+		{
+			_ctx.Register<CtorHavingType>("test")
 				.BindConstructorArg<NestingType>().ToReference("nesting");
 
 			_ctx.Register<NestingType>("nesting");
