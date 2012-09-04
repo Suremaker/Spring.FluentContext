@@ -1,6 +1,5 @@
 using System;
 using System.Linq.Expressions;
-using Spring.Objects.Factory.Config;
 using Spring.Objects.Factory.Support;
 
 namespace Spring.FluentContext
@@ -14,7 +13,7 @@ namespace Spring.FluentContext
 			SetObjectType();
 		}
 
-		public IObjectDefinition Definition
+		public GenericObjectDefinition Definition
 		{
 			get { return _definition; }
 		}
@@ -44,6 +43,12 @@ namespace Spring.FluentContext
 		public ICtorDefinitionBuilder<TObject, TProperty> BindConstructorArg<TProperty>()
 		{
 			return new CtorDefinitionBuilder<TObject, TProperty>(this);
+		}
+
+		public IObjectDefinitionBuilder<TObject> BindLookupMethod<TResult>(Expression<Func<TObject, TResult>> methodSelector, string objectId)
+		{
+			_definition.MethodOverrides.Add(new LookupMethodOverride(ReflectionUtils.GetMethodName(methodSelector),objectId));
+			return this;
 		}
 
 		private void SetObjectType()

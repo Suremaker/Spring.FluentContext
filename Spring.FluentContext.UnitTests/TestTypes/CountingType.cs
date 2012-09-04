@@ -4,8 +4,10 @@ namespace Spring.FluentContext.UnitTests.TestTypes
 	{
 		public CountingType()
 		{
-			++Count;
+			CurrentCount = ++Count;
 		}
+
+		public int CurrentCount { get; private set; }
 
 		public static int Count { get; private set; }
 
