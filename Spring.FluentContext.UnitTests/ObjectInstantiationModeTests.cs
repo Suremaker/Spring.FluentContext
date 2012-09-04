@@ -4,7 +4,7 @@ using Spring.FluentContext.UnitTests.TestTypes;
 namespace Spring.FluentContext.UnitTests
 {
 	[TestFixture]
-	public class FluentApplicationContextTests
+	public class ObjectInstantiationModeTests
 	{
 		private FluentApplicationContext _ctx;
 
@@ -12,14 +12,6 @@ namespace Spring.FluentContext.UnitTests
 		public void SetUp()
 		{
 			_ctx = new FluentApplicationContext();
-		}
-
-		[Test]
-		public void Register_named_object()
-		{
-			_ctx.Register<SimpleType>("test");
-
-			Assert.That(_ctx.GetObject<SimpleType>("test"), Is.Not.Null);
 		}
 
 		[Test]
@@ -50,20 +42,6 @@ namespace Spring.FluentContext.UnitTests
 			Assert.That(
 				_ctx.GetObject<SimpleType>("test"),
 				Is.SameAs(_ctx.GetObject<SimpleType>("test")));
-		}
-
-		[Test]
-		public void Register_named_object_does_not_instantiate_it_until_accessed()
-		{
-			int beforeRegister = CountingType.Count;
-			_ctx.Register<CountingType>("test");
-			int beforeInstantiation = CountingType.Count;
-			_ctx.GetObject<CountingType>("test");
-			int afterInstantiation = CountingType.Count;
-
-			Assert.That(beforeInstantiation, Is.EqualTo(beforeRegister));
-
-			Assert.That(afterInstantiation, Is.EqualTo(beforeInstantiation + 1));
 		}
 	}
 }
