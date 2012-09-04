@@ -1,9 +1,9 @@
 using System;
 using Spring.Objects.Factory.Config;
 
-namespace Spring.FluentContext
+namespace Spring.FluentContext.Impl
 {
-	public class CtorDefinitionBuilder<TObject, TProperty> : ICtorDefinitionBuilder<TObject, TProperty>
+	internal class CtorDefinitionBuilder<TObject, TArgument> : ICtorDefinitionBuilder<TObject, TArgument>
 	{
 		private readonly ObjectDefinitionBuilder<TObject> _builder;
 		private readonly Action<ConstructorArgumentValues, object> _insertCtorArgAction;
@@ -11,16 +11,16 @@ namespace Spring.FluentContext
 		public CtorDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder, int argIndex)
 		{
 			_builder = builder;
-			_insertCtorArgAction = (list, value) => list.AddIndexedArgumentValue(argIndex, value, typeof(TProperty).FullName);
+			_insertCtorArgAction = (list, value) => list.AddIndexedArgumentValue(argIndex, value, typeof(TArgument).FullName);
 		}
 
 		public CtorDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
 		{
 			_builder = builder;
-			_insertCtorArgAction = (list, value) => list.AddGenericArgumentValue(value, typeof(TProperty).FullName);
+			_insertCtorArgAction = (list, value) => list.AddGenericArgumentValue(value, typeof(TArgument).FullName);
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToValue(TProperty value)
+		public IObjectDefinitionBuilder<TObject> ToValue(TArgument value)
 		{
 			_insertCtorArgAction(_builder.Definition.ConstructorArgumentValues, value);
 			return _builder;
@@ -32,7 +32,7 @@ namespace Spring.FluentContext
 			return _builder;
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TProperty
+		public IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TArgument
 		{
 			var innerObjectBuilder = new ObjectDefinitionBuilder<TInnerObject>();
 			innerObjectBuildAction(innerObjectBuilder);

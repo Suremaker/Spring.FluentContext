@@ -47,14 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextExtensions.cs" />
-    <Compile Include="CtorDefinitionBuilder.cs" />
     <Compile Include="FluentApplicationContext.cs" />
     <Compile Include="ICtorDefinitionBuilder.cs" />
+    <Compile Include="Impl\CtorDefinitionBuilder.cs" />
+    <Compile Include="Impl\ObjectDefinitionBuilder.cs" />
+    <Compile Include="Impl\PropertyDefinitionBuilder.cs" />
     <Compile Include="IObjectDefinitionBuilder.cs" />
     <Compile Include="IPropertyDefinitionBuilder.cs" />
-    <Compile Include="ObjectDefinitionBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyDefinitionBuilder.cs" />
     <Compile Include="ReflectionUtils.cs" />
   </ItemGroup>
   <ItemGroup>

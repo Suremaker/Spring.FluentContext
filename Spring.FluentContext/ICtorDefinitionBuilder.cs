@@ -2,10 +2,10 @@ using System;
 
 namespace Spring.FluentContext
 {
-	public interface ICtorDefinitionBuilder<TObject, in TProperty>
+	public interface ICtorDefinitionBuilder<TObject, in TArgument>
 	{
-		IObjectDefinitionBuilder<TObject> ToValue(TProperty value);
+		IObjectDefinitionBuilder<TObject> ToValue(TArgument value);
 		IObjectDefinitionBuilder<TObject> ToReference(string objectId);
-		IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TProperty;
+		IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TArgument;
 	}
 }

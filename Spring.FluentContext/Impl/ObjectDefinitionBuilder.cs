@@ -2,9 +2,9 @@ using System;
 using System.Linq.Expressions;
 using Spring.Objects.Factory.Support;
 
-namespace Spring.FluentContext
+namespace Spring.FluentContext.Impl
 {
-	public class ObjectDefinitionBuilder<TObject> : IObjectDefinitionBuilder<TObject>
+	internal class ObjectDefinitionBuilder<TObject> : IObjectDefinitionBuilder<TObject>
 	{
 		private readonly GenericObjectDefinition _definition = new GenericObjectDefinition();
 

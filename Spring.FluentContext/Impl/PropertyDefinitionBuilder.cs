@@ -2,9 +2,9 @@ using System;
 using Spring.Objects;
 using Spring.Objects.Factory.Config;
 
-namespace Spring.FluentContext
+namespace Spring.FluentContext.Impl
 {
-	public class PropertyDefinitionBuilder<TObject, TProperty> : IPropertyDefinitionBuilder<TObject, TProperty>
+	internal class PropertyDefinitionBuilder<TObject, TProperty> : IPropertyDefinitionBuilder<TObject, TProperty>
 	{
 		private readonly ObjectDefinitionBuilder<TObject> _builder;
 		private readonly string _propertyName;

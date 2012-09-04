@@ -1,4 +1,5 @@
 using Spring.Context.Support;
+using Spring.FluentContext.Impl;
 
 namespace Spring.FluentContext
 {
