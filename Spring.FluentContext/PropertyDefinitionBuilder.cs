@@ -1,3 +1,4 @@
+using System;
 using Spring.Objects;
 using Spring.Objects.Factory.Config;
 
@@ -22,6 +23,13 @@ namespace Spring.FluentContext
 		public IObjectDefinitionBuilder<TObject> ToReference(string objectId)
 		{
 			return AddPropertyValue(new PropertyValue(_propertyName, new RuntimeObjectReference(objectId)));
+		}
+
+		public IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TProperty
+		{
+			var builder = new ObjectDefinitionBuilder<TInnerObject>();
+			innerObjectBuildAction(builder);
+			return AddPropertyValue(new PropertyValue(_propertyName, builder.Definition));
 		}
 
 		private IObjectDefinitionBuilder<TObject> AddPropertyValue(PropertyValue propertyValue)

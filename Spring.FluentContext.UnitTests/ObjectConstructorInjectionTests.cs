@@ -87,5 +87,35 @@ namespace Spring.FluentContext.UnitTests
 
 			Assert.That(actual, Is.SameAs(expected));
 		}
+
+		[Test]
+		public void Inject_inner_definitions_by_ctor_using_generic_constructor_arguments()
+		{
+			_ctx.Register<CtorHavingType>("test")
+				.BindConstructorArg<NestingType>().ToInlineDefinition<NestingType>(
+					def => def.BindProperty(n => n.Simple).ToReference("simple"));
+
+			_ctx.Register<SimpleType>("simple");
+
+			var actual = _ctx.GetObject<CtorHavingType>("test");
+
+			Assert.That(actual.Nesting, Is.Not.Null);
+			Assert.That(actual.Nesting.Simple, Is.SameAs(_ctx.GetObject<SimpleType>("simple")));
+		}
+
+		[Test]
+		public void Inject_inner_definitions_by_ctor_using_indexed_constructor_arguments()
+		{
+			_ctx.Register<CtorHavingType>("test")
+				.BindConstructorArg<NestingType>(0).ToInlineDefinition<NestingType>(
+					def => def.BindProperty(n => n.Simple).ToReference("simple"));
+
+			_ctx.Register<SimpleType>("simple");
+
+			var actual = _ctx.GetObject<CtorHavingType>("test");
+
+			Assert.That(actual.Nesting, Is.Not.Null);
+			Assert.That(actual.Nesting.Simple, Is.SameAs(_ctx.GetObject<SimpleType>("simple")));
+		}
 	}
 }
