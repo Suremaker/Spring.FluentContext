@@ -50,10 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FluentApplicationContext.cs" />
+    <Compile Include="FluentApplicationContextTests.cs" />
     <Compile Include="ContextExtensionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimpleType.cs" />
+    <Compile Include="TestTypes\CountingType.cs" />
+    <Compile Include="TestTypes\SimpleType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,4 +1,5 @@
 using Spring.Context.Support;
+using Spring.Objects.Factory.Support;
 
 namespace Spring.FluentContext
 {
@@ -6,7 +7,7 @@ namespace Spring.FluentContext
 	{
 		public void Register<T>(string name)
 		{
-			throw new System.NotImplementedException();
+			RegisterObjectDefinition(name, new RootObjectDefinition { ObjectType = typeof(T) });
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Spring.Context.Support;
+using Spring.FluentContext.UnitTests.TestTypes;
 using Spring.Objects.Factory;
 
 namespace Spring.FluentContext.UnitTests

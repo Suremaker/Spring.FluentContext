@@ -1,4 +1,4 @@
-namespace Spring.FluentContext.UnitTests
+namespace Spring.FluentContext.UnitTests.TestTypes
 {
 	class SimpleType
 	{
