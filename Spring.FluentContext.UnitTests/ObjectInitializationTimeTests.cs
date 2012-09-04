@@ -12,20 +12,20 @@ namespace Spring.FluentContext.UnitTests
 		public void SetUp()
 		{
 			_ctx = new FluentApplicationContext();
+			CountingType.ClearCounter();
 		}
 
 		[Test]
 		public void Register_named_object_does_not_instantiate_it_until_accessed()
 		{
-			int beforeRegister = CountingType.Count;
 			_ctx.Register<CountingType>("test");
+			
 			int beforeInstantiation = CountingType.Count;
 			_ctx.GetObject<CountingType>("test");
 			int afterInstantiation = CountingType.Count;
 
-			Assert.That(beforeInstantiation, Is.EqualTo(beforeRegister));
-
-			Assert.That(afterInstantiation, Is.EqualTo(beforeInstantiation + 1));
+			Assert.That(beforeInstantiation, Is.EqualTo(0));
+			Assert.That(afterInstantiation, Is.EqualTo(1));
 		}
 	}
 }
