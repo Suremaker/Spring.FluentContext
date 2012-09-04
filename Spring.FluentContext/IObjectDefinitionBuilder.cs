@@ -1,8 +1,12 @@
+using System;
+using System.Linq.Expressions;
+
 namespace Spring.FluentContext
 {
-	public interface IObjectDefinitionBuilder<T>
+	public interface IObjectDefinitionBuilder<TObject>
 	{
-		IObjectDefinitionBuilder<T> AsPrototype();
-		IObjectDefinitionBuilder<T> AsSingleton();
+		IObjectDefinitionBuilder<TObject> AsPrototype();
+		IObjectDefinitionBuilder<TObject> AsSingleton();
+		IPropertyDefinitionBuilder<TObject,TProperty> BindProperty<TProperty>(Expression<Func<TObject, TProperty>> propertySelector);
 	}
 }

@@ -19,7 +19,7 @@ namespace Spring.FluentContext.UnitTests
 		public void Register_named_object_does_not_instantiate_it_until_accessed()
 		{
 			_ctx.Register<CountingType>("test");
-			
+
 			int beforeInstantiation = CountingType.Count;
 			_ctx.GetObject<CountingType>("test");
 			int afterInstantiation = CountingType.Count;

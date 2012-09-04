@@ -55,6 +55,7 @@
     <Compile Include="ObjectInitializationTimeTests.cs" />
     <Compile Include="ObjectRegistrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ObjectPropertySetterInjectionTests.cs" />
     <Compile Include="TestTypes\CountingType.cs" />
     <Compile Include="TestTypes\SimpleType.cs" />
   </ItemGroup>
