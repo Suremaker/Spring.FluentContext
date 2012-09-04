@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="ContextExtensions.cs" />
     <Compile Include="FluentApplicationContext.cs" />
+    <Compile Include="IObjectDefinitionBuilder.cs" />
+    <Compile Include="ObjectDefinitionBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

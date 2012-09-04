@@ -27,7 +27,29 @@ namespace Spring.FluentContext.UnitTests
 		{
 			_ctx.Register<SimpleType>("test");
 
-			Assert.That(_ctx.GetObject<SimpleType>("test"), Is.SameAs(_ctx.GetObject<SimpleType>("test")));
+			Assert.That(
+				_ctx.GetObject<SimpleType>("test"),
+				Is.SameAs(_ctx.GetObject<SimpleType>("test")));
+		}
+
+		[Test]
+		public void Register_named_object_as_prototype()
+		{
+			_ctx.Register<SimpleType>("test").AsPrototype();
+
+			Assert.That(
+				_ctx.GetObject<SimpleType>("test"),
+				Is.Not.SameAs(_ctx.GetObject<SimpleType>("test")));
+		}
+
+		[Test]
+		public void Register_named_object_as_singleton()
+		{
+			_ctx.Register<SimpleType>("test").AsSingleton();
+
+			Assert.That(
+				_ctx.GetObject<SimpleType>("test"),
+				Is.SameAs(_ctx.GetObject<SimpleType>("test")));
 		}
 
 		[Test]
