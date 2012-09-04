@@ -2,6 +2,7 @@ namespace Spring.FluentContext.UnitTests.TestTypes
 {
 	class CtorHavingType
 	{
+		public NestingType Nesting { get; private set; }
 		public string Text { get; private set; }
 		public int Value { get; private set; }
 
@@ -11,6 +12,11 @@ namespace Spring.FluentContext.UnitTests.TestTypes
 		{
 			Text = text;
 			Value = value;
+		}
+
+		public CtorHavingType(NestingType nesting)
+		{
+			Nesting = nesting;
 		}
 	}
 }

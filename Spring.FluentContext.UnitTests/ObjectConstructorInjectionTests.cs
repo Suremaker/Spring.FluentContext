@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Spring.FluentContext.UnitTests.TestTypes;
 
 namespace Spring.FluentContext.UnitTests
@@ -19,7 +15,7 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
-		public void Inject_dependencies_by_ctor_using_indexed_constructor_arguments()
+		public void Inject_values_by_ctor_using_indexed_constructor_arguments()
 		{
 			const string expectedText = "some text";
 			const int expectedValue = 15;
@@ -35,7 +31,7 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
-		public void Inject_dependencies_by_ctor_using_indexed_constructor_arguments_and_proper_ctor()
+		public void Inject_values_by_ctor_using_indexed_constructor_arguments_and_proper_ctor()
 		{
 			const string expectedText = "some text";
 
@@ -49,7 +45,7 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
-		public void Inject_dependencies_by_generic_constructor_arguments_and_values()
+		public void Inject_values_by_ctor_using_generic_constructor_arguments()
 		{
 			const string expectedText = "some text";
 			const int expectedValue = 15;
@@ -62,6 +58,20 @@ namespace Spring.FluentContext.UnitTests
 
 			Assert.That(actual.Text, Is.EqualTo(expectedText));
 			Assert.That(actual.Value, Is.EqualTo(expectedValue));
+		}
+
+		[Test]
+		public void Inject_references_by_ctor_using_indexed_constructor_arguments()
+		{
+			_ctx.Register<CtorHavingType>("test")
+				.BindConstructorArg<NestingType>().ToReference("nesting");
+
+			_ctx.Register<NestingType>("nesting");
+
+			NestingType actual = _ctx.GetObject<CtorHavingType>("test").Nesting;
+			NestingType expected = _ctx.GetObject<NestingType>("nesting");
+
+			Assert.That(actual, Is.SameAs(expected));
 		}
 	}
 }
