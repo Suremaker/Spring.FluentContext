@@ -32,7 +32,7 @@ namespace Spring.FluentContext.UnitTests
 			const string expectedText = "some value";
 			const int expectedValue = 10;
 
-			_ctx.Register<SimpleType>("test").AsSingleton()
+			_ctx.Register<SimpleType>("test")
 				.BindProperty(t => t.Text).ToValue(expectedText)
 				.BindProperty(t => t.Value).ToValue(expectedValue);
 

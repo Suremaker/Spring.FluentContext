@@ -36,6 +36,16 @@ namespace Spring.FluentContext
 			return new PropertyDefinitionBuilder<TObject, TProperty>(this, ReflectionUtils.GetPropertyName(propertySelector));
 		}
 
+		public ICtorDefinitionBuilder<TObject, TProperty> BindConstructorArg<TProperty>(int argIndex)
+		{
+			return new CtorDefinitionBuilder<TObject, TProperty>(this, argIndex);
+		}
+
+		public ICtorDefinitionBuilder<TObject, TProperty> BindConstructorArg<TProperty>()
+		{
+			return new CtorDefinitionBuilder<TObject, TProperty>(this);
+		}
+
 		private void SetObjectType()
 		{
 			_definition.ObjectType = typeof(TObject);

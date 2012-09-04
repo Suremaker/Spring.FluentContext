@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextExtensions.cs" />
+    <Compile Include="CtorDefinitionBuilder.cs" />
     <Compile Include="FluentApplicationContext.cs" />
+    <Compile Include="ICtorDefinitionBuilder.cs" />
     <Compile Include="IObjectDefinitionBuilder.cs" />
     <Compile Include="IPropertyDefinitionBuilder.cs" />
     <Compile Include="ObjectDefinitionBuilder.cs" />
