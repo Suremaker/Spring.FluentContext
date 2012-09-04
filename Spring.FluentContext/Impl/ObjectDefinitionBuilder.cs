@@ -1,6 +1,7 @@
 using System;
 using System.Linq.Expressions;
 using Spring.Objects.Factory.Support;
+using Spring.Objects.Factory.Config;
 
 namespace Spring.FluentContext.Impl
 {
@@ -27,6 +28,17 @@ namespace Spring.FluentContext.Impl
 		public IObjectDefinitionBuilder<TObject> AsSingleton()
 		{
 			_definition.IsSingleton = true;
+			return this;
+		}
+
+		public IObjectDefinitionBuilder<TObject> Autowire()
+		{
+			return Autowire(AutoWiringMode.AutoDetect);
+		}
+
+		public IObjectDefinitionBuilder<TObject> Autowire(AutoWiringMode mode)
+		{
+			_definition.AutowireMode = mode;
 			return this;
 		}
 

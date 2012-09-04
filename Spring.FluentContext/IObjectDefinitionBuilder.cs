@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using Spring.Objects.Factory.Config;
 
 namespace Spring.FluentContext
 {
@@ -7,6 +8,8 @@ namespace Spring.FluentContext
 	{
 		IObjectDefinitionBuilder<TObject> AsPrototype();
 		IObjectDefinitionBuilder<TObject> AsSingleton();
+		IObjectDefinitionBuilder<TObject> Autowire();
+		IObjectDefinitionBuilder<TObject> Autowire(AutoWiringMode mode);
 
 		IPropertyDefinitionBuilder<TObject, TProperty> BindProperty<TProperty>(Expression<Func<TObject, TProperty>> propertySelector);
 		IPropertyDefinitionBuilder<TObject, TProperty> BindPropertyByName<TProperty>(string propertyName);
@@ -14,6 +17,6 @@ namespace Spring.FluentContext
 		ICtorDefinitionBuilder<TObject, TProperty> BindConstructorArg<TProperty>(int argIndex);
 		ICtorDefinitionBuilder<TObject, TProperty> BindConstructorArg<TProperty>();
 		ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethod<TResult>(Expression<Func<TObject, TResult>> methodSelector);
-		ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethodByName<TResult>(string methodName);
+		ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethodByName<TResult>(string methodName);	
 	}
 }
