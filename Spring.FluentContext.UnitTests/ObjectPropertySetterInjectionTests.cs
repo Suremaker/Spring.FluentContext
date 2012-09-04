@@ -66,5 +66,16 @@ namespace Spring.FluentContext.UnitTests
 			var actual = _ctx.GetObject<NestingType>("nesting");
 			Assert.That(actual.Simple.Text, Is.EqualTo(expectedText));
 		}
+
+		[Test]
+		public void Bind_set_only_property()
+		{
+			const string expected = "some text";
+			_ctx.Register<IocType>("test")
+				.BindPropertyByName<string>("Text").ToValue(expected);
+
+			var actual = _ctx.GetObject<IocType>("test");
+			Assert.That(actual.ToString(), Is.EqualTo(expected));
+		}
 	}
 }

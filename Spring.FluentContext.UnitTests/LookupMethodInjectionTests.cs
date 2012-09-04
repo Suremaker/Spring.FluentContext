@@ -48,5 +48,19 @@ namespace Spring.FluentContext.UnitTests
 			Assert.That(object1.CurrentCount, Is.EqualTo(1));
 			Assert.That(object2.CurrentCount, Is.EqualTo(1));
 		}
+		
+		[Test]
+		public void Bind_protected_lookup_method_to_prototype()
+		{
+			_ctx.Register<TypeWithProtectedFactoryMethod>("test")
+				.BindLookupMethodByName("CreateType", "counting");
+
+			_ctx.Register<CountingType>("counting").AsPrototype();
+
+			var actual = _ctx.GetObject<TypeWithProtectedFactoryMethod>("test");
+
+			Assert.That(actual.GetValue(), Is.EqualTo(1));
+			Assert.That(actual.GetValue(), Is.EqualTo(2));
+		}
 	}
 }
