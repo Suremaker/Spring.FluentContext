@@ -1,4 +1,5 @@
 using Spring.Objects;
+using Spring.Objects.Factory.Config;
 
 namespace Spring.FluentContext
 {
@@ -16,6 +17,11 @@ namespace Spring.FluentContext
 		public IObjectDefinitionBuilder<TObject> ToValue(TProperty value)
 		{
 			return AddPropertyValue(new PropertyValue(_propertyName, value));
+		}
+
+		public IObjectDefinitionBuilder<TObject> ToReference(string objectId)
+		{
+			return AddPropertyValue(new PropertyValue(_propertyName, new RuntimeObjectReference(objectId)));
 		}
 
 		private IObjectDefinitionBuilder<TObject> AddPropertyValue(PropertyValue propertyValue)

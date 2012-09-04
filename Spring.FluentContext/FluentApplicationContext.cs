@@ -4,10 +4,10 @@ namespace Spring.FluentContext
 {
 	public class FluentApplicationContext : GenericApplicationContext
 	{
-		public IObjectDefinitionBuilder<T> Register<T>(string name)
+		public IObjectDefinitionBuilder<T> Register<T>(string id)
 		{
 			var builder = new ObjectDefinitionBuilder<T>();
-			RegisterObjectDefinition(name, builder.Definition);
+			RegisterObjectDefinition(id, builder.Definition);
 			return builder;
 		}
 	}

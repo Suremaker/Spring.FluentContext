@@ -15,13 +15,12 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
-		public void Bind_property_with_value()
+		public void Bind_property_to_value()
 		{
 			const string expectedText = "some value";
 
 			_ctx.Register<SimpleType>("test").AsSingleton()
 				.BindProperty(t => t.Text).ToValue(expectedText);
-
 
 			var actual = _ctx.GetObject<SimpleType>("test");
 			Assert.That(actual.Text, Is.EqualTo(expectedText));
@@ -41,6 +40,18 @@ namespace Spring.FluentContext.UnitTests
 
 			Assert.That(actual.Text, Is.EqualTo(expectedText));
 			Assert.That(actual.Value, Is.EqualTo(expectedValue));
+		}
+
+		[Test]
+		public void Bind_property_to_other_object()
+		{
+			_ctx.Register<SimpleType>("simple");
+
+			_ctx.Register<NestingType>("nesting")
+				.BindProperty(n => n.Simple).ToReference("simple");
+
+			var actual = _ctx.GetObject<NestingType>("nesting");
+			Assert.That(actual.Simple, Is.SameAs(_ctx.GetObject<SimpleType>("simple")));
 		}
 	}
 }
