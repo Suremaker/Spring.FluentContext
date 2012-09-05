@@ -6,18 +6,17 @@ namespace Spring.FluentContext.Examples
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Usage examples of Spring.FluentContext: \n\n");
+			Console.WriteLine("Usage examples of Spring.FluentContext:\n---------------------------------------");
 			var examples = new Example[]
 				{
-					new AdvancedPropertySetterInjection(), 
 					new ConstructorInjection(), 
+					new PropertyInjection(),
+					new AdvancedPropertySetterInjection(), 					
 					new AdvancedLookupMethodInjection()
 				};
 
 			foreach (var example in examples)
 				example.Show();
-
-			Console.ReadKey();
 		}
 	}
 }
