@@ -33,6 +33,11 @@ namespace Spring.FluentContext.Impl
 			return _builder;
 		}
 
+		public IObjectDefinitionBuilder<TObject> ToReference<TRef>(ObjectRef<TRef> reference) where TRef : TArgument
+		{
+			return ToReference(reference.Id);
+		}
+
 		public IObjectDefinitionBuilder<TObject> ToDefaultReference()
 		{
 			return ToReference(IdGenerator<TArgument>.GetDefaultId());
@@ -40,7 +45,7 @@ namespace Spring.FluentContext.Impl
 
 		public IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TArgument
 		{
-			var innerObjectBuilder = new ObjectDefinitionBuilder<TInnerObject>();
+			var innerObjectBuilder = new ObjectDefinitionBuilder<TInnerObject>(null);
 			innerObjectBuildAction(innerObjectBuilder);
 			_insertCtorArgAction(_builder.Definition.ConstructorArgumentValues, innerObjectBuilder.Definition);
 			return _builder;

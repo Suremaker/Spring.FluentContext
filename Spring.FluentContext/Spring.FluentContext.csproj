@@ -56,6 +56,7 @@
     <Compile Include="Impl\PropertyDefinitionBuilder.cs" />
     <Compile Include="IObjectDefinitionBuilder.cs" />
     <Compile Include="IPropertyDefinitionBuilder.cs" />
+    <Compile Include="ObjectRef.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionUtils.cs" />
     <Compile Include="Utils\IdGenerator.cs" />

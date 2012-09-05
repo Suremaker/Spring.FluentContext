@@ -8,9 +8,11 @@ namespace Spring.FluentContext.Impl
 	internal class ObjectDefinitionBuilder<TObject> : IObjectDefinitionBuilder<TObject>
 	{
 		private readonly GenericObjectDefinition _definition = new GenericObjectDefinition();
+		private readonly ObjectRef<TObject> _ref;
 
-		public ObjectDefinitionBuilder()
+		public ObjectDefinitionBuilder(string objectId)
 		{
+			_ref = new ObjectRef<TObject>(objectId);
 			SetObjectType();
 		}
 
@@ -81,6 +83,11 @@ namespace Spring.FluentContext.Impl
 		public ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethodByName<TResult>(string methodName)
 		{
 			return new LookupMethodDefinitionBuilder<TObject, TResult>(this, methodName);
+		}
+
+		public ObjectRef<TObject> GetReference()
+		{
+			return _ref;
 		}
 
 		private void SetObjectType()

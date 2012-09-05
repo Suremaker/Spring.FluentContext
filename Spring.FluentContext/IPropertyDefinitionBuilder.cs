@@ -6,6 +6,7 @@ namespace Spring.FluentContext
 	{
 		IObjectDefinitionBuilder<TObject> ToValue(TProperty value);
 		IObjectDefinitionBuilder<TObject> ToReference(string objectId);
+		IObjectDefinitionBuilder<TObject> ToReference<TRef>(ObjectRef<TRef> reference) where TRef : TProperty;
 		IObjectDefinitionBuilder<TObject> ToDefaultReference();
 		IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TProperty;
 	}

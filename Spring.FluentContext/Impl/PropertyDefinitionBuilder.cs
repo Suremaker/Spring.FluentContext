@@ -26,6 +26,11 @@ namespace Spring.FluentContext.Impl
 			return AddPropertyValue(new PropertyValue(_propertyName, new RuntimeObjectReference(objectId)));
 		}
 
+		public IObjectDefinitionBuilder<TObject> ToReference<TRef>(ObjectRef<TRef> reference) where TRef : TProperty
+		{
+			return ToReference(reference.Id);
+		}
+
 		public IObjectDefinitionBuilder<TObject> ToDefaultReference()
 		{
 			return ToReference(IdGenerator<TProperty>.GetDefaultId());
@@ -33,7 +38,7 @@ namespace Spring.FluentContext.Impl
 
 		public IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TProperty
 		{
-			var builder = new ObjectDefinitionBuilder<TInnerObject>();
+			var builder = new ObjectDefinitionBuilder<TInnerObject>(null);
 			innerObjectBuildAction(builder);
 			return AddPropertyValue(new PropertyValue(_propertyName, builder.Definition));
 		}

@@ -8,15 +8,18 @@ namespace Spring.FluentContext
 	{
 		public IObjectDefinitionBuilder<T> Register<T>(string id)
 		{
-			var builder = new ObjectDefinitionBuilder<T>();
+			var builder = new ObjectDefinitionBuilder<T>(id);
 			RegisterObjectDefinition(id, builder.Definition);
 			return builder;
 		}
 
 		public IObjectDefinitionBuilder<T> Register<T>()
 		{
-			var builder = new ObjectDefinitionBuilder<T>();
-			RegisterObjectDefinition(IdGenerator<T>.GetDefaultId(), builder.Definition);
+			string id = IdGenerator<T>.GetDefaultId();
+
+			var builder = new ObjectDefinitionBuilder<T>(id);
+			RegisterObjectDefinition(id, builder.Definition);
+
 			return builder;
 		}
 

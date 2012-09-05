@@ -4,5 +4,6 @@ namespace Spring.FluentContext
 	{
 		IObjectDefinitionBuilder<TObject> ToReference(string objectId);
 		IObjectDefinitionBuilder<TObject> ToDefaultReference();
+		IObjectDefinitionBuilder<TObject> ToReference<TRef>(ObjectRef<TRef> reference) where TRef : TResult;
 	}
 }

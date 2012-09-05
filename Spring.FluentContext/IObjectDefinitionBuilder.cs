@@ -20,6 +20,7 @@ namespace Spring.FluentContext
 		ICtorDefinitionBuilder<TObject, TProperty> BindConstructorArg<TProperty>(int argIndex);
 		ICtorDefinitionBuilder<TObject, TProperty> BindConstructorArg<TProperty>();
 		ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethod<TResult>(Expression<Func<TObject, TResult>> methodSelector);
-		ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethodByName<TResult>(string methodName);	
+		ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethodByName<TResult>(string methodName);
+		ObjectRef<TObject> GetReference();
 	}
 }

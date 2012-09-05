@@ -55,6 +55,18 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
+		public void Bind_property_to_other_object_by_ref()
+		{
+			var simpleRef = _ctx.Register<SimpleType>("simple").GetReference();
+
+			_ctx.Register<NestingType>("nesting")
+				.BindProperty(n => n.Simple).ToReference(simpleRef);
+
+			var actual = _ctx.GetObject<NestingType>("nesting");
+			Assert.That(actual.Simple, Is.SameAs(_ctx.GetObject<SimpleType>("simple")));
+		}
+
+		[Test]
 		public void Bind_property_to_inner_object()
 		{
 			const string expectedText = "some text";
