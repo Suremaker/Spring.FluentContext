@@ -55,6 +55,26 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
+		public void Bind_property_to_reference_of_derived_object()
+		{
+			var derivedRef = _ctx.Register<DerivedFromSimpleType>("derived").GetReference();
+			_ctx.Register<NestingType>()
+				.BindProperty(n => n.Simple).ToReference(derivedRef);
+
+			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.TypeOf<DerivedFromSimpleType>());
+		}
+
+		[Test]
+		public void Bind_property_to_default_reference_of_derived_object()
+		{
+			_ctx.Register<DerivedFromSimpleType>();
+			_ctx.Register<NestingType>()
+				.BindProperty(n => n.Simple).ToDefaultReferenceOfType<DerivedFromSimpleType>();
+
+			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.TypeOf<DerivedFromSimpleType>());
+		}
+
+		[Test]
 		public void Bind_property_to_other_object_by_ref()
 		{
 			var simpleRef = _ctx.Register<SimpleType>("simple").GetReference();

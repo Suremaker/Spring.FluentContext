@@ -118,6 +118,32 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
+		public void Inject_typed_references_for_derived_classes_by_ctor()
+		{
+			var nestedRef = _ctx.Register<DerivedFromNestingType>("nested").GetReference();
+
+			_ctx.Register<CtorHavingType>()
+				.BindConstructorArg<NestingType>().ToReference(nestedRef);
+
+			var actual = _ctx.GetObject<CtorHavingType>();
+
+			Assert.That(actual.Nesting, Is.TypeOf<DerivedFromNestingType>());
+		}
+
+		[Test]
+		public void Inject_default_references_for_derived_classes_by_ctor()
+		{
+			 _ctx.Register<DerivedFromNestingType>();
+
+			_ctx.Register<CtorHavingType>()
+				.BindConstructorArg<NestingType>().ToDefaultReferenceOfType<DerivedFromNestingType>();
+
+			var actual = _ctx.GetObject<CtorHavingType>();
+
+			Assert.That(actual.Nesting, Is.TypeOf<DerivedFromNestingType>());
+		}
+
+		[Test]
 		public void Inject_inner_definitions_by_ctor_using_generic_constructor_arguments()
 		{
 			_ctx.Register<CtorHavingType>("test")

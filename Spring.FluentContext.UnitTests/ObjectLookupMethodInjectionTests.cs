@@ -71,6 +71,28 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
+		public void Bind_lookup_method_to_typed_reference_of_derived_class()
+		{
+			var countingRef = _ctx.Register<DerivedFromCountingType>("counting").AsSingleton().GetReference();
+
+			_ctx.Register<TypeWithFactoryMethod>()
+				.BindLookupMethod(t => t.CreateType()).ToReference(countingRef);
+
+			Assert.That(_ctx.GetObject<TypeWithFactoryMethod>().CreateType(), Is.TypeOf<DerivedFromCountingType>());
+		}
+
+		[Test]
+		public void Bind_lookup_method_to_default_reference_of_derived_class()
+		{
+			_ctx.Register<DerivedFromCountingType>().AsSingleton();
+
+			_ctx.Register<TypeWithFactoryMethod>()
+				.BindLookupMethod(t => t.CreateType()).ToDefaultReferenceOfType<DerivedFromCountingType>();
+
+			Assert.That(_ctx.GetObject<TypeWithFactoryMethod>().CreateType(), Is.TypeOf<DerivedFromCountingType>());
+		}
+
+		[Test]
 		public void Bind_protected_lookup_method_to_prototype()
 		{
 			_ctx.Register<TypeWithProtectedFactoryMethod>("test")

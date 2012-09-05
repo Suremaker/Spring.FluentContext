@@ -43,6 +43,11 @@ namespace Spring.FluentContext.Impl
 			return ToReference(IdGenerator<TArgument>.GetDefaultId());
 		}
 
+		public IObjectDefinitionBuilder<TObject> ToDefaultReferenceOfType<TReferencedType>() where TReferencedType : TArgument
+		{
+			return ToReference(IdGenerator<TReferencedType>.GetDefaultId());
+		}
+
 		public IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TArgument
 		{
 			var innerObjectBuilder = new ObjectDefinitionBuilder<TInnerObject>(null);

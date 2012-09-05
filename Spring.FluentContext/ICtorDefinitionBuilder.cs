@@ -8,6 +8,7 @@ namespace Spring.FluentContext
 		IObjectDefinitionBuilder<TObject> ToReference(string objectId);
 		IObjectDefinitionBuilder<TObject> ToReference<TRef>(ObjectRef<TRef> reference) where TRef : TArgument;
 		IObjectDefinitionBuilder<TObject> ToDefaultReference();
+		IObjectDefinitionBuilder<TObject> ToDefaultReferenceOfType<TReferencedType>() where TReferencedType : TArgument;
 		IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TArgument;
 	}
 }

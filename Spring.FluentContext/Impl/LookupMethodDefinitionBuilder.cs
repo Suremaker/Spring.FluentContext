@@ -25,6 +25,11 @@ namespace Spring.FluentContext.Impl
 			return ToReference(IdGenerator<TResult>.GetDefaultId());
 		}
 
+		public IObjectDefinitionBuilder<TObject> ToDefaultReferenceOfType<TReferencedType>() where TReferencedType : TResult
+		{
+			return ToReference(IdGenerator<TReferencedType>.GetDefaultId());
+		}
+
 		public IObjectDefinitionBuilder<TObject> ToReference<TRef>(ObjectRef<TRef> reference) where TRef : TResult
 		{
 			return ToReference(reference.Id);
