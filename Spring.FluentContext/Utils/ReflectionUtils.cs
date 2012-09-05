@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 
-namespace Spring.FluentContext
+namespace Spring.FluentContext.Utils
 {
 	public static class ReflectionUtils
 	{
