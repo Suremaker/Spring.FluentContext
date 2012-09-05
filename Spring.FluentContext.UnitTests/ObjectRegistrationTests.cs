@@ -30,6 +30,23 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
+		public void Register_unique_object()
+		{
+			var reference = _ctx.RegisterUnique<SimpleType>().GetReference();
+			Assert.That(_ctx.GetObject(reference), Is.Not.Null);
+		}
+
+		[Test]
+		public void Multiple_register_unique_object_generates_unique_objects()
+		{
+			var simple1Ref = _ctx.RegisterUnique<SimpleType>().GetReference();
+			var simple2Ref = _ctx.RegisterUnique<SimpleType>().GetReference();
+
+			Assert.That(simple1Ref, Is.Not.EqualTo(simple2Ref));
+			Assert.That(_ctx.GetObject(simple1Ref), Is.Not.SameAs(_ctx.GetObject(simple2Ref)));
+		}
+
+		[Test]
 		public void Register_named_object_and_get_its_ref()
 		{
 			var reference = _ctx.Register<SimpleType>("test").GetReference();

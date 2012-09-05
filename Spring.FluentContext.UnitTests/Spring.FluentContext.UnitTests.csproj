@@ -67,6 +67,7 @@
     <Compile Include="ObjectDependencyVerificationTests.cs" />
     <Compile Include="TestTypes\ComplexType.cs" />
     <Compile Include="ObjectLookupMethodInjectionTests.cs" />
+    <Compile Include="Utils\IdGeneratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
