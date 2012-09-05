@@ -47,7 +47,7 @@ namespace Spring.FluentContext.Examples
 			var ctx = new FluentApplicationContext();
 
 			ctx.RegisterDefault<ArithmenticMeanCalculator>();
-			ctx.RegisterDefault<CreditsCalculator>()
+			ctx.RegisterNamed<CreditsCalculator>("calculator")
 				.BindConstructorArg<double>().ToValue(2.5)
 				.BindLookupMethod(c => c.GetMeanCalculator()).ToRegisteredDefaultOfType<ArithmenticMeanCalculator>();
 			return ctx;
@@ -55,7 +55,7 @@ namespace Spring.FluentContext.Examples
 
 		protected override void RunExample(IApplicationContext ctx)
 		{
-			var calc = ctx.GetObject<CreditsCalculator>();
+			var calc = ctx.GetObject<ICreditsCalculator>("calculator");
 			CalculateCredits(calc, "Josh", 2.4, 4.3, 5.8);
 			CalculateCredits(calc, "John", 2.4, 1.3, 3.2);
 		}
