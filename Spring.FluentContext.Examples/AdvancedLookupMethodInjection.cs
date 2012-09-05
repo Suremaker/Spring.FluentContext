@@ -4,6 +4,7 @@ using Spring.Context;
 
 namespace Spring.FluentContext.Examples
 {
+
 	public interface IAnimal { }
 	public interface IShelter
 	{

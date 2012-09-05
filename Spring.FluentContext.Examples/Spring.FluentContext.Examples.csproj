@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConstructorInjection.cs" />
+    <Compile Include="LookupMethodInjection.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="AdvancedLookupMethodInjection.cs" />
     <Compile Include="Program.cs" />

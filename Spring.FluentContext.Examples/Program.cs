@@ -11,6 +11,7 @@ namespace Spring.FluentContext.Examples
 				{
 					new ConstructorInjection(), 
 					new PropertyInjection(),
+					new LookupMethodInjection(), 
 					new AdvancedPropertySetterInjection(), 					
 					new AdvancedLookupMethodInjection()
 				};
