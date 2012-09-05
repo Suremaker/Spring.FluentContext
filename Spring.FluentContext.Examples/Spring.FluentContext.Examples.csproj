@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="ConstructorInjection.cs" />
     <Compile Include="Example.cs" />
-    <Compile Include="LookupMethodInjection.cs" />
+    <Compile Include="AdvancedLookupMethodInjection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AdvancedPropertySetterInjection.cs" />
