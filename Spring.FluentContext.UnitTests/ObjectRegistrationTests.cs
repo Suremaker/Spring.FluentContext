@@ -21,5 +21,12 @@ namespace Spring.FluentContext.UnitTests
 
 			Assert.That(_ctx.GetObject<SimpleType>("test"), Is.Not.Null);
 		}
+
+		[Test]
+		public void Register_default_object()
+		{
+			_ctx.Register<SimpleType>();
+			Assert.That(_ctx.GetObject<SimpleType>(), Is.Not.Null);
+		}
 	}
 }

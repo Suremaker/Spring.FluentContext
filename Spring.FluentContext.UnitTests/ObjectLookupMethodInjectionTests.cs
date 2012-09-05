@@ -50,6 +50,16 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
+		public void Bind_lookup_method_to_default_reference()
+		{
+			_ctx.Register<CountingType>().AsSingleton();
+			_ctx.Register<TypeWithFactoryMethod>()
+				.BindLookupMethod(t => t.CreateType()).ToDefaultReference();
+
+			Assert.That(_ctx.GetObject<TypeWithFactoryMethod>().CreateType().CurrentCount, Is.EqualTo(1));
+		}
+
+		[Test]
 		public void Bind_protected_lookup_method_to_prototype()
 		{
 			_ctx.Register<TypeWithProtectedFactoryMethod>("test")

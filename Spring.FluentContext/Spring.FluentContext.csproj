@@ -58,6 +58,7 @@
     <Compile Include="IPropertyDefinitionBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionUtils.cs" />
+    <Compile Include="Utils\IdGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

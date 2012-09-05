@@ -89,6 +89,20 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
+		public void Inject_default_references_by_ctor()
+		{
+			_ctx.Register<CtorHavingType>()
+				.BindConstructorArg<NestingType>().ToDefaultReference();
+
+			_ctx.Register<NestingType>();
+
+			NestingType actual = _ctx.GetObject<CtorHavingType>().Nesting;
+			NestingType expected = _ctx.GetObject<NestingType>();
+
+			Assert.That(actual, Is.SameAs(expected));
+		}
+
+		[Test]
 		public void Inject_inner_definitions_by_ctor_using_generic_constructor_arguments()
 		{
 			_ctx.Register<CtorHavingType>("test")

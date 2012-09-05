@@ -1,4 +1,5 @@
 using System;
+using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Config;
 
 namespace Spring.FluentContext.Impl
@@ -30,6 +31,11 @@ namespace Spring.FluentContext.Impl
 		{
 			_insertCtorArgAction(_builder.Definition.ConstructorArgumentValues, new RuntimeObjectReference(objectId));
 			return _builder;
+		}
+
+		public IObjectDefinitionBuilder<TObject> ToDefaultReference()
+		{
+			return ToReference(IdGenerator<TArgument>.GetDefaultId());
 		}
 
 		public IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TArgument

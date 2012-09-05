@@ -68,6 +68,20 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
+		public void Bind_property_to_default_ref()
+		{
+			_ctx.Register<SimpleType>();
+			_ctx.Register<OtherType>();
+			_ctx.Register<NestingType>()
+				.BindProperty(t => t.Other).ToDefaultReference()
+				.BindProperty(t => t.Simple).ToDefaultReference();
+
+			var actual = _ctx.GetObject<NestingType>();
+			Assert.That(actual.Simple, Is.SameAs(_ctx.GetObject<SimpleType>()));
+			Assert.That(actual.Other, Is.SameAs(_ctx.GetObject<OtherType>()));
+		}
+
+		[Test]
 		public void Bind_set_only_property()
 		{
 			const string expected = "some text";

@@ -1,4 +1,5 @@
 using Spring.Context;
+using Spring.FluentContext.Utils;
 
 namespace Spring.FluentContext
 {
@@ -6,7 +7,12 @@ namespace Spring.FluentContext
 	{
 		public static T GetObject<T>(this IApplicationContext ctx, string name)
 		{
-			return (T) ctx.GetObject(name, typeof (T));
+			return (T)ctx.GetObject(name, typeof(T));
+		}
+
+		public static T GetObject<T>(this IApplicationContext ctx)
+		{
+			return ctx.GetObject<T>(IdGenerator<T>.GetDefaultId());
 		}
 	}
 }

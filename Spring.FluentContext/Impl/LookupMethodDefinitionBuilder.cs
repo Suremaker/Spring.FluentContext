@@ -1,3 +1,4 @@
+using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Support;
 
 namespace Spring.FluentContext.Impl
@@ -17,6 +18,11 @@ namespace Spring.FluentContext.Impl
 		{
 			_builder.Definition.MethodOverrides.Add(new LookupMethodOverride(_methodName, objectId));
 			return _builder;
+		}
+
+		public IObjectDefinitionBuilder<TObject> ToDefaultReference()
+		{
+			return ToReference(IdGenerator<TResult>.GetDefaultId());
 		}
 	}
 }
