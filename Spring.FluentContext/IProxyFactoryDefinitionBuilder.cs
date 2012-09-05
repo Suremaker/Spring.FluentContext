@@ -8,6 +8,7 @@ namespace Spring.FluentContext
 		IProxyFactoryDefinitionBuilder<TObject> AddInterceptor(string objectId);
 		IProxyFactoryDefinitionBuilder<TObject> AddInterceptor<TInterceptorType>(ObjectRef<TInterceptorType> reference);
 		IProxyFactoryDefinitionBuilder<TObject> AddInterceptorByDefaultReference<TInterceptorType>();
+		IProxyFactoryDefinitionBuilder<TObject> ReturningPrototypes();
 		ObjectRef<TObject> GetReference();
 	}
 }

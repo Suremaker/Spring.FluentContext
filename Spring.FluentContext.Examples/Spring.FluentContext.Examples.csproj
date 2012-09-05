@@ -77,6 +77,7 @@
     <Compile Include="AdvancedPropertySetterInjection.cs" />
     <Compile Include="PropertyInjection.cs" />
     <Compile Include="ProxyFactoryUsage.cs" />
+    <Compile Include="BiggerExample.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spring.FluentContext\Spring.FluentContext.csproj">

@@ -14,10 +14,11 @@ namespace Spring.FluentContext.Examples
 					new LookupMethodInjection(), 
 					new AdvancedPropertySetterInjection(), 					
 					new AdvancedLookupMethodInjection(),
-					new ProxyFactoryUsage()
+					new ProxyFactoryUsage(),
+					new BiggerExample()
 				};
 
-			foreach (var example in examples)
+			foreach(var example in examples)
 				example.Show();
 		}
 	}

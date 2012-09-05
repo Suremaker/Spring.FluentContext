@@ -5,7 +5,7 @@ using Spring.Objects.Factory.Config;
 
 namespace Spring.FluentContext.Impl
 {
-	public class ProxyFactoryDefinitionBuilder<TObject> : IProxyFactoryDefinitionBuilder<TObject>
+	internal class ProxyFactoryDefinitionBuilder<TObject> : IProxyFactoryDefinitionBuilder<TObject>
 	{
 		private readonly ObjectDefinitionBuilder<ProxyFactoryObject> _builder;
 		private readonly List<string> _interceptorNames = new List<string>();
@@ -64,6 +64,12 @@ namespace Spring.FluentContext.Impl
 		public ObjectRef<TObject> GetReference()
 		{
 			return _ref;
+		}
+
+		public IProxyFactoryDefinitionBuilder<TObject> ReturningPrototypes()
+		{
+			_builder.BindProperty(f => f.IsSingleton).ToValue(false);
+			return this;
 		}
 	}
 }

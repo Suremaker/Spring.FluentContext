@@ -101,5 +101,32 @@ namespace Spring.FluentContext.UnitTests
 
 			Assert.That(_ctx.GetObject<ICalculator>(proxyRef).Add(3, 5), Is.EqualTo(80));
 		}
+
+		[Test]
+		public void Register_proxy_factory_to_return_prototypes()
+		{
+			_ctx.RegisterDefault<Calculator>();
+			_ctx.RegisterDefaultProxyFactory<ICalculator>()
+				.TargetingDefaultOfType<Calculator>()
+				.ReturningPrototypes();
+
+			var proxy1 = _ctx.GetObject<ICalculator>();
+			var proxy2 = _ctx.GetObject<ICalculator>();
+
+			Assert.That(proxy1, Is.Not.SameAs(proxy2));
+		}
+
+		[Test]
+		public void Proxy_factory_returns_singleton_by_default()
+		{
+			_ctx.RegisterDefault<Calculator>();
+			_ctx.RegisterDefaultProxyFactory<ICalculator>()
+				.TargetingDefaultOfType<Calculator>();
+			
+			var proxy1 = _ctx.GetObject<ICalculator>();
+			var proxy2 = _ctx.GetObject<ICalculator>();
+			
+			Assert.That(proxy1, Is.SameAs(proxy2));
+		}
 	}
 }
