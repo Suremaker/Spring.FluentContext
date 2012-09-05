@@ -60,6 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AdvancedPropertySetterInjection.cs" />
     <Compile Include="PropertyInjection.cs" />
+    <Compile Include="ProxyFactoryUsage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spring.FluentContext\Spring.FluentContext.csproj">

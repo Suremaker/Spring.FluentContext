@@ -43,6 +43,7 @@ namespace Spring.FluentContext.Examples
 
 			return ctx;
 		}
+
 		protected override void RunExample(IApplicationContext ctx)
 		{
 			ctx.GetObject<Person>().ShowDetails();

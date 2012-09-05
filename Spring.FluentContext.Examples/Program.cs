@@ -13,7 +13,8 @@ namespace Spring.FluentContext.Examples
 					new PropertyInjection(),
 					new LookupMethodInjection(), 
 					new AdvancedPropertySetterInjection(), 					
-					new AdvancedLookupMethodInjection()
+					new AdvancedLookupMethodInjection(),
+					new ProxyFactoryUsage()
 				};
 
 			foreach (var example in examples)
