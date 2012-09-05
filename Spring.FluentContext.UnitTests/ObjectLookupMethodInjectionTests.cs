@@ -18,10 +18,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Bind_lookup_method_to_prototype()
 		{
-			_ctx.Register<TypeWithFactoryMethod>("test")
-				.BindLookupMethod(t => t.CreateType()).ToReference("counting");
+			_ctx.RegisterNamed<TypeWithFactoryMethod>("test")
+				.BindLookupMethod(t => t.CreateType()).ToRegistered("counting");
 
-			_ctx.Register<CountingType>("counting").AsPrototype();
+			_ctx.RegisterNamed<CountingType>("counting").AsPrototype();
 
 			var actual = _ctx.GetObject<TypeWithFactoryMethod>("test");
 
@@ -35,10 +35,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Bind_lookup_method_to_singleton()
 		{
-			_ctx.Register<TypeWithFactoryMethod>("test")
-				.BindLookupMethod(t => t.CreateType()).ToReference("counting");
+			_ctx.RegisterNamed<TypeWithFactoryMethod>("test")
+				.BindLookupMethod(t => t.CreateType()).ToRegistered("counting");
 
-			_ctx.Register<CountingType>("counting").AsSingleton();
+			_ctx.RegisterNamed<CountingType>("counting").AsSingleton();
 
 			var actual = _ctx.GetObject<TypeWithFactoryMethod>("test");
 
@@ -52,9 +52,9 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Bind_lookup_method_to_default_reference()
 		{
-			_ctx.Register<CountingType>().AsSingleton();
-			_ctx.Register<TypeWithFactoryMethod>()
-				.BindLookupMethod(t => t.CreateType()).ToDefaultReference();
+			_ctx.RegisterDefault<CountingType>().AsSingleton();
+			_ctx.RegisterDefault<TypeWithFactoryMethod>()
+				.BindLookupMethod(t => t.CreateType()).ToRegisteredDefault();
 
 			Assert.That(_ctx.GetObject<TypeWithFactoryMethod>().CreateType().CurrentCount, Is.EqualTo(1));
 		}
@@ -62,10 +62,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Bind_lookup_method_to_typed_reference()
 		{
-			var countingRef = _ctx.Register<CountingType>("counting").AsSingleton().GetReference();
+			var countingRef = _ctx.RegisterNamed<CountingType>("counting").AsSingleton().GetReference();
 
-			_ctx.Register<TypeWithFactoryMethod>()
-				.BindLookupMethod(t => t.CreateType()).ToReference(countingRef);
+			_ctx.RegisterDefault<TypeWithFactoryMethod>()
+				.BindLookupMethod(t => t.CreateType()).ToRegistered(countingRef);
 
 			Assert.That(_ctx.GetObject<TypeWithFactoryMethod>().CreateType().CurrentCount, Is.EqualTo(1));
 		}
@@ -73,10 +73,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Bind_lookup_method_to_typed_reference_of_derived_class()
 		{
-			var countingRef = _ctx.Register<DerivedFromCountingType>("counting").AsSingleton().GetReference();
+			var countingRef = _ctx.RegisterNamed<DerivedFromCountingType>("counting").AsSingleton().GetReference();
 
-			_ctx.Register<TypeWithFactoryMethod>()
-				.BindLookupMethod(t => t.CreateType()).ToReference(countingRef);
+			_ctx.RegisterDefault<TypeWithFactoryMethod>()
+				.BindLookupMethod(t => t.CreateType()).ToRegistered(countingRef);
 
 			Assert.That(_ctx.GetObject<TypeWithFactoryMethod>().CreateType(), Is.TypeOf<DerivedFromCountingType>());
 		}
@@ -84,10 +84,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Bind_lookup_method_to_default_reference_of_derived_class()
 		{
-			_ctx.Register<DerivedFromCountingType>().AsSingleton();
+			_ctx.RegisterDefault<DerivedFromCountingType>().AsSingleton();
 
-			_ctx.Register<TypeWithFactoryMethod>()
-				.BindLookupMethod(t => t.CreateType()).ToDefaultReferenceOfType<DerivedFromCountingType>();
+			_ctx.RegisterDefault<TypeWithFactoryMethod>()
+				.BindLookupMethod(t => t.CreateType()).ToRegisteredDefaultOfType<DerivedFromCountingType>();
 
 			Assert.That(_ctx.GetObject<TypeWithFactoryMethod>().CreateType(), Is.TypeOf<DerivedFromCountingType>());
 		}
@@ -95,10 +95,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Bind_protected_lookup_method_to_prototype()
 		{
-			_ctx.Register<TypeWithProtectedFactoryMethod>("test")
-				.BindLookupMethodByName<CountingType>("CreateType").ToReference("counting");
+			_ctx.RegisterNamed<TypeWithProtectedFactoryMethod>("test")
+				.BindLookupMethodNamed<CountingType>("CreateType").ToRegistered("counting");
 
-			_ctx.Register<CountingType>("counting").AsPrototype();
+			_ctx.RegisterNamed<CountingType>("counting").AsPrototype();
 
 			var actual = _ctx.GetObject<TypeWithProtectedFactoryMethod>("test");
 

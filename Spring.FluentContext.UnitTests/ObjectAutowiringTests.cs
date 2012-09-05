@@ -18,9 +18,9 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Autowire_with_automatic_mode()
 		{
-			_ctx.Register<NestingType>("nesting").Autowire();
-			_ctx.Register<SimpleType>("simple");
-			_ctx.Register<OtherType>("other");
+			_ctx.RegisterNamed<NestingType>("nesting").Autowire();
+			_ctx.RegisterNamed<SimpleType>("simple");
+			_ctx.RegisterNamed<OtherType>("other");
 			
 			var actual = _ctx.GetObject<NestingType>("nesting");
 			var expectedSimple = _ctx.GetObject<SimpleType>("simple");
@@ -33,9 +33,9 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Autowire_is_disabled_by_default()
 		{
-			_ctx.Register<NestingType>("nesting");
-			_ctx.Register<SimpleType>("simple");
-			_ctx.Register<OtherType>("other");
+			_ctx.RegisterNamed<NestingType>("nesting");
+			_ctx.RegisterNamed<SimpleType>("simple");
+			_ctx.RegisterNamed<OtherType>("other");
 
 			Assert.That(_ctx.GetObject<NestingType>("nesting").Simple, Is.Null);
 			Assert.That(_ctx.GetObject<NestingType>("nesting").Other, Is.Null);
@@ -44,9 +44,9 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Autowire_by_name()
 		{
-			_ctx.Register<NestingType>("Nesting").Autowire(AutoWiringMode.ByName);
-			_ctx.Register<SimpleType>("Simple");
-			_ctx.Register<OtherType>("OtherType");
+			_ctx.RegisterNamed<NestingType>("Nesting").Autowire(AutoWiringMode.ByName);
+			_ctx.RegisterNamed<SimpleType>("Simple");
+			_ctx.RegisterNamed<OtherType>("OtherType");
 
 			var actual = _ctx.GetObject<NestingType>("Nesting");
 			var expectedSimple = _ctx.GetObject<SimpleType>("Simple");
@@ -58,9 +58,9 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Autowire_by_type()
 		{
-			_ctx.Register<NestingType>("nesting").Autowire(AutoWiringMode.ByType);
-			_ctx.Register<SimpleType>("notAsSimple");
-			_ctx.Register<OtherType>("quiteOther");
+			_ctx.RegisterNamed<NestingType>("nesting").Autowire(AutoWiringMode.ByType);
+			_ctx.RegisterNamed<SimpleType>("notAsSimple");
+			_ctx.RegisterNamed<OtherType>("quiteOther");
 			
 			var actual = _ctx.GetObject<NestingType>("nesting");
 			var expectedSimple = _ctx.GetObject<SimpleType>("notAsSimple");
@@ -73,8 +73,8 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Autowire_by_constructor()
 		{
-			_ctx.Register<CtorHavingType>("test").Autowire(AutoWiringMode.Constructor);
-			_ctx.Register<NestingType>("nesting");
+			_ctx.RegisterNamed<CtorHavingType>("test").Autowire(AutoWiringMode.Constructor);
+			_ctx.RegisterNamed<NestingType>("nesting");
 			
 			var expected = _ctx.GetObject<NestingType>("nesting");
 			var actual = _ctx.GetObject<CtorHavingType>("test");

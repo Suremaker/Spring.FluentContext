@@ -19,10 +19,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Check_all_dependencies()
 		{
-			_ctx.Register<SimpleType>("simple");
+			_ctx.RegisterNamed<SimpleType>("simple");
 
-			_ctx.Register<ComplexType>("test")
-				.BindProperty(c => c.Simple).ToReference("simple")
+			_ctx.RegisterNamed<ComplexType>("test")
+				.BindProperty(c => c.Simple).ToRegistered("simple")
 				.BindProperty(c => c.Text).ToValue("text")
 				.CheckDependencies();
 
@@ -32,7 +32,7 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Check_all_dependencies_throws_on_instantiation_if_missing_object_dependency()
 		{
-			_ctx.Register<ComplexType>("test")
+			_ctx.RegisterNamed<ComplexType>("test")
 				.BindProperty(c => c.Text).ToValue("text")
 				.CheckDependencies();
 			
@@ -42,10 +42,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Check_all_dependencies_throws_on_instantiation_if_missing_simple_dependency()
 		{
-			_ctx.Register<SimpleType>("simple");
+			_ctx.RegisterNamed<SimpleType>("simple");
 			
-			_ctx.Register<ComplexType>("test")
-				.BindProperty(c => c.Simple).ToReference("simple")
+			_ctx.RegisterNamed<ComplexType>("test")
+				.BindProperty(c => c.Simple).ToRegistered("simple")
 				.CheckDependencies();
 			
 			Assert.Throws<UnsatisfiedDependencyException>(() => _ctx.GetObject<ComplexType>("test"));
@@ -54,10 +54,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Check_objects_dependencies()
 		{
-			_ctx.Register<SimpleType>("simple");
+			_ctx.RegisterNamed<SimpleType>("simple");
 			
-			_ctx.Register<ComplexType>("test")
-				.BindProperty(c => c.Simple).ToReference("simple")
+			_ctx.RegisterNamed<ComplexType>("test")
+				.BindProperty(c => c.Simple).ToRegistered("simple")
 				.CheckDependencies(DependencyCheckingMode.Objects);
 			
 			Assert.DoesNotThrow(() => _ctx.GetObject<ComplexType>("test"));
@@ -66,7 +66,7 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Check_objects_dependencies_throws_on_instantiation_if_missing_object_dependency()
 		{
-			_ctx.Register<ComplexType>("test")
+			_ctx.RegisterNamed<ComplexType>("test")
 				.CheckDependencies(DependencyCheckingMode.Objects);
 			
 			Assert.Throws<UnsatisfiedDependencyException>(() => _ctx.GetObject<ComplexType>("test"));
@@ -75,7 +75,7 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Check_simple_dependencies()
 		{
-			_ctx.Register<ComplexType>("test")
+			_ctx.RegisterNamed<ComplexType>("test")
 				.BindProperty(c => c.Text).ToValue("text")
 				.CheckDependencies(DependencyCheckingMode.Simple);
 			
@@ -85,7 +85,7 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Check_simple_dependencies_throws_on_instantiation_if_missing_simple_dependency()
 		{
-			_ctx.Register<ComplexType>("test")
+			_ctx.RegisterNamed<ComplexType>("test")
 				.CheckDependencies(DependencyCheckingMode.Simple);
 			
 			Assert.Throws<UnsatisfiedDependencyException>(() => _ctx.GetObject<ComplexType>("test"));

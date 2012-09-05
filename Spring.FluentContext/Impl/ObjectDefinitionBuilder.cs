@@ -61,7 +61,7 @@ namespace Spring.FluentContext.Impl
 			return new PropertyDefinitionBuilder<TObject, TProperty>(this, ReflectionUtils.GetPropertyName(propertySelector));
 		}
 
-		public IPropertyDefinitionBuilder<TObject, TProperty> BindPropertyByName<TProperty>(string propertyName)
+		public IPropertyDefinitionBuilder<TObject, TProperty> BindPropertyNamed<TProperty>(string propertyName)
 		{
 			return new PropertyDefinitionBuilder<TObject, TProperty>(this, propertyName);
 		}
@@ -81,7 +81,7 @@ namespace Spring.FluentContext.Impl
 			return new LookupMethodDefinitionBuilder<TObject, TResult>(this, ReflectionUtils.GetMethodName(methodSelector));
 		}
 
-		public ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethodByName<TResult>(string methodName)
+		public ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethodNamed<TResult>(string methodName)
 		{
 			return new LookupMethodDefinitionBuilder<TObject, TResult>(this, methodName);
 		}

@@ -20,7 +20,7 @@ namespace Spring.FluentContext.UnitTests
 			const string expectedText = "some text";
 			const int expectedValue = 15;
 
-			_ctx.Register<CtorHavingType>("test")
+			_ctx.RegisterNamed<CtorHavingType>("test")
 				.BindConstructorArg<string>(0).ToValue(expectedText)
 				.BindConstructorArg<int>(1).ToValue(expectedValue);
 
@@ -35,7 +35,7 @@ namespace Spring.FluentContext.UnitTests
 		{
 			const string expectedText = "some text";
 
-			_ctx.Register<CtorHavingType>("test")
+			_ctx.RegisterNamed<CtorHavingType>("test")
 				.BindConstructorArg<string>(0).ToValue(expectedText);
 
 			var actual = _ctx.GetObject<CtorHavingType>("test");
@@ -50,7 +50,7 @@ namespace Spring.FluentContext.UnitTests
 			const string expectedText = "some text";
 			const int expectedValue = 15;
 
-			_ctx.Register<CtorHavingType>("test")
+			_ctx.RegisterNamed<CtorHavingType>("test")
 				.BindConstructorArg<string>().ToValue(expectedText)
 				.BindConstructorArg<int>().ToValue(expectedValue);
 
@@ -63,10 +63,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Inject_references_by_ctor_using_indexed_constructor_arguments()
 		{
-			_ctx.Register<CtorHavingType>("test")
-				.BindConstructorArg<NestingType>(0).ToReference("nesting");
+			_ctx.RegisterNamed<CtorHavingType>("test")
+				.BindConstructorArg<NestingType>(0).ToRegistered("nesting");
 
-			_ctx.Register<NestingType>("nesting");
+			_ctx.RegisterNamed<NestingType>("nesting");
 
 			NestingType actual = _ctx.GetObject<CtorHavingType>("test").Nesting;
 			NestingType expected = _ctx.GetObject<NestingType>("nesting");
@@ -77,10 +77,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Inject_references_by_ctor_using_generic_constructor_arguments()
 		{
-			_ctx.Register<CtorHavingType>("test")
-				.BindConstructorArg<NestingType>().ToReference("nesting");
+			_ctx.RegisterNamed<CtorHavingType>("test")
+				.BindConstructorArg<NestingType>().ToRegistered("nesting");
 
-			_ctx.Register<NestingType>("nesting");
+			_ctx.RegisterNamed<NestingType>("nesting");
 
 			NestingType actual = _ctx.GetObject<CtorHavingType>("test").Nesting;
 			NestingType expected = _ctx.GetObject<NestingType>("nesting");
@@ -91,10 +91,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Inject_default_references_by_ctor()
 		{
-			_ctx.Register<CtorHavingType>()
-				.BindConstructorArg<NestingType>().ToDefaultReference();
+			_ctx.RegisterDefault<CtorHavingType>()
+				.BindConstructorArg<NestingType>().ToRegisteredDefault();
 
-			_ctx.Register<NestingType>();
+			_ctx.RegisterDefault<NestingType>();
 
 			NestingType actual = _ctx.GetObject<CtorHavingType>().Nesting;
 			NestingType expected = _ctx.GetObject<NestingType>();
@@ -105,10 +105,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Inject_typed_references_by_ctor()
 		{
-			var nestedRef = _ctx.Register<NestingType>("nested").GetReference();
+			var nestedRef = _ctx.RegisterNamed<NestingType>("nested").GetReference();
 
-			_ctx.Register<CtorHavingType>()
-				.BindConstructorArg<NestingType>().ToReference(nestedRef);
+			_ctx.RegisterDefault<CtorHavingType>()
+				.BindConstructorArg<NestingType>().ToRegistered(nestedRef);
 
 
 			NestingType actual = _ctx.GetObject<CtorHavingType>().Nesting;
@@ -120,10 +120,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Inject_typed_references_for_derived_classes_by_ctor()
 		{
-			var nestedRef = _ctx.Register<DerivedFromNestingType>("nested").GetReference();
+			var nestedRef = _ctx.RegisterNamed<DerivedFromNestingType>("nested").GetReference();
 
-			_ctx.Register<CtorHavingType>()
-				.BindConstructorArg<NestingType>().ToReference(nestedRef);
+			_ctx.RegisterDefault<CtorHavingType>()
+				.BindConstructorArg<NestingType>().ToRegistered(nestedRef);
 
 			var actual = _ctx.GetObject<CtorHavingType>();
 
@@ -133,10 +133,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Inject_default_references_for_derived_classes_by_ctor()
 		{
-			 _ctx.Register<DerivedFromNestingType>();
+			 _ctx.RegisterDefault<DerivedFromNestingType>();
 
-			_ctx.Register<CtorHavingType>()
-				.BindConstructorArg<NestingType>().ToDefaultReferenceOfType<DerivedFromNestingType>();
+			_ctx.RegisterDefault<CtorHavingType>()
+				.BindConstructorArg<NestingType>().ToRegisteredDefaultOfType<DerivedFromNestingType>();
 
 			var actual = _ctx.GetObject<CtorHavingType>();
 
@@ -146,11 +146,11 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Inject_inner_definitions_by_ctor_using_generic_constructor_arguments()
 		{
-			_ctx.Register<CtorHavingType>("test")
+			_ctx.RegisterNamed<CtorHavingType>("test")
 				.BindConstructorArg<NestingType>().ToInlineDefinition<NestingType>(
-					def => def.BindProperty(n => n.Simple).ToReference("simple"));
+					def => def.BindProperty(n => n.Simple).ToRegistered("simple"));
 
-			_ctx.Register<SimpleType>("simple");
+			_ctx.RegisterNamed<SimpleType>("simple");
 
 			var actual = _ctx.GetObject<CtorHavingType>("test");
 
@@ -161,11 +161,11 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Inject_inner_definitions_by_ctor_using_indexed_constructor_arguments()
 		{
-			_ctx.Register<CtorHavingType>("test")
+			_ctx.RegisterNamed<CtorHavingType>("test")
 				.BindConstructorArg<NestingType>(0).ToInlineDefinition<NestingType>(
-					def => def.BindProperty(n => n.Simple).ToReference("simple"));
+					def => def.BindProperty(n => n.Simple).ToRegistered("simple"));
 
-			_ctx.Register<SimpleType>("simple");
+			_ctx.RegisterNamed<SimpleType>("simple");
 
 			var actual = _ctx.GetObject<CtorHavingType>("test");
 

@@ -17,7 +17,7 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Register_named_object_registers_it_as_singleton_by_default()
 		{
-			_ctx.Register<SimpleType>("test");
+			_ctx.RegisterNamed<SimpleType>("test");
 
 			Assert.That(
 				_ctx.GetObject<SimpleType>("test"),
@@ -27,7 +27,7 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Register_named_object_as_prototype()
 		{
-			_ctx.Register<SimpleType>("test").AsPrototype();
+			_ctx.RegisterNamed<SimpleType>("test").AsPrototype();
 
 			Assert.That(
 				_ctx.GetObject<SimpleType>("test"),
@@ -37,7 +37,7 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Register_named_object_as_singleton()
 		{
-			_ctx.Register<SimpleType>("test").AsSingleton();
+			_ctx.RegisterNamed<SimpleType>("test").AsSingleton();
 
 			Assert.That(
 				_ctx.GetObject<SimpleType>("test"),

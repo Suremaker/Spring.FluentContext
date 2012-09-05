@@ -30,11 +30,11 @@ namespace Spring.FluentContext.Impl
 
 		public IProxyFactoryDefinitionBuilder<TObject> Targeting(string objectId)
 		{
-			_builder.BindPropertyByName<string>("TargetName").ToValue(objectId);
+			_builder.BindPropertyNamed<string>("TargetName").ToValue(objectId);
 			return this;
 		}
 
-		public IProxyFactoryDefinitionBuilder<TObject> TargetingDefaultReference<TReferencedType>() where TReferencedType : TObject
+		public IProxyFactoryDefinitionBuilder<TObject> TargetingDefaultOfType<TReferencedType>() where TReferencedType : TObject
 		{
 			return Targeting(IdGenerator<TReferencedType>.GetDefaultId());
 		}
@@ -47,7 +47,7 @@ namespace Spring.FluentContext.Impl
 		public IProxyFactoryDefinitionBuilder<TObject> AddInterceptor(string objectId)
 		{
 			_interceptorNames.Add(objectId);
-			_builder.BindPropertyByName<string[]>("InterceptorNames").ToValue(_interceptorNames.ToArray());
+			_builder.BindPropertyNamed<string[]>("InterceptorNames").ToValue(_interceptorNames.ToArray());
 			return this;
 		}
 
@@ -56,7 +56,7 @@ namespace Spring.FluentContext.Impl
 			return AddInterceptor(reference.Id);
 		}
 
-		public IProxyFactoryDefinitionBuilder<TObject> AddInterceptorDefaultReference<TInterceptorType>()
+		public IProxyFactoryDefinitionBuilder<TObject> AddInterceptorByDefaultReference<TInterceptorType>()
 		{
 			return AddInterceptor(IdGenerator<TInterceptorType>.GetDefaultId());
 		}

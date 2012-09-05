@@ -27,25 +27,25 @@ namespace Spring.FluentContext.Impl
 			return _builder;
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToReference(string objectId)
+		public IObjectDefinitionBuilder<TObject> ToRegistered(string objectId)
 		{
 			_insertCtorArgAction(_builder.Definition.ConstructorArgumentValues, new RuntimeObjectReference(objectId));
 			return _builder;
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToReference<TRef>(ObjectRef<TRef> reference) where TRef : TArgument
+		public IObjectDefinitionBuilder<TObject> ToRegistered<TRef>(ObjectRef<TRef> reference) where TRef : TArgument
 		{
-			return ToReference(reference.Id);
+			return ToRegistered(reference.Id);
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToDefaultReference()
+		public IObjectDefinitionBuilder<TObject> ToRegisteredDefault()
 		{
-			return ToReference(IdGenerator<TArgument>.GetDefaultId());
+			return ToRegistered(IdGenerator<TArgument>.GetDefaultId());
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToDefaultReferenceOfType<TReferencedType>() where TReferencedType : TArgument
+		public IObjectDefinitionBuilder<TObject> ToRegisteredDefaultOfType<TReferencedType>() where TReferencedType : TArgument
 		{
-			return ToReference(IdGenerator<TReferencedType>.GetDefaultId());
+			return ToRegistered(IdGenerator<TReferencedType>.GetDefaultId());
 		}
 
 		public IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TArgument

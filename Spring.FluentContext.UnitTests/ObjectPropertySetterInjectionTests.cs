@@ -19,7 +19,7 @@ namespace Spring.FluentContext.UnitTests
 		{
 			const string expectedText = "some value";
 
-			_ctx.Register<SimpleType>("test").AsSingleton()
+			_ctx.RegisterNamed<SimpleType>("test").AsSingleton()
 				.BindProperty(t => t.Text).ToValue(expectedText);
 
 			var actual = _ctx.GetObject<SimpleType>("test");
@@ -32,7 +32,7 @@ namespace Spring.FluentContext.UnitTests
 			const string expectedText = "some value";
 			const int expectedValue = 10;
 
-			_ctx.Register<SimpleType>("test")
+			_ctx.RegisterNamed<SimpleType>("test")
 				.BindProperty(t => t.Text).ToValue(expectedText)
 				.BindProperty(t => t.Value).ToValue(expectedValue);
 
@@ -45,10 +45,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Bind_property_to_other_object()
 		{
-			_ctx.Register<SimpleType>("simple");
+			_ctx.RegisterNamed<SimpleType>("simple");
 
-			_ctx.Register<NestingType>("nesting")
-				.BindProperty(n => n.Simple).ToReference("simple");
+			_ctx.RegisterNamed<NestingType>("nesting")
+				.BindProperty(n => n.Simple).ToRegistered("simple");
 
 			var actual = _ctx.GetObject<NestingType>("nesting");
 			Assert.That(actual.Simple, Is.SameAs(_ctx.GetObject<SimpleType>("simple")));
@@ -57,9 +57,9 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Bind_property_to_reference_of_derived_object()
 		{
-			var derivedRef = _ctx.Register<DerivedFromSimpleType>("derived").GetReference();
-			_ctx.Register<NestingType>()
-				.BindProperty(n => n.Simple).ToReference(derivedRef);
+			var derivedRef = _ctx.RegisterNamed<DerivedFromSimpleType>("derived").GetReference();
+			_ctx.RegisterDefault<NestingType>()
+				.BindProperty(n => n.Simple).ToRegistered(derivedRef);
 
 			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.TypeOf<DerivedFromSimpleType>());
 		}
@@ -67,9 +67,9 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Bind_property_to_default_reference_of_derived_object()
 		{
-			_ctx.Register<DerivedFromSimpleType>();
-			_ctx.Register<NestingType>()
-				.BindProperty(n => n.Simple).ToDefaultReferenceOfType<DerivedFromSimpleType>();
+			_ctx.RegisterDefault<DerivedFromSimpleType>();
+			_ctx.RegisterDefault<NestingType>()
+				.BindProperty(n => n.Simple).ToRegisteredDefaultOfType<DerivedFromSimpleType>();
 
 			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.TypeOf<DerivedFromSimpleType>());
 		}
@@ -77,10 +77,10 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Bind_property_to_other_object_by_ref()
 		{
-			var simpleRef = _ctx.Register<SimpleType>("simple").GetReference();
+			var simpleRef = _ctx.RegisterNamed<SimpleType>("simple").GetReference();
 
-			_ctx.Register<NestingType>("nesting")
-				.BindProperty(n => n.Simple).ToReference(simpleRef);
+			_ctx.RegisterNamed<NestingType>("nesting")
+				.BindProperty(n => n.Simple).ToRegistered(simpleRef);
 
 			var actual = _ctx.GetObject<NestingType>("nesting");
 			Assert.That(actual.Simple, Is.SameAs(_ctx.GetObject<SimpleType>("simple")));
@@ -91,7 +91,7 @@ namespace Spring.FluentContext.UnitTests
 		{
 			const string expectedText = "some text";
 
-			_ctx.Register<NestingType>("nesting")
+			_ctx.RegisterNamed<NestingType>("nesting")
 				.BindProperty(n => n.Simple).ToInlineDefinition<SimpleType>(
 					def => def.BindProperty(s => s.Text).ToValue(expectedText));
 
@@ -102,11 +102,11 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Bind_property_to_default_ref()
 		{
-			_ctx.Register<SimpleType>();
-			_ctx.Register<OtherType>();
-			_ctx.Register<NestingType>()
-				.BindProperty(t => t.Other).ToDefaultReference()
-				.BindProperty(t => t.Simple).ToDefaultReference();
+			_ctx.RegisterDefault<SimpleType>();
+			_ctx.RegisterDefault<OtherType>();
+			_ctx.RegisterDefault<NestingType>()
+				.BindProperty(t => t.Other).ToRegisteredDefault()
+				.BindProperty(t => t.Simple).ToRegisteredDefault();
 
 			var actual = _ctx.GetObject<NestingType>();
 			Assert.That(actual.Simple, Is.SameAs(_ctx.GetObject<SimpleType>()));
@@ -117,8 +117,8 @@ namespace Spring.FluentContext.UnitTests
 		public void Bind_set_only_property()
 		{
 			const string expected = "some text";
-			_ctx.Register<IocType>("test")
-				.BindPropertyByName<string>("Text").ToValue(expected);
+			_ctx.RegisterNamed<IocType>("test")
+				.BindPropertyNamed<string>("Text").ToValue(expected);
 
 			var actual = _ctx.GetObject<IocType>("test");
 			Assert.That(actual.ToString(), Is.EqualTo(expected));

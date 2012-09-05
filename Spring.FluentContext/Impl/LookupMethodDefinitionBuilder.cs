@@ -14,25 +14,25 @@ namespace Spring.FluentContext.Impl
 			_methodName = methodName;
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToReference(string objectId)
+		public IObjectDefinitionBuilder<TObject> ToRegistered(string objectId)
 		{
 			_builder.Definition.MethodOverrides.Add(new LookupMethodOverride(_methodName, objectId));
 			return _builder;
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToDefaultReference()
+		public IObjectDefinitionBuilder<TObject> ToRegisteredDefault()
 		{
-			return ToReference(IdGenerator<TResult>.GetDefaultId());
+			return ToRegistered(IdGenerator<TResult>.GetDefaultId());
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToDefaultReferenceOfType<TReferencedType>() where TReferencedType : TResult
+		public IObjectDefinitionBuilder<TObject> ToRegisteredDefaultOfType<TReferencedType>() where TReferencedType : TResult
 		{
-			return ToReference(IdGenerator<TReferencedType>.GetDefaultId());
+			return ToRegistered(IdGenerator<TReferencedType>.GetDefaultId());
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToReference<TRef>(ObjectRef<TRef> reference) where TRef : TResult
+		public IObjectDefinitionBuilder<TObject> ToRegistered<TRef>(ObjectRef<TRef> reference) where TRef : TResult
 		{
-			return ToReference(reference.Id);
+			return ToRegistered(reference.Id);
 		}
 	}
 }

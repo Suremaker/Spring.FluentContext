@@ -17,7 +17,7 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Register_named_object()
 		{
-			_ctx.Register<SimpleType>("test");
+			_ctx.RegisterNamed<SimpleType>("test");
 
 			Assert.That(_ctx.GetObject<SimpleType>("test"), Is.Not.Null);
 		}
@@ -25,22 +25,22 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Register_default_object()
 		{
-			_ctx.Register<SimpleType>();
+			_ctx.RegisterDefault<SimpleType>();
 			Assert.That(_ctx.GetObject<SimpleType>(), Is.Not.Null);
 		}
 
 		[Test]
 		public void Register_unique_object()
 		{
-			var reference = _ctx.RegisterUnique<SimpleType>().GetReference();
+			var reference = _ctx.RegisterUniquelyNamed<SimpleType>().GetReference();
 			Assert.That(_ctx.GetObject(reference), Is.Not.Null);
 		}
 
 		[Test]
 		public void Multiple_register_unique_object_generates_unique_objects()
 		{
-			var simple1Ref = _ctx.RegisterUnique<SimpleType>().GetReference();
-			var simple2Ref = _ctx.RegisterUnique<SimpleType>().GetReference();
+			var simple1Ref = _ctx.RegisterUniquelyNamed<SimpleType>().GetReference();
+			var simple2Ref = _ctx.RegisterUniquelyNamed<SimpleType>().GetReference();
 
 			Assert.That(simple1Ref, Is.Not.EqualTo(simple2Ref));
 			Assert.That(_ctx.GetObject(simple1Ref), Is.Not.SameAs(_ctx.GetObject(simple2Ref)));
@@ -49,14 +49,14 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Register_named_object_and_get_its_ref()
 		{
-			var reference = _ctx.Register<SimpleType>("test").GetReference();
+			var reference = _ctx.RegisterNamed<SimpleType>("test").GetReference();
 			Assert.That(reference.Id, Is.EqualTo("test"));
 		}
 
 		[Test]
 		public void Register_default_object_and_get_its_ref()
 		{
-			var reference = _ctx.Register<SimpleType>().GetReference();
+			var reference = _ctx.RegisterDefault<SimpleType>().GetReference();
 
 			var actual = _ctx.GetObject<SimpleType>(reference.Id);
 			var expected = _ctx.GetObject<SimpleType>();
