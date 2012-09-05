@@ -33,6 +33,9 @@
     <Reference Include="Common.Logging">
       <HintPath>..\packages\Common.Logging.1.2.0\lib\1.0\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="Spring.Aop">
+      <HintPath>..\packages\Spring.Aop.1.3.2\lib\net40\Spring.Aop.dll</HintPath>
+    </Reference>
     <Reference Include="Spring.Core">
       <HintPath>..\packages\Spring.Core.1.3.2\lib\net40\Spring.Core.dll</HintPath>
     </Reference>
@@ -48,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FactoryRegistrationTests.cs" />
     <Compile Include="ObjectConstructorInjectionTests.cs" />
     <Compile Include="ObjectInstantiationModeTests.cs" />
     <Compile Include="ContextExtensionTests.cs" />
@@ -55,11 +59,14 @@
     <Compile Include="ObjectRegistrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ObjectPropertySetterInjectionTests.cs" />
+    <Compile Include="TestTypes\Calculator.cs" />
     <Compile Include="TestTypes\CtorHavingType.cs" />
     <Compile Include="TestTypes\DerivedFromCountingType.cs" />
     <Compile Include="TestTypes\DerivedFromNestingType.cs" />
     <Compile Include="TestTypes\DerivedFromSimpleType.cs" />
+    <Compile Include="TestTypes\ICalculator.cs" />
     <Compile Include="TestTypes\IocType.cs" />
+    <Compile Include="TestTypes\MultiplingInterceptor.cs" />
     <Compile Include="TestTypes\TypeWithFactoryMethod.cs" />
     <Compile Include="TestTypes\NestingType.cs" />
     <Compile Include="TestTypes\CountingType.cs" />

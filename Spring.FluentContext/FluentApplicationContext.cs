@@ -22,5 +22,22 @@ namespace Spring.FluentContext
 		{
 			return Register<T>(IdGenerator<T>.GetUniqueId());
 		}
+
+		public IProxyFactoryDefinitionBuilder<T> RegisterProxyFactory<T>(string id)
+		{
+			var builder = new ProxyFactoryDefinitionBuilder<T>(id);
+			RegisterObjectDefinition(id, builder.Definition);
+			return builder;
+		}
+
+		public IProxyFactoryDefinitionBuilder<T> RegisterProxyFactory<T>()
+		{
+			return RegisterProxyFactory<T>(IdGenerator<T>.GetDefaultId());
+		}
+
+		public IProxyFactoryDefinitionBuilder<T> RegisterUniqueProxyFactory<T>()
+		{
+			return RegisterProxyFactory<T>(IdGenerator<T>.GetUniqueId());
+		}
 	}
 }
