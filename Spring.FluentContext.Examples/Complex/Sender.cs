@@ -1,0 +1,23 @@
+using System;
+
+namespace Spring.FluentContext.Examples.Complex
+{
+	class Sender
+	{
+		private readonly IEndpoint _endpoint;
+
+		public Sender(IEndpoint endpoint)
+		{
+			_endpoint = endpoint;
+		}
+
+		public void Run()
+		{
+			Console.WriteLine("Please write text. Empty line stops sending.");
+			string text;
+			while ((text = Console.ReadLine()) != string.Empty)
+				_endpoint.Send(text);
+			_endpoint.Dispose();
+		}
+	}
+}

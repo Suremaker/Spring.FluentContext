@@ -1,4 +1,11 @@
 ﻿using System;
+using Spring.FluentContext.Examples.AdvancedLookupMethodInjection;
+using Spring.FluentContext.Examples.AdvancedPropertySetterInjection;
+using Spring.FluentContext.Examples.Complex;
+using Spring.FluentContext.Examples.ConstructorInjection;
+using Spring.FluentContext.Examples.LookupMethodInjection;
+using Spring.FluentContext.Examples.PropertyInjection;
+using Spring.FluentContext.Examples.ProxyFactoryUsage;
 
 namespace Spring.FluentContext.Examples
 {
@@ -9,13 +16,13 @@ namespace Spring.FluentContext.Examples
 			Console.WriteLine("Usage examples of Spring.FluentContext:\n---------------------------------------");
 			var examples = new Example[]
 				{
-					new ConstructorInjection(), 
-					new PropertyInjection(),
-					new LookupMethodInjection(), 
-					new AdvancedPropertySetterInjection(), 					
-					new AdvancedLookupMethodInjection(),
-					new ProxyFactoryUsage(),
-					new BiggerExample()
+					new ConstructorInjectionExample(), 
+					new PropertyInjectionExample(),
+					new LookupMethodInjectionExample(), 
+					new AdvancedPropertySetterInjectionExample(), 					
+					new AdvancedLookupMethodInjectionExample(),
+					new ProxyFactoryUsageExample(),
+					new ComplexExample()
 				};
 
 			foreach(var example in examples)

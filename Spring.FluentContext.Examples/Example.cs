@@ -7,7 +7,7 @@ namespace Spring.FluentContext.Examples
 	{
 		public void Show()
 		{
-			Console.WriteLine("\n\n{0} example:\n", GetType().Name);
+			Console.WriteLine("\n\n{0}:\n-------------------\n", GetType().Name);
 			RunExample(CreateContext());
 			Console.WriteLine("\n\n...press key to continue...");
 

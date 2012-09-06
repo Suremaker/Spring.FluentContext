@@ -1,35 +1,9 @@
 using System;
-using AopAlliance.Intercept;
 using Spring.Context;
 
-namespace Spring.FluentContext.Examples
+namespace Spring.FluentContext.Examples.ProxyFactoryUsage
 {
-	public interface ICalculator
-	{
-		int Add(int x, int y);
-	}
-
-	class Calculator : ICalculator
-	{
-		public int Add(int x, int y)
-		{
-			return x + y;
-		}
-	}
-
-	class DisplayingInterceptor : IMethodInterceptor
-	{
-		public object Invoke(IMethodInvocation invocation)
-		{
-			Console.WriteLine("Calling {0}({1}) method...", 
-				invocation.Method.Name,
-				string.Join(", ", invocation.Arguments));
-
-			return invocation.Proceed();
-		}
-	}
-
-	internal class ProxyFactoryUsage : Example
+	internal class ProxyFactoryUsageExample : Example
 	{
 		protected override IApplicationContext CreateContext()
 		{

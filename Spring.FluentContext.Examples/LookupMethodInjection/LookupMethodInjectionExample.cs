@@ -1,46 +1,9 @@
 using System;
-using System.Linq;
 using Spring.Context;
 
-namespace Spring.FluentContext.Examples
+namespace Spring.FluentContext.Examples.LookupMethodInjection
 {
-	public interface IMeanCalculator
-	{
-		double Calculate(params double[] values);
-	}
-
-	public interface ICreditsCalculator
-	{
-		bool IsAcceptable(params double[] points);
-	}
-
-	public abstract class CreditsCalculator : ICreditsCalculator
-	{
-		private readonly double _minPointsValue;
-
-		protected CreditsCalculator(double minPointsValue)
-		{
-			_minPointsValue = minPointsValue;
-		}
-
-		public bool IsAcceptable(params double[] points)
-		{
-			var mean = GetMeanCalculator().Calculate(points);
-			return mean >= _minPointsValue;
-		}
-
-		public abstract IMeanCalculator GetMeanCalculator();
-	}
-
-	public class ArithmenticMeanCalculator : IMeanCalculator
-	{
-		public double Calculate(params double[] values)
-		{
-			return (values.Length == 0) ? 0 : values.Sum() / values.Length;
-		}
-	}
-
-	internal class LookupMethodInjection : Example
+	internal class LookupMethodInjectionExample : Example
 	{
 		protected override IApplicationContext CreateContext()
 		{
