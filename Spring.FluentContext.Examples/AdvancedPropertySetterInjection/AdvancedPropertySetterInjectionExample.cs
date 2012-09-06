@@ -10,11 +10,14 @@ namespace Spring.FluentContext.Examples.AdvancedPropertySetterInjection
 			FluentApplicationContext ctx = new FluentApplicationContext();
 
 			ctx.RegisterDefault<BobEngineer>();
-			ctx.RegisterNamed<Factory>("standardFactory")
+
+			//the factories are registered with ids to allow having multiple instances of same class in context
+			ctx.RegisterNamed<Factory>("standardFactory") 
 				.BindProperty(f => f.Engineer).ToRegisteredDefaultOfType<BobEngineer>()
 				.BindProperty(f => f.Description).ToValue("Standard Factory");
 
 			ctx.RegisterDefault<RobotEngineer>();
+
 			ctx.RegisterNamed<Factory>("roboticFactory")
 				.BindProperty(f => f.Engineer).ToRegisteredDefaultOfType<RobotEngineer>()
 				.BindProperty(f => f.Description).ToValue("Robotic Super Factory");

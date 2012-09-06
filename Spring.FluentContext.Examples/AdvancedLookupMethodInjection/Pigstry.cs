@@ -1,4 +1,7 @@
 namespace Spring.FluentContext.Examples.AdvancedLookupMethodInjection
 {
-	class Pigstry : Shelter { Pigstry() : base(5) { } }
+	class Pigstry : Shelter
+	{
+		Pigstry() : base(3) { }
+	}
 }

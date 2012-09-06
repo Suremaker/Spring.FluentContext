@@ -22,10 +22,13 @@ namespace Spring.FluentContext.Examples.Complex
 				.TargetingDefaultOfType<DisplayCommand>()
 				.ReturningPrototypes() //every request for ICommand should return new instance of proxy (comment it and type few lines during program run to see change)
 				.AddInterceptorByDefaultReference<DelayingInterceptor>()
-				.AddInterceptorByDefaultReference<RepeatingInterceptor>();
+				.AddInterceptorByDefaultReference<RepeatingInterceptor>(); //Repeating interceptor is called after DelyingInterceptor, so there would be no delays between repeats
 
-			ctx.RegisterDefault<Sender>().Autowire();
-			ctx.RegisterDefault<Consumer>().Autowire()
+			ctx.RegisterDefault<Sender>()
+				.Autowire(); //autowiring endpoint dependency
+
+			ctx.RegisterDefault<Consumer>()
+				.Autowire() //autowiring endpoint dependency
 				.BindLookupMethodNamed<ICommand>("GetCommand").ToRegisteredDefault(); //method is protected so it is not possible to use lambda to get it
 
 			return ctx;

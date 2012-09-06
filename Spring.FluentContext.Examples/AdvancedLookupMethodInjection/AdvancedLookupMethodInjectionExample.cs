@@ -9,10 +9,18 @@ namespace Spring.FluentContext.Examples.AdvancedLookupMethodInjection
 		{
 			var ctx = new FluentApplicationContext();
 
-			ctx.RegisterDefault<Pig>().AsPrototype();
-			ctx.RegisterDefault<Cow>().AsPrototype();
-			ctx.RegisterDefault<Pigstry>().AsSingleton();
-			ctx.RegisterDefault<Barn>().AsPrototype();
+			ctx.RegisterDefault<Pig>()
+				.BindConstructorArg<string>().ToValue("Small Piggy")
+				.AsPrototype(); //every request will return a new instance of Pig
+
+			ctx.RegisterDefault<Cow>()
+				.AsPrototype();
+
+			ctx.RegisterDefault<Barn>()
+				.AsPrototype();
+
+			ctx.RegisterDefault<Pigstry>()
+				.AsSingleton(); //The Pigstry is registered as singleton, so every request returns the same instance (what is visible on second RunFarm())
 
 			ctx.RegisterNamed<Farm>("pigFarm")
 				.BindLookupMethod(f => f.CreateAnimal()).ToRegisteredDefaultOfType<Pig>()

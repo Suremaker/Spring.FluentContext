@@ -10,8 +10,10 @@ namespace Spring.FluentContext.Examples.LookupMethodInjection
 			var ctx = new FluentApplicationContext();
 
 			ctx.RegisterDefault<ArithmenticMeanCalculator>();
+
 			ctx.RegisterNamed<CreditsCalculator>("calculator")
 				.BindConstructorArg<double>().ToValue(2.5)
+				//the line below instruct Spring to override GetMeanCalculator() method with one returning ArithmeticMeanCalculator instance registered above
 				.BindLookupMethod(c => c.GetMeanCalculator()).ToRegisteredDefaultOfType<ArithmenticMeanCalculator>();
 			return ctx;
 		}

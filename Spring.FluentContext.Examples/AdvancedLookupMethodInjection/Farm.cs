@@ -13,7 +13,7 @@ namespace Spring.FluentContext.Examples.AdvancedLookupMethodInjection
 			while (!shelter.IsFull)
 			{
 				IAnimal animal = CreateAnimal();
-				Console.WriteLine("Breeding new {0}...", animal);
+				Console.WriteLine("Breeding {0}...", animal);
 				shelter.Add(animal);
 			}
 

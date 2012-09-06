@@ -9,8 +9,8 @@ namespace Spring.FluentContext.Examples.PropertyInjection
 			var ctx = new FluentApplicationContext();
 
 			ctx.RegisterDefault<Person>()
-				.BindProperty(p => p.Name).ToValue("John")
-				.BindProperty(p => p.Address).ToRegisteredDefault();
+				.BindProperty(p => p.Name).ToValue("John") //binds Person.Name to constant value
+				.BindProperty(p => p.Address).ToRegisteredDefault(); //binds Person.Address to other object registered in context
 
 			ctx.RegisterDefault<Address>()
 				.BindProperty(a => a.City).ToValue("London")

@@ -8,11 +8,12 @@ namespace Spring.FluentContext.Examples.ConstructorInjection
 		{
 			var ctx = new FluentApplicationContext();
 
-			ctx.RegisterDefault<Cat>().BindConstructorArg<string>().ToValue("Kitty");
+			ctx.RegisterDefault<Cat>()
+				.BindConstructorArg<string>().ToValue("Kitty");
 
 			ctx.RegisterDefault<PersonWithCat>()
-				.BindConstructorArg<string>().ToValue("Josephine")
-				.BindConstructorArg<Cat>().ToRegisteredDefault();
+				.BindConstructorArg<string>().ToValue("Josephine") //binds string type argument to constant value
+				.BindConstructorArg<Cat>().ToRegisteredDefault(); //binds Cat type argument to registered Cat instance
 
 			return ctx;
 		}
