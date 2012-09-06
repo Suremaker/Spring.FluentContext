@@ -13,7 +13,7 @@ namespace Spring.FluentContext.Examples.Complex
 
 		public void Run()
 		{
-			Console.WriteLine("Please write text. Empty line stops sending.");
+			Console.WriteLine("Please write text. Empty line stops execution.");
 			string text;
 			while ((text = Console.ReadLine()) != string.Empty)
 				_endpoint.Send(text);

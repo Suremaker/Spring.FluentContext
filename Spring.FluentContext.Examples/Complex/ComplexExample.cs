@@ -8,21 +8,25 @@ namespace Spring.FluentContext.Examples.Complex
 		protected override IApplicationContext CreateContext()
 		{
 			var ctx = new FluentApplicationContext();
+
 			ctx.RegisterDefault<Endpoint>();
-			ctx.RegisterDefault<DisplayCommand>().AsPrototype();
+
+			ctx.RegisterDefault<DisplayCommand>()
+				.AsPrototype(); //every request for DisplayCommand should return new instance
+
 			ctx.RegisterDefault<RepeatingInterceptor>();
 			ctx.RegisterDefault<DelayingInterceptor>()
 				.BindConstructorArg<int>().ToValue(3000);
 
 			ctx.RegisterDefaultProxyFactory<ICommand>()
 				.TargetingDefaultOfType<DisplayCommand>()
-				.ReturningPrototypes()
+				.ReturningPrototypes() //every request for ICommand should return new instance of proxy (comment it and type few lines during program run to see change)
 				.AddInterceptorByDefaultReference<DelayingInterceptor>()
 				.AddInterceptorByDefaultReference<RepeatingInterceptor>();
 
 			ctx.RegisterDefault<Sender>().Autowire();
 			ctx.RegisterDefault<Consumer>().Autowire()
-				.BindLookupMethodNamed<ICommand>("GetCommand").ToRegisteredDefault();
+				.BindLookupMethodNamed<ICommand>("GetCommand").ToRegisteredDefault(); //method is protected so it is not possible to use lambda to get it
 
 			return ctx;
 		}
@@ -33,6 +37,7 @@ namespace Spring.FluentContext.Examples.Complex
 			var sender = ctx.GetObject<Sender>();
 			consumer.Start();
 			sender.Run();
+			//to let background tasks to finish
 			Thread.Sleep(3000);
 		}
 	}
