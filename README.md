@@ -39,6 +39,7 @@ Not Implemented Features:
 Limitations:
 * it is not possible to use lambda expressions to point protected methods or properties with non-public getters, that is why API allows also to use literals.
 
-Examples:
+Examples and help:
 * Solution contains Spring.FluentContext.Examples presenting usage of implemented features
 * All implemented features contains also unit tests which shows also its usage
+* Please also see the wiki page for details how to use this project
