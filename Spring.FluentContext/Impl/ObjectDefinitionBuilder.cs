@@ -24,7 +24,6 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-
 using System;
 using System.Linq.Expressions;
 using Spring.FluentContext.Builders;
@@ -95,14 +94,14 @@ namespace Spring.FluentContext.Impl
 			return new PropertyDefinitionBuilder<TObject, TProperty>(this, propertyName);
 		}
 
-		public ICtorArgumentDefinitionBuilder<IInstantiationBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>(int argIndex)
+		public ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>(int argIndex)
 		{
-			return new CtorArgumentDefinitionBuilder<IInstantiationBuildStage<TObject>, TProperty>(this, this, argIndex);
+			return new CtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty>(this, this, argIndex);
 		}
 
-		public ICtorArgumentDefinitionBuilder<IInstantiationBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>()
+		public ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>()
 		{
-			return new CtorArgumentDefinitionBuilder<IInstantiationBuildStage<TObject>, TProperty>(this, this);
+			return new CtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty>(this, this);
 		}
 
 		public ICtorDefinitionBuildStage<TObject,TArg> UseConstructor<TArg>(Func<TArg,TObject> constructorSelector)

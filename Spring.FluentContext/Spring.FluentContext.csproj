@@ -75,6 +75,7 @@
     <Compile Include="Impl\CtorDefinitionBuilder.cs" />
     <Compile Include="e:\code\Spring.FluentContext\Spring.FluentContext\Impl\IDefinitionHolder.cs" />
     <Compile Include="BuildingStages\ICtorDefinitionBuildStage.cs" />
+    <Compile Include="BuildingStages\ILooseCtorDefinitionBuildStage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

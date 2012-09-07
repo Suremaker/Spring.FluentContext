@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Wojciech Kotlarski wojciech.kotlarski@gmail.com
 //
@@ -25,16 +25,14 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using System;
+using Spring.FluentContext.Builders;
 
 namespace Spring.FluentContext.BuildingStages
 {
-	public interface IInstantiationBuildStage<TObject> : ILooseCtorDefinitionBuildStage<TObject>
-	{
-		ICtorDefinitionBuildStage<TObject, TArg> UseConstructor<TArg>(Func<TArg,TObject> constructorSelector);
-		ICtorDefinitionBuildStage<TObject, TArg1, TArg2> UseConstructor<TArg1,TArg2>(Func<TArg1,TArg2,TObject> constructorSelector);
-		ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3> UseConstructor<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,TObject> constructorSelector);
-		ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3, TArg4> UseConstructor<TArg1,TArg2,TArg3,TArg4>(Func<TArg1,TArg2,TArg3,TArg4,TObject> constructorSelector);
-	}
 
+	public interface ILooseCtorDefinitionBuildStage<TObject> : IAutoConfigurationBuildStage<TObject>
+	{
+		ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>(int argIndex);
+		ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>();
+	}
 }
