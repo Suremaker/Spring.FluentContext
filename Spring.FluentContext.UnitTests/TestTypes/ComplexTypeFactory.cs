@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -25,12 +25,16 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext.UnitTests.TestTypes
 {
-	public interface IScopeBuildStage<TObject> : IInstantiationBuildStage<TObject>
-	{
-		IInstantiationBuildStage<TObject> AsPrototype();
 
-		IInstantiationBuildStage<TObject> AsSingleton();	
+	class ComplexTypeFactory
+	{
+		public const string FACTORY_METHOD_TEXT = "created by factory method";
+
+		public static ComplexType CreateInstance()
+		{
+			return new ComplexType { Text = FACTORY_METHOD_TEXT };
+		}
 	}
 }

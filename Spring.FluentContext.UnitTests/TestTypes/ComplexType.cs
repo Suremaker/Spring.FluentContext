@@ -32,5 +32,6 @@ namespace Spring.FluentContext.UnitTests.TestTypes
 
 		public string Text{ get; set; }
 	}
+
 }
 

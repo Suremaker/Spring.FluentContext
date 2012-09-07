@@ -31,6 +31,8 @@ namespace Spring.FluentContext.BuildingStages
 {
 	public interface IInstantiationBuildStage<TObject> : ILooseCtorDefinitionBuildStage<TObject>
 	{
+		IAutoConfigurationBuildStage<TObject> UseStaticFactoryMethod(Func<TObject> factoryMethodSelector);
+
 		ICtorDefinitionBuildStage<TObject, TArg> UseConstructor<TArg>(Func<TArg,TObject> constructorSelector);
 		ICtorDefinitionBuildStage<TObject, TArg1, TArg2> UseConstructor<TArg1,TArg2>(Func<TArg1,TArg2,TObject> constructorSelector);
 		ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3> UseConstructor<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,TObject> constructorSelector);

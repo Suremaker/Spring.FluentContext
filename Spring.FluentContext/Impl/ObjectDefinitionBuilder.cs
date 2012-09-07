@@ -94,6 +94,13 @@ namespace Spring.FluentContext.Impl
 			return new PropertyDefinitionBuilder<TObject, TProperty>(this, propertyName);
 		}
 
+		public IAutoConfigurationBuildStage<TObject> UseStaticFactoryMethod(Func<TObject> factoryMethodSelector)
+		{
+			_definition.ObjectType = factoryMethodSelector.Method.DeclaringType;
+			_definition.FactoryMethodName = factoryMethodSelector.Method.Name;
+			return this;
+		}
+
 		public ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>(int argIndex)
 		{
 			return new CtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty>(this, this, argIndex);

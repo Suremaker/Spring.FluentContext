@@ -79,6 +79,7 @@
     <Compile Include="Utils\IdGeneratorTests.cs" />
     <Compile Include="ObjectScopeTests.cs" />
     <Compile Include="ObjectFactoryMethodTests.cs" />
+    <Compile Include="TestTypes\ComplexTypeFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
