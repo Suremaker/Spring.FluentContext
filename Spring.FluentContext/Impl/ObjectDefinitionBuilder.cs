@@ -105,22 +105,22 @@ namespace Spring.FluentContext.Impl
 			return new CtorArgumentDefinitionBuilder<IInstantiationBuildStage<TObject>, TProperty>(this, this);
 		}
 
-		public ICtorDefinitionBuilder<TObject,TArg> UseConstructor<TArg>(Func<TArg,TObject> constructorSelector)
+		public ICtorDefinitionBuildStage<TObject,TArg> UseConstructor<TArg>(Func<TArg,TObject> constructorSelector)
 		{
 			return new CtorDefinitionBuilder<TObject, TArg>(this);
 		}
 
-		public ICtorDefinitionBuilder<TObject,TArg1,TArg2> UseConstructor<TArg1,TArg2>(Func<TArg1,TArg2,TObject> constructorSelector)
+		public ICtorDefinitionBuildStage<TObject,TArg1,TArg2> UseConstructor<TArg1,TArg2>(Func<TArg1,TArg2,TObject> constructorSelector)
 		{
 			return new CtorDefinitionBuilder<TObject, TArg1, TArg2>(this);
 		}
 
-		public ICtorDefinitionBuilder<TObject,TArg1,TArg2,TArg3> UseConstructor<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,TObject> constructorSelector)
+		public ICtorDefinitionBuildStage<TObject,TArg1,TArg2,TArg3> UseConstructor<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,TObject> constructorSelector)
 		{
 			return new CtorDefinitionBuilder<TObject, TArg1, TArg2, TArg3>(this);
 		}
 
-		public ICtorDefinitionBuilder<TObject,TArg1,TArg2,TArg3,TArg4> UseConstructor<TArg1,TArg2,TArg3,TArg4>(Func<TArg1,TArg2,TArg3,TArg4,TObject> constructorSelector)
+		public ICtorDefinitionBuildStage<TObject,TArg1,TArg2,TArg3,TArg4> UseConstructor<TArg1,TArg2,TArg3,TArg4>(Func<TArg1,TArg2,TArg3,TArg4,TObject> constructorSelector)
 		{
 			return new CtorDefinitionBuilder<TObject, TArg1, TArg2, TArg3, TArg4>(this);
 		}

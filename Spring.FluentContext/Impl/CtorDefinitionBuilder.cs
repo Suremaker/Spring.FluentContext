@@ -70,7 +70,7 @@ namespace Spring.FluentContext.Impl
 
 	internal class CtorDefinitionBuilder<TObject, TArg> 
 		: GenericCtorDefinitionBuilder<IAutoConfigurationBuildStage<TObject>,TObject, TArg>, 
-		ICtorDefinitionBuilder<TObject, TArg>
+		ICtorDefinitionBuildStage<TObject, TArg>
 	{
 		public CtorDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
 		{
@@ -80,8 +80,8 @@ namespace Spring.FluentContext.Impl
 	}
 
 	internal class CtorDefinitionBuilder<TObject, TArg1, TArg2> 
-		: GenericCtorDefinitionBuilder<ICtorDefinitionBuilder<TObject, TArg2>, TObject, TArg1>, 
-		ICtorDefinitionBuilder<TObject, TArg1, TArg2>
+		: GenericCtorDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2>, TObject, TArg1>, 
+		ICtorDefinitionBuildStage<TObject, TArg1, TArg2>
 	{
 		public CtorDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
 		{
@@ -91,8 +91,8 @@ namespace Spring.FluentContext.Impl
 	}
 
 	internal class CtorDefinitionBuilder<TObject, TArg1, TArg2, TArg3> 
-		: GenericCtorDefinitionBuilder<ICtorDefinitionBuilder<TObject, TArg2, TArg3>, TObject, TArg1>, 
-		ICtorDefinitionBuilder<TObject, TArg1, TArg2, TArg3>
+		: GenericCtorDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2, TArg3>, TObject, TArg1>, 
+		ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3>
 	{
 		public CtorDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
 		{
@@ -102,8 +102,8 @@ namespace Spring.FluentContext.Impl
 	}
 
 	internal class CtorDefinitionBuilder<TObject, TArg1, TArg2, TArg3, TArg4> 
-		: GenericCtorDefinitionBuilder<ICtorDefinitionBuilder<TObject, TArg2, TArg3, TArg4>, TObject, TArg1>, 
-		ICtorDefinitionBuilder<TObject, TArg1, TArg2, TArg3, TArg4>
+		: GenericCtorDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2, TArg3, TArg4>, TObject, TArg1>, 
+		ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3, TArg4>
 	{
 		public CtorDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
 		{
