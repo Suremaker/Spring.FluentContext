@@ -54,7 +54,6 @@
     <Compile Include="FactoryRegistrationTests.cs" />
     <Compile Include="ObjectConstructorInjectionTests.cs" />
     <Compile Include="ObjectInlineDefinitionTests.cs" />
-    <Compile Include="ObjectInstantiationModeTests.cs" />
     <Compile Include="ContextExtensionTests.cs" />
     <Compile Include="ObjectRegistrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +77,8 @@
     <Compile Include="TestTypes\ComplexType.cs" />
     <Compile Include="ObjectLookupMethodInjectionTests.cs" />
     <Compile Include="Utils\IdGeneratorTests.cs" />
+    <Compile Include="ObjectScopeTests.cs" />
+    <Compile Include="ObjectFactoryMethodTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

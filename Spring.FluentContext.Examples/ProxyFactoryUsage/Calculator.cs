@@ -1,6 +1,6 @@
 //
 //  Author:
-//    Wojciech Kotlarski wojciech.kotlarski@gmail.com
+//    Wojciech Kotlarski
 //
 //  Copyright (c) 2012, Wojciech Kotlarski
 //
