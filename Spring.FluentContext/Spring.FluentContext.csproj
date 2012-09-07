@@ -67,7 +67,6 @@
     <Compile Include="Impl\ObjectDefinitionBuilder.cs" />
     <Compile Include="Impl\PropertyDefinitionBuilder.cs" />
     <Compile Include="Impl\ProxyFactoryDefinitionBuilder.cs" />
-    <Compile Include="IObjectDefinitionBuilder.cs" />
     <Compile Include="IProxyFactoryDefinitionBuilder.cs" />
     <Compile Include="ObjectRef.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

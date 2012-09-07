@@ -1,7 +1,7 @@
 namespace Spring.FluentContext.Binders
 {
-	public interface IValueBinder<TObject, in TTargetType>
+	public interface IValueBinder<out TBuilder, in TTargetType>
 	{
-		IObjectDefinitionBuilder<TObject> ToValue(TTargetType value);
+		TBuilder ToValue(TTargetType value);
 	}
 }

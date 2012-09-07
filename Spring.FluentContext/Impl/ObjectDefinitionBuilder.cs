@@ -8,7 +8,7 @@ using Spring.Objects.Factory.Config;
 
 namespace Spring.FluentContext.Impl
 {
-	internal class ObjectDefinitionBuilder<TObject> : IObjectDefinitionBuilder<TObject>
+	internal class ObjectDefinitionBuilder<TObject> : IScopeBuildStage<TObject>
 	{
 		private readonly GenericObjectDefinition _definition = new GenericObjectDefinition();
 		private readonly ObjectRef<TObject> _ref;

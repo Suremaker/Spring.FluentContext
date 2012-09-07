@@ -1,5 +1,6 @@
 using Spring.Context;
 using Spring.Context.Support;
+using Spring.FluentContext.BuildingStages;
 using Spring.FluentContext.Impl;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Support;
@@ -16,19 +17,19 @@ namespace Spring.FluentContext
 		public FluentApplicationContext(DefaultListableObjectFactory objectFactory, IApplicationContext parent) : base(objectFactory, parent) { }
 		public FluentApplicationContext(string name, bool caseSensitive, IApplicationContext parent, DefaultListableObjectFactory objectFactory) : base(name, caseSensitive, parent, objectFactory) { }
 
-		public IObjectDefinitionBuilder<T> RegisterNamed<T>(string id)
+		public IScopeBuildStage<T> RegisterNamed<T>(string id)
 		{
 			var builder = new ObjectDefinitionBuilder<T>(id);
 			RegisterObjectDefinition(id, builder.Definition);
 			return builder;
 		}
 
-		public IObjectDefinitionBuilder<T> RegisterDefault<T>()
+		public IScopeBuildStage<T> RegisterDefault<T>()
 		{
 			return RegisterNamed<T>(IdGenerator<T>.GetDefaultId());
 		}
 
-		public IObjectDefinitionBuilder<T> RegisterUniquelyNamed<T>()
+		public IScopeBuildStage<T> RegisterUniquelyNamed<T>()
 		{
 			return RegisterNamed<T>(IdGenerator<T>.GetUniqueId());
 		}

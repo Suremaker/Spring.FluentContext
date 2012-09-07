@@ -1,9 +1,10 @@
 using System;
+using Spring.FluentContext.BuildingStages;
 
 namespace Spring.FluentContext.Binders
 {
-	public interface IInlineDefinitionBinder<TObject, in TTargetType>
+	public interface IInlineDefinitionBinder<out TBuilder, in TTargetType>
 	{
-		IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TTargetType;
+		TBuilder ToInlineDefinition<TInnerObject>(Action<IInstantiationBuildStage<TInnerObject>> innerObjectBuildAction) where TInnerObject : TTargetType;
 	}
 }

@@ -1,11 +1,12 @@
 using Spring.FluentContext.Binders;
+using Spring.FluentContext.BuildingStages;
 
 namespace Spring.FluentContext.Builders
 {
 	public interface ICtorDefinitionBuilder<TObject, in TArgument>
-		: IReferenceBinder<TObject, TArgument>,
-		IInlineDefinitionBinder<TObject, TArgument>,
-		IValueBinder<TObject, TArgument>
+		: IReferenceBinder<IInstantiationBuildStage<TObject>, TArgument>,
+		IInlineDefinitionBinder<IInstantiationBuildStage<TObject>, TArgument>,
+		IValueBinder<IInstantiationBuildStage<TObject>, TArgument>
 	{
 	}
 }

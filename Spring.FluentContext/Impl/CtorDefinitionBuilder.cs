@@ -1,5 +1,6 @@
 using System;
 using Spring.FluentContext.Builders;
+using Spring.FluentContext.BuildingStages;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Config;
 
@@ -22,34 +23,34 @@ namespace Spring.FluentContext.Impl
 			_insertCtorArgAction = (list, value) => list.AddGenericArgumentValue(value, typeof(TArgument).FullName);
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToValue(TArgument value)
+		public IInstantiationBuildStage<TObject> ToValue(TArgument value)
 		{
 			_insertCtorArgAction(_builder.Definition.ConstructorArgumentValues, value);
 			return _builder;
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToRegistered(string objectId)
+		public IInstantiationBuildStage<TObject> ToRegistered(string objectId)
 		{
 			_insertCtorArgAction(_builder.Definition.ConstructorArgumentValues, new RuntimeObjectReference(objectId));
 			return _builder;
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToRegistered<TRef>(ObjectRef<TRef> reference) where TRef : TArgument
+		public IInstantiationBuildStage<TObject> ToRegistered<TRef>(ObjectRef<TRef> reference) where TRef : TArgument
 		{
 			return ToRegistered(reference.Id);
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToRegisteredDefault()
+		public IInstantiationBuildStage<TObject> ToRegisteredDefault()
 		{
 			return ToRegistered(IdGenerator<TArgument>.GetDefaultId());
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToRegisteredDefaultOfType<TReferencedType>() where TReferencedType : TArgument
+		public IInstantiationBuildStage<TObject> ToRegisteredDefaultOfType<TReferencedType>() where TReferencedType : TArgument
 		{
 			return ToRegistered(IdGenerator<TReferencedType>.GetDefaultId());
 		}
 
-		public IObjectDefinitionBuilder<TObject> ToInlineDefinition<TInnerObject>(Action<IObjectDefinitionBuilder<TInnerObject>> innerObjectBuildAction) where TInnerObject : TArgument
+		public IInstantiationBuildStage<TObject> ToInlineDefinition<TInnerObject>(Action<IInstantiationBuildStage<TInnerObject>> innerObjectBuildAction) where TInnerObject : TArgument
 		{
 			var innerObjectBuilder = new ObjectDefinitionBuilder<TInnerObject>(null);
 			innerObjectBuildAction(innerObjectBuilder);

@@ -1,11 +1,12 @@
 using Spring.FluentContext.Binders;
+using Spring.FluentContext.BuildingStages;
 
 namespace Spring.FluentContext.Builders
 {
 	public interface IPropertyDefinitionBuilder<TObject, in TProperty>
-		: IReferenceBinder<TObject, TProperty>,
-		IValueBinder<TObject, TProperty>,
-		IInlineDefinitionBinder<TObject, TProperty>
+		: IReferenceBinder<IConfigurationBuildStage<TObject>, TProperty>,
+		IValueBinder<IConfigurationBuildStage<TObject>, TProperty>,
+		IInlineDefinitionBinder<IConfigurationBuildStage<TObject>, TProperty>
 	{
 	}
 }

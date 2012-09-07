@@ -10,8 +10,8 @@ namespace Spring.FluentContext.Examples.AdvancedLookupMethodInjection
 			var ctx = new FluentApplicationContext();
 
 			ctx.RegisterDefault<Pig>()
-				.BindConstructorArg<string>().ToValue("Small Piggy")
-				.AsPrototype(); //every request will return a new instance of Pig
+				.AsPrototype() //every request will return a new instance of Pig
+				.BindConstructorArg<string>().ToValue("Small Piggy");
 
 			ctx.RegisterDefault<Cow>()
 				.AsPrototype();
