@@ -8,7 +8,7 @@ using Spring.Objects.Factory.Config;
 
 namespace Spring.FluentContext.Impl
 {
-	internal class ObjectDefinitionBuilder<TObject> : IScopeBuildStage<TObject>
+	internal class ObjectDefinitionBuilder<TObject> : IDefinitionHolder, IScopeBuildStage<TObject>
 	{
 		private readonly GenericObjectDefinition _definition = new GenericObjectDefinition();
 		private readonly ObjectRef<TObject> _ref;
@@ -68,14 +68,34 @@ namespace Spring.FluentContext.Impl
 			return new PropertyDefinitionBuilder<TObject, TProperty>(this, propertyName);
 		}
 
-		public ICtorDefinitionBuilder<TObject, TProperty> BindConstructorArg<TProperty>(int argIndex)
+		public ICtorArgumentDefinitionBuilder<IInstantiationBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>(int argIndex)
 		{
-			return new CtorDefinitionBuilder<TObject, TProperty>(this, argIndex);
+			return new CtorArgumentDefinitionBuilder<IInstantiationBuildStage<TObject>, TProperty>(this, this, argIndex);
 		}
 
-		public ICtorDefinitionBuilder<TObject, TProperty> BindConstructorArg<TProperty>()
+		public ICtorArgumentDefinitionBuilder<IInstantiationBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>()
 		{
-			return new CtorDefinitionBuilder<TObject, TProperty>(this);
+			return new CtorArgumentDefinitionBuilder<IInstantiationBuildStage<TObject>, TProperty>(this, this);
+		}
+
+		public ICtorDefinitionBuilder<TObject,TArg> UseConstructor<TArg>(Func<TArg,TObject> constructorSelector)
+		{
+			return new CtorDefinitionBuilder<TObject, TArg>(this);
+		}
+
+		public ICtorDefinitionBuilder<TObject,TArg1,TArg2> UseConstructor<TArg1,TArg2>(Func<TArg1,TArg2,TObject> constructorSelector)
+		{
+			return new CtorDefinitionBuilder<TObject, TArg1, TArg2>(this);
+		}
+
+		public ICtorDefinitionBuilder<TObject,TArg1,TArg2,TArg3> UseConstructor<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,TObject> constructorSelector)
+		{
+			return new CtorDefinitionBuilder<TObject, TArg1, TArg2, TArg3>(this);
+		}
+
+		public ICtorDefinitionBuilder<TObject,TArg1,TArg2,TArg3,TArg4> UseConstructor<TArg1,TArg2,TArg3,TArg4>(Func<TArg1,TArg2,TArg3,TArg4,TObject> constructorSelector)
+		{
+			return new CtorDefinitionBuilder<TObject, TArg1, TArg2, TArg3, TArg4>(this);
 		}
 
 		public ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethod<TResult>(Expression<Func<TObject, TResult>> methodSelector)

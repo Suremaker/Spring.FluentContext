@@ -51,7 +51,6 @@
     <Compile Include="Binders\IInlineDefinitionBinder.cs" />
     <Compile Include="Binders\IReferenceBinder.cs" />
     <Compile Include="Binders\IValueBinder.cs" />
-    <Compile Include="Builders\ICtorDefinitionBuilder.cs" />
     <Compile Include="Builders\ILookupMethodDefinitionBuilder.cs" />
     <Compile Include="Builders\IPropertyDefinitionBuilder.cs" />
     <Compile Include="BuildingStages\IAutoConfigurationBuildStage.cs" />
@@ -62,7 +61,6 @@
     <Compile Include="BuildingStages\IValidationBuildStage.cs" />
     <Compile Include="ContextExtensions.cs" />
     <Compile Include="FluentApplicationContext.cs" />
-    <Compile Include="Impl\CtorDefinitionBuilder.cs" />
     <Compile Include="Impl\LookupMethodDefinitionBuilder.cs" />
     <Compile Include="Impl\ObjectDefinitionBuilder.cs" />
     <Compile Include="Impl\PropertyDefinitionBuilder.cs" />
@@ -72,6 +70,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\IdGenerator.cs" />
     <Compile Include="Utils\ReflectionUtils.cs" />
+    <Compile Include="Builders\ICtorArgumentDefinitionBuilder.cs" />
+    <Compile Include="Impl\CtorArgumentDefinitionBuilder.cs" />
+    <Compile Include="Impl\CtorDefinitionBuilder.cs" />
+    <Compile Include="e:\code\Spring.FluentContext\Spring.FluentContext\Impl\IDefinitionHolder.cs" />
+    <Compile Include="Builders\ICtorDefinitionBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
