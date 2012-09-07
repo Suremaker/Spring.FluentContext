@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using Spring.FluentContext.BuildingStages;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Support;
 using Spring.Objects.Factory.Config;
@@ -22,35 +23,35 @@ namespace Spring.FluentContext.Impl
 			get { return _definition; }
 		}
 
-		public IObjectDefinitionBuilder<TObject> AsPrototype()
+		public IInstantiationBuildStage<TObject> AsPrototype()
 		{
 			_definition.IsSingleton = false;
 			return this;
 		}
 
-		public IObjectDefinitionBuilder<TObject> AsSingleton()
+		public IInstantiationBuildStage<TObject> AsSingleton()
 		{
 			_definition.IsSingleton = true;
 			return this;
 		}
 
-		public IObjectDefinitionBuilder<TObject> Autowire()
+		public IConfigurationBuildStage<TObject> Autowire()
 		{
 			return Autowire(AutoWiringMode.AutoDetect);
 		}
 
-		public IObjectDefinitionBuilder<TObject> Autowire(AutoWiringMode mode)
+		public IConfigurationBuildStage<TObject> Autowire(AutoWiringMode mode)
 		{
 			_definition.AutowireMode = mode;
 			return this;
 		}
 
-		public IObjectDefinitionBuilder<TObject> CheckDependencies()
+		public IReferencingStage<TObject> CheckDependencies()
 		{
 			return CheckDependencies(DependencyCheckingMode.All);
 		}
 
-		public IObjectDefinitionBuilder<TObject> CheckDependencies(DependencyCheckingMode mode)
+		public IReferencingStage<TObject> CheckDependencies(DependencyCheckingMode mode)
 		{
 			_definition.DependencyCheck = mode;
 			return this;
