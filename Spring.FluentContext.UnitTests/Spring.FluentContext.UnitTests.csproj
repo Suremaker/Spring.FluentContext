@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="FactoryRegistrationTests.cs" />
     <Compile Include="ObjectConstructorInjectionTests.cs" />
+    <Compile Include="ObjectInlineDefinitionTests.cs" />
     <Compile Include="ObjectInstantiationModeTests.cs" />
     <Compile Include="ContextExtensionTests.cs" />
     <Compile Include="ObjectInitializationTimeTests.cs" />
