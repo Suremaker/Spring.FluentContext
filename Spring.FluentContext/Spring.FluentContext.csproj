@@ -51,6 +51,9 @@
     <Compile Include="Binders\IInlineDefinitionBinder.cs" />
     <Compile Include="Binders\IReferenceBinder.cs" />
     <Compile Include="Binders\IValueBinder.cs" />
+    <Compile Include="Builders\ICtorDefinitionBuilder.cs" />
+    <Compile Include="Builders\ILookupMethodDefinitionBuilder.cs" />
+    <Compile Include="Builders\IPropertyDefinitionBuilder.cs" />
     <Compile Include="BuildingStages\IAutoConfigurationBuildStage.cs" />
     <Compile Include="BuildingStages\IConfigurationBuildStage.cs" />
     <Compile Include="BuildingStages\IInstantiationBuildStage.cs" />
@@ -59,15 +62,12 @@
     <Compile Include="BuildingStages\IValidationBuildStage.cs" />
     <Compile Include="ContextExtensions.cs" />
     <Compile Include="FluentApplicationContext.cs" />
-    <Compile Include="ICtorDefinitionBuilder.cs" />
-    <Compile Include="ILookupMethodDefinitionBuilder.cs" />
     <Compile Include="Impl\CtorDefinitionBuilder.cs" />
     <Compile Include="Impl\LookupMethodDefinitionBuilder.cs" />
     <Compile Include="Impl\ObjectDefinitionBuilder.cs" />
     <Compile Include="Impl\PropertyDefinitionBuilder.cs" />
     <Compile Include="Impl\ProxyFactoryDefinitionBuilder.cs" />
     <Compile Include="IObjectDefinitionBuilder.cs" />
-    <Compile Include="IPropertyDefinitionBuilder.cs" />
     <Compile Include="IProxyFactoryDefinitionBuilder.cs" />
     <Compile Include="ObjectRef.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

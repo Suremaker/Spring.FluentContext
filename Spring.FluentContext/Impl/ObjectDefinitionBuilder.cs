@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using Spring.FluentContext.Builders;
 using Spring.FluentContext.BuildingStages;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Support;

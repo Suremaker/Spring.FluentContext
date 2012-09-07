@@ -1,6 +1,6 @@
 using Spring.FluentContext.Binders;
 
-namespace Spring.FluentContext
+namespace Spring.FluentContext.Builders
 {
 	public interface IPropertyDefinitionBuilder<TObject, in TProperty>
 		: IReferenceBinder<TObject, TProperty>,

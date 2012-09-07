@@ -1,4 +1,6 @@
-﻿namespace Spring.FluentContext.BuildingStages
+﻿using Spring.FluentContext.Builders;
+
+namespace Spring.FluentContext.BuildingStages
 {
 	public interface IInstantiationBuildStage<TObject> : IAutoConfigurationBuildStage<TObject>
 	{
