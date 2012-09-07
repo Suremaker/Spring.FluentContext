@@ -87,7 +87,7 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
-		public void Bind_property_to_inner_object()
+		public void Bind_property_to_inline_definition()
 		{
 			const string expectedText = "some text";
 
@@ -97,6 +97,29 @@ namespace Spring.FluentContext.UnitTests
 
 			var actual = _ctx.GetObject<NestingType>("nesting");
 			Assert.That(actual.Simple.Text, Is.EqualTo(expectedText));
+		}
+
+		[Test]
+		public void Bind_property_to_simple_inline_definition()
+		{
+			_ctx.RegisterNamed<NestingType>("nesting")
+				.BindProperty(n => n.Simple).ToInlineDefinition<SimpleType>();
+
+			var actual = _ctx.GetObject<NestingType>("nesting");
+			Assert.That(actual.Simple, Is.Not.Null);
+		}
+
+		[Test]
+		public void Inline_defined_object_are_always_prototypes()
+		{
+			_ctx.RegisterDefault<NestingType>()
+				.AsPrototype()
+				.BindProperty(n => n.Simple).ToInlineDefinition<SimpleType>();
+
+			var nesting1 = _ctx.GetObject<NestingType>();
+			var nesting2 = _ctx.GetObject<NestingType>();
+
+			Assert.That(nesting1.Simple, Is.Not.SameAs(nesting2.Simple));
 		}
 
 		[Test]

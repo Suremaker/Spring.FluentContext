@@ -133,7 +133,7 @@ namespace Spring.FluentContext.UnitTests
 		[Test]
 		public void Inject_default_references_for_derived_classes_by_ctor()
 		{
-			 _ctx.RegisterDefault<DerivedFromNestingType>();
+			_ctx.RegisterDefault<DerivedFromNestingType>();
 
 			_ctx.RegisterDefault<CtorHavingType>()
 				.BindConstructorArg<NestingType>().ToRegisteredDefaultOfType<DerivedFromNestingType>();
@@ -144,7 +144,7 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
-		public void Inject_inner_definitions_by_ctor_using_generic_constructor_arguments()
+		public void Inject_inline_definitions_by_ctor_using_generic_constructor_arguments()
 		{
 			_ctx.RegisterNamed<CtorHavingType>("test")
 				.BindConstructorArg<NestingType>().ToInlineDefinition<NestingType>(
@@ -159,7 +159,7 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
-		public void Inject_inner_definitions_by_ctor_using_indexed_constructor_arguments()
+		public void Inject_inline_definitions_by_ctor_using_indexed_constructor_arguments()
 		{
 			_ctx.RegisterNamed<CtorHavingType>("test")
 				.BindConstructorArg<NestingType>(0).ToInlineDefinition<NestingType>(
@@ -171,6 +171,41 @@ namespace Spring.FluentContext.UnitTests
 
 			Assert.That(actual.Nesting, Is.Not.Null);
 			Assert.That(actual.Nesting.Simple, Is.SameAs(_ctx.GetObject<SimpleType>("simple")));
+		}
+
+		[Test]
+		public void Inject_simple_inline_definitions_by_ctor_using_generic_constructor_arguments()
+		{
+			_ctx.RegisterNamed<CtorHavingType>("test")
+				.BindConstructorArg<NestingType>().ToInlineDefinition<NestingType>();
+
+			var actual = _ctx.GetObject<CtorHavingType>("test");
+
+			Assert.That(actual.Nesting, Is.Not.Null);
+		}
+
+		[Test]
+		public void Inject_simple_inline_definitions_by_ctor_using_indexed_constructor_arguments()
+		{
+			_ctx.RegisterNamed<CtorHavingType>("test")
+				.BindConstructorArg<NestingType>(0).ToInlineDefinition<NestingType>();
+
+			var actual = _ctx.GetObject<CtorHavingType>("test");
+
+			Assert.That(actual.Nesting, Is.Not.Null);
+		}
+
+		[Test]
+		public void Inline_defined_object_are_always_prototypes()
+		{
+			_ctx.RegisterDefault<CtorHavingType>()
+				.AsPrototype()
+				.BindConstructorArg<NestingType>().ToInlineDefinition<NestingType>();
+
+			var nesting1 = _ctx.GetObject<CtorHavingType>();
+			var nesting2 = _ctx.GetObject<CtorHavingType>();
+
+			Assert.That(nesting1.Nesting, Is.Not.SameAs(nesting2.Nesting));
 		}
 	}
 }

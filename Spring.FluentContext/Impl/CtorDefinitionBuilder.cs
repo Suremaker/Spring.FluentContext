@@ -50,6 +50,15 @@ namespace Spring.FluentContext.Impl
 			return ToRegistered(IdGenerator<TReferencedType>.GetDefaultId());
 		}
 
+		public IInstantiationBuildStage<TObject> ToInlineDefinition<TInnerObject>() where TInnerObject : TArgument
+		{
+			_insertCtorArgAction(
+				_builder.Definition.ConstructorArgumentValues,
+				new ObjectDefinitionBuilder<TInnerObject>(null).Definition);
+
+			return _builder;
+		}
+
 		public IInstantiationBuildStage<TObject> ToInlineDefinition<TInnerObject>(Action<IInstantiationBuildStage<TInnerObject>> innerObjectBuildAction) where TInnerObject : TArgument
 		{
 			var innerObjectBuilder = new ObjectDefinitionBuilder<TInnerObject>(null);

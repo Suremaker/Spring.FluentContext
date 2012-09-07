@@ -43,6 +43,11 @@ namespace Spring.FluentContext.Impl
 			return ToRegistered(IdGenerator<TProperty>.GetDefaultId());
 		}
 
+		public IConfigurationBuildStage<TObject> ToInlineDefinition<TInnerObject>() where TInnerObject : TProperty
+		{
+			return AddPropertyValue(new PropertyValue(_propertyName, new ObjectDefinitionBuilder<TInnerObject>(null).Definition));
+		}
+
 		public IConfigurationBuildStage<TObject> ToInlineDefinition<TInnerObject>(Action<IInstantiationBuildStage<TInnerObject>> innerObjectBuildAction) where TInnerObject : TProperty
 		{
 			var builder = new ObjectDefinitionBuilder<TInnerObject>(null);
