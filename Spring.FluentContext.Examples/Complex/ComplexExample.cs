@@ -51,20 +51,20 @@ namespace Spring.FluentContext.Examples.Complex
 				.AddInterceptorByDefaultReference<RepeatingInterceptor>(); //Repeating interceptor is called after DelyingInterceptor, so there would be no delays between repeats
 
 			ctx.RegisterDefault<Sender>()
+				.DependingOnDefault<Consumer>()
 				.Autowire(); //autowiring endpoint dependency
 
 			ctx.RegisterDefault<Consumer>()
 				.Autowire() //autowiring endpoint dependency
-				.BindLookupMethodNamed<ICommand>("GetCommand").ToRegisteredDefault(); //method is protected so it is not possible to use lambda to get it
+				.BindLookupMethodNamed<ICommand>("GetCommand").ToRegisteredDefault() //method is protected so it is not possible to use lambda to get it
+				.CallOnInit(c => c.Start());
 
 			return ctx;
 		}
 
 		protected override void RunExample(IApplicationContext ctx)
 		{
-			var consumer = ctx.GetObject<Consumer>();
 			var sender = ctx.GetObject<Sender>();
-			consumer.Start();
 			sender.Run();
 			//to let background tasks to finish
 			Thread.Sleep(3000);

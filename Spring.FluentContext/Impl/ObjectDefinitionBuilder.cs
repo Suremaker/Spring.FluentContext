@@ -165,6 +165,18 @@ namespace Spring.FluentContext.Impl
 			return new LookupMethodDefinitionBuilder<TObject, TResult>(this, methodName);
 		}
 
+		public IDestroyBehaviorBuildStage<TObject> CallOnInit(Expression<Action<TObject>> initMethodSelector)
+		{
+			_definition.InitMethodName = ReflectionUtils.GetMethodName(initMethodSelector);
+			return this;
+		}
+
+		public IValidationBuildStage<TObject> CallOnDestroy(Expression<Action<TObject>> destroyMethodSelector)
+		{
+			_definition.DestroyMethodName = ReflectionUtils.GetMethodName(destroyMethodSelector);
+			return this;
+		}
+
 		public ObjectRef<TObject> GetReference()
 		{
 			return _ref;

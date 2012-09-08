@@ -31,7 +31,7 @@ using Spring.FluentContext.Builders;
 
 namespace Spring.FluentContext.BuildingStages
 {
-	public interface IConfigurationBuildStage<TObject> : IValidationBuildStage<TObject>
+	public interface IConfigurationBuildStage<TObject> : IInitBehaviorBuildStage<TObject>
 	{
 		IPropertyDefinitionBuilder<TObject, TProperty> BindProperty<TProperty>(Expression<Func<TObject, TProperty>> propertySelector);
 		IPropertyDefinitionBuilder<TObject, TProperty> BindPropertyNamed<TProperty>(string propertyName);

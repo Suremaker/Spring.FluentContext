@@ -81,6 +81,8 @@
     <Compile Include="Impl\AliasDefinitionBuilder.cs" />
     <Compile Include="Builders\IAliasDefinitionBuilder.cs" />
     <Compile Include="BuildingStages\IExternalDependencyBuildStage.cs" />
+    <Compile Include="BuildingStages\IDestroyBehaviorBuildStage.cs" />
+    <Compile Include="BuildingStages\IInitBehaviorBuildStage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

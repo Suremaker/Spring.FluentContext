@@ -33,7 +33,8 @@ Implemented API Features:
 * Lookup Method injection with registered objects
 * Autowiring
 * Aliasing
-* Indirect dependencies creation (allowing to specify order of objects creation / destruction) 
+* Indirect dependencies creation (allowing to specify order of objects creation / destruction)
+* Init / Destroy method call specification 
 * Dependency check
 * Type-safe, literal-less references
 
