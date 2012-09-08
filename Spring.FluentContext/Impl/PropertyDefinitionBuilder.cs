@@ -60,7 +60,7 @@ namespace Spring.FluentContext.Impl
 			return ToRegistered(reference.Id);
 		}
 
-		public IConfigurationBuildStage<TObject> ToRegisteredDefaultOfType<TReferencedType>() where TReferencedType : TProperty
+		public IConfigurationBuildStage<TObject> ToRegisteredDefaultOf<TReferencedType>() where TReferencedType : TProperty
 		{
 			return ToRegistered(IdGenerator<TReferencedType>.GetDefaultId());
 		}

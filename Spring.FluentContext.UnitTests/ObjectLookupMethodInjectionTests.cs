@@ -113,7 +113,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<DerivedFromCountingType>().AsSingleton();
 
 			_ctx.RegisterDefault<TypeWithFactoryMethod>()
-				.BindLookupMethod(t => t.CreateType()).ToRegisteredDefaultOfType<DerivedFromCountingType>();
+				.BindLookupMethod(t => t.CreateType()).ToRegisteredDefaultOf<DerivedFromCountingType>();
 
 			Assert.That(_ctx.GetObject<TypeWithFactoryMethod>().CreateType(), Is.TypeOf<DerivedFromCountingType>());
 		}

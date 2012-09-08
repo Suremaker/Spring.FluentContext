@@ -75,7 +75,7 @@ namespace Spring.FluentContext.Impl
 			return ToRegistered(IdGenerator<TArgument>.GetDefaultId());
 		}
 
-		public TBuilder ToRegisteredDefaultOfType<TReferencedType>() where TReferencedType : TArgument
+		public TBuilder ToRegisteredDefaultOf<TReferencedType>() where TReferencedType : TArgument
 		{
 			return ToRegistered(IdGenerator<TReferencedType>.GetDefaultId());
 		}
