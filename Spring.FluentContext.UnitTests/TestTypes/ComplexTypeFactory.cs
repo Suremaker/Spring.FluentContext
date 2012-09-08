@@ -27,14 +27,20 @@
 
 namespace Spring.FluentContext.UnitTests.TestTypes
 {
-
 	class ComplexTypeFactory
 	{
-		public const string FACTORY_METHOD_TEXT = "created by factory method";
+		public const string DEFAULT_INSTANCE_TEXT = "created by factory method";
+
+		public string InstanceText { get; set; }
+
+		public ComplexType Create()
+		{
+			return new ComplexType { Text = InstanceText };
+		}
 
 		public static ComplexType CreateInstance()
 		{
-			return new ComplexType { Text = FACTORY_METHOD_TEXT };
+			return new ComplexType { Text = DEFAULT_INSTANCE_TEXT };
 		}
 	}
 }

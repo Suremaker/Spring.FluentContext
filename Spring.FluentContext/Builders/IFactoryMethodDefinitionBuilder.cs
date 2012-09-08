@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -24,24 +24,14 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-using System;
-using System.Linq.Expressions;
-using Spring.FluentContext.Builders;
+using Spring.FluentContext.BuildingStages;
 
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext.Builders
 {
-	public interface IInstantiationBuildStage<TObject> : ILooseCtorDefinitionBuildStage<TObject>
+	public interface IFactoryMethodDefinitionBuilder<TFactory, TObject>
 	{
-		IAutoConfigurationBuildStage<TObject> UseStaticFactoryMethod(Func<TObject> factoryMethodSelector);
-
-		IFactoryMethodDefinitionBuilder<TFactory, TObject> UseFactoryMethod<TFactory>(Expression<Func<TFactory,TObject>> factoryMethodSelector);
-
-		ICtorDefinitionBuildStage<TObject, TArg> UseConstructor<TArg>(Func<TArg,TObject> constructorSelector);
-
-		ICtorDefinitionBuildStage<TObject, TArg1, TArg2> UseConstructor<TArg1,TArg2>(Func<TArg1,TArg2,TObject> constructorSelector);
-
-		ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3> UseConstructor<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,TObject> constructorSelector);
-
-		ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3, TArg4> UseConstructor<TArg1,TArg2,TArg3,TArg4>(Func<TArg1,TArg2,TArg3,TArg4,TObject> constructorSelector);
+		IAutoConfigurationBuildStage<TObject> OfRegisteredDefault();
+		IAutoConfigurationBuildStage<TObject> OfRegistered(string objectId);
+		IAutoConfigurationBuildStage<TObject> OfRegistered(ObjectRef<TFactory> reference);
 	}
 }

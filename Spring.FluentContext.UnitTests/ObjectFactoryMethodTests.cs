@@ -41,12 +41,52 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
-		public void Use_factory_method_creates_object_by_method_call()
+		public void Use_static_factory_method_creates_object_by_static_method_call()
 		{
 			_ctx.RegisterDefault<ComplexType>()
 				.UseStaticFactoryMethod(ComplexTypeFactory.CreateInstance);
 
-			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(ComplexTypeFactory.FACTORY_METHOD_TEXT));
+			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(ComplexTypeFactory.DEFAULT_INSTANCE_TEXT));
+		}
+
+		[Test]
+		public void Use_factory_method_creates_object_by_method_call_on_registered_default_object()
+		{
+			string expectedValue = "some text";
+			_ctx.RegisterDefault<ComplexTypeFactory>()
+				.BindProperty(f => f.InstanceText).ToValue(expectedValue);
+
+			_ctx.RegisterDefault<ComplexType>()
+				.UseFactoryMethod<ComplexTypeFactory>(f => f.Create()).OfRegisteredDefault();
+
+			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedValue));
+		}
+
+		[Test]
+		public void Use_factory_method_creates_object_by_method_call_on_registered_named_object()
+		{
+			string expectedValue = "some text";
+			_ctx.RegisterNamed<ComplexTypeFactory>("factory")
+				.BindProperty(f => f.InstanceText).ToValue(expectedValue);
+			
+			_ctx.RegisterDefault<ComplexType>()
+				.UseFactoryMethod<ComplexTypeFactory>(f => f.Create()).OfRegistered("factory");
+			
+			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedValue));
+		}
+
+		[Test]
+		public void Use_factory_method_creates_object_by_method_call_on_referenced_registered_object()
+		{
+			string expectedValue = "some text";
+			var reference = _ctx.RegisterUniquelyNamed<ComplexTypeFactory>()
+				.BindProperty(f => f.InstanceText).ToValue(expectedValue)
+				.GetReference();
+			
+			_ctx.RegisterDefault<ComplexType>()
+				.UseFactoryMethod<ComplexTypeFactory>(f => f.Create()).OfRegistered(reference);
+			
+			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedValue));
 		}
 	}
 }
