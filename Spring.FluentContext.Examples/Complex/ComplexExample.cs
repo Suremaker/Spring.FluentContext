@@ -45,10 +45,10 @@ namespace Spring.FluentContext.Examples.Complex
 				.BindConstructorArg<int>().ToValue(3000);
 
 			ctx.RegisterDefaultProxyFactory<ICommand>()
-				.TargetingDefaultOfType<DisplayCommand>()
+				.TargetingDefault<DisplayCommand>()
 				.ReturningPrototypes() //every request for ICommand should return new instance of proxy (comment it and type few lines during program run to see change)
-				.AddInterceptorByDefaultReference<DelayingInterceptor>()
-				.AddInterceptorByDefaultReference<RepeatingInterceptor>(); //Repeating interceptor is called after DelyingInterceptor, so there would be no delays between repeats
+				.InterceptedByDefault<DelayingInterceptor>()
+				.InterceptedByDefault<RepeatingInterceptor>(); //Repeating interceptor is called after DelyingInterceptor, so there would be no delays between repeats
 
 			ctx.RegisterDefault<Sender>()
 				.DependingOnDefault<Consumer>()

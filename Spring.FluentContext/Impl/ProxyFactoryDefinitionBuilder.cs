@@ -29,10 +29,11 @@ using System.Collections.Generic;
 using Spring.Aop.Framework;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Config;
+using Spring.FluentContext.BuildingStages;
 
 namespace Spring.FluentContext.Impl
 {
-	internal class ProxyFactoryDefinitionBuilder<TObject> : IProxyFactoryDefinitionBuilder<TObject>
+	internal class ProxyFactoryDefinitionBuilder<TObject> : IProxyTargetDefinitionBuildStage<TObject>, IProxyInstantiationDefinitionBuildStage<TObject>
 	{
 		private readonly ObjectDefinitionBuilder<ProxyFactoryObject> _builder;
 		private readonly List<string> _interceptorNames = new List<string>();
@@ -55,37 +56,37 @@ namespace Spring.FluentContext.Impl
 			get { return _builder.Definition; }
 		}
 
-		public IProxyFactoryDefinitionBuilder<TObject> Targeting(string objectId)
+		public IProxyInstantiationDefinitionBuildStage<TObject> Targeting(string objectId)
 		{
 			_builder.BindPropertyNamed<string>("TargetName").ToValue(objectId);
 			return this;
 		}
 
-		public IProxyFactoryDefinitionBuilder<TObject> TargetingDefaultOfType<TReferencedType>() where TReferencedType : TObject
+		public IProxyInstantiationDefinitionBuildStage<TObject> TargetingDefault<TReferencedType>() where TReferencedType : TObject
 		{
 			return Targeting(IdGenerator<TReferencedType>.GetDefaultId());
 		}
 
-		public IProxyFactoryDefinitionBuilder<TObject> Targeting<TReferencedType>(ObjectRef<TReferencedType> reference) where TReferencedType : TObject
+		public IProxyInstantiationDefinitionBuildStage<TObject> Targeting<TReferencedType>(ObjectRef<TReferencedType> reference) where TReferencedType : TObject
 		{
 			return Targeting(reference.Id);
 		}
 
-		public IProxyFactoryDefinitionBuilder<TObject> AddInterceptor(string objectId)
+		public IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy(string objectId)
 		{
 			_interceptorNames.Add(objectId);
 			_builder.BindPropertyNamed<string[]>("InterceptorNames").ToValue(_interceptorNames.ToArray());
 			return this;
 		}
 
-		public IProxyFactoryDefinitionBuilder<TObject> AddInterceptor<TInterceptorType>(ObjectRef<TInterceptorType> reference)
+		public IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy<TInterceptorType>(ObjectRef<TInterceptorType> reference)
 		{
-			return AddInterceptor(reference.Id);
+			return InterceptedBy(reference.Id);
 		}
 
-		public IProxyFactoryDefinitionBuilder<TObject> AddInterceptorByDefaultReference<TInterceptorType>()
+		public IProxyInterceptorDefinitionBuildStage<TObject> InterceptedByDefault<TInterceptorType>()
 		{
-			return AddInterceptor(IdGenerator<TInterceptorType>.GetDefaultId());
+			return InterceptedBy(IdGenerator<TInterceptorType>.GetDefaultId());
 		}
 
 		public ObjectRef<TObject> GetReference()
@@ -93,9 +94,15 @@ namespace Spring.FluentContext.Impl
 			return _ref;
 		}
 
-		public IProxyFactoryDefinitionBuilder<TObject> ReturningPrototypes()
+		public IProxyInterceptorDefinitionBuildStage<TObject> ReturningPrototypes()
 		{
 			_builder.BindProperty(f => f.IsSingleton).ToValue(false);
+			return this;
+		}
+
+		public IProxyInterceptorDefinitionBuildStage<TObject> ReturningSingleton()
+		{
+			_builder.BindProperty(f => f.IsSingleton).ToValue(true);
 			return this;
 		}
 	}

@@ -39,8 +39,8 @@ namespace Spring.FluentContext.Examples.ProxyFactoryUsage
 			ctx.RegisterDefault<DisplayingInterceptor>();
 
 			ctx.RegisterDefaultProxyFactory<ICalculator>()
-				.TargetingDefaultOfType<Calculator>()
-				.AddInterceptorByDefaultReference<DisplayingInterceptor>();
+				.TargetingDefault<Calculator>()
+				.InterceptedByDefault<DisplayingInterceptor>();
 
 			return ctx;
 		}

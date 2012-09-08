@@ -67,7 +67,7 @@ namespace Spring.FluentContext.UnitTests
 		{
 			_ctx.RegisterDefault<Calculator>();
 			_ctx.RegisterNamedProxyFactory<ICalculator>("calc")
-				.TargetingDefaultOfType<Calculator>();
+				.TargetingDefault<Calculator>();
 
 			Assert.That(_ctx.GetObject<ICalculator>("calc").Add(3, 5), Is.EqualTo(8));
 		}
@@ -77,8 +77,8 @@ namespace Spring.FluentContext.UnitTests
 		{
 			_ctx.RegisterDefault<Calculator>();
 			_ctx.RegisterNamed<MultiplingInterceptor>("interceptor");
-			_ctx.RegisterNamedProxyFactory<ICalculator>("calc").TargetingDefaultOfType<Calculator>()
-				.AddInterceptor("interceptor");
+			_ctx.RegisterNamedProxyFactory<ICalculator>("calc").TargetingDefault<Calculator>()
+				.InterceptedBy("interceptor");
 
 			Assert.That(_ctx.GetObject<ICalculator>("calc").Add(3, 5), Is.EqualTo(80));
 		}
@@ -88,8 +88,8 @@ namespace Spring.FluentContext.UnitTests
 		{
 			_ctx.RegisterDefault<Calculator>();
 			var interceptorRef = _ctx.RegisterDefault<MultiplingInterceptor>().GetReference();
-			_ctx.RegisterNamedProxyFactory<ICalculator>("calc").TargetingDefaultOfType<Calculator>()
-				.AddInterceptor(interceptorRef);
+			_ctx.RegisterNamedProxyFactory<ICalculator>("calc").TargetingDefault<Calculator>()
+				.InterceptedBy(interceptorRef);
 
 			Assert.That(_ctx.GetObject<ICalculator>("calc").Add(3, 5), Is.EqualTo(80));
 		}
@@ -99,8 +99,8 @@ namespace Spring.FluentContext.UnitTests
 		{
 			_ctx.RegisterDefault<Calculator>();
 			_ctx.RegisterDefault<MultiplingInterceptor>();
-			_ctx.RegisterNamedProxyFactory<ICalculator>("calc").TargetingDefaultOfType<Calculator>()
-				.AddInterceptorByDefaultReference<MultiplingInterceptor>();
+			_ctx.RegisterNamedProxyFactory<ICalculator>("calc").TargetingDefault<Calculator>()
+				.InterceptedByDefault<MultiplingInterceptor>();
 
 			Assert.That(_ctx.GetObject<ICalculator>("calc").Add(3, 5), Is.EqualTo(80));
 		}
@@ -111,8 +111,8 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<Calculator>();
 			_ctx.RegisterDefault<MultiplingInterceptor>();
 			_ctx.RegisterDefaultProxyFactory<ICalculator>()
-				.TargetingDefaultOfType<Calculator>()
-				.AddInterceptorByDefaultReference<MultiplingInterceptor>();
+				.TargetingDefault<Calculator>()
+				.InterceptedByDefault<MultiplingInterceptor>();
 
 			Assert.That(_ctx.GetObject<ICalculator>().Add(3, 5), Is.EqualTo(80));
 		}
@@ -123,8 +123,8 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<Calculator>();
 			_ctx.RegisterDefault<MultiplingInterceptor>();
 			var proxyRef = _ctx.RegisterNamedProxyFactory<ICalculator>("factory")
-				.TargetingDefaultOfType<Calculator>()
-				.AddInterceptorByDefaultReference<MultiplingInterceptor>()
+				.TargetingDefault<Calculator>()
+				.InterceptedByDefault<MultiplingInterceptor>()
 				.GetReference();
 
 			Assert.That(_ctx.GetObject<ICalculator>(proxyRef).Add(3, 5), Is.EqualTo(80));
@@ -135,7 +135,7 @@ namespace Spring.FluentContext.UnitTests
 		{
 			_ctx.RegisterDefault<Calculator>();
 			_ctx.RegisterDefaultProxyFactory<ICalculator>()
-				.TargetingDefaultOfType<Calculator>()
+				.TargetingDefault<Calculator>()
 				.ReturningPrototypes();
 
 			var proxy1 = _ctx.GetObject<ICalculator>();
@@ -145,11 +145,25 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
+		public void Register_proxy_factory_to_return_singleton()
+		{
+			_ctx.RegisterDefault<Calculator>();
+			_ctx.RegisterDefaultProxyFactory<ICalculator>()
+				.TargetingDefault<Calculator>()
+				.ReturningSingleton();
+			
+			var proxy1 = _ctx.GetObject<ICalculator>();
+			var proxy2 = _ctx.GetObject<ICalculator>();
+			
+			Assert.That(proxy1, Is.SameAs(proxy2));
+		}
+
+		[Test]
 		public void Proxy_factory_returns_singleton_by_default()
 		{
 			_ctx.RegisterDefault<Calculator>();
 			_ctx.RegisterDefaultProxyFactory<ICalculator>()
-				.TargetingDefaultOfType<Calculator>();
+				.TargetingDefault<Calculator>();
 			
 			var proxy1 = _ctx.GetObject<ICalculator>();
 			var proxy2 = _ctx.GetObject<ICalculator>();

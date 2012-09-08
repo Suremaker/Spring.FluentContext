@@ -96,19 +96,19 @@ namespace Spring.FluentContext
 			return RegisterNamed<T>(IdGenerator<T>.GetUniqueId());
 		}
 
-		public IProxyFactoryDefinitionBuilder<T> RegisterNamedProxyFactory<T>(string id)
+		public IProxyTargetDefinitionBuildStage<T> RegisterNamedProxyFactory<T>(string id)
 		{
 			var builder = new ProxyFactoryDefinitionBuilder<T>(id);
 			RegisterObjectDefinition(id, builder.Definition);
 			return builder;
 		}
 
-		public IProxyFactoryDefinitionBuilder<T> RegisterDefaultProxyFactory<T>()
+		public IProxyTargetDefinitionBuildStage<T> RegisterDefaultProxyFactory<T>()
 		{
 			return RegisterNamedProxyFactory<T>(IdGenerator<T>.GetDefaultId());
 		}
 
-		public IProxyFactoryDefinitionBuilder<T> RegisterUniquelyNamedProxyFactory<T>()
+		public IProxyTargetDefinitionBuildStage<T> RegisterUniquelyNamedProxyFactory<T>()
 		{
 			return RegisterNamedProxyFactory<T>(IdGenerator<T>.GetUniqueId());
 		}
