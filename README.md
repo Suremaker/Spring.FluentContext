@@ -18,6 +18,10 @@ Implemented API Features:
 	* support for multiple interceptors addition
 	* support for type-safe targeting
 	* support for defining if factory supposed to create proxies as singleton or prototype
+* Object instantiation using:
+	* selected or matching constructor
+	* static factory method
+	* factory object
 * Constructor injection:
 	* with constants
 	* with registered objects
@@ -30,10 +34,10 @@ Implemented API Features:
 * Autowiring
 * Dependency check
 * Getting type-safe references used in further injections
+* Making definition aliases
 
 Not Implemented Features:
 * lazy and non-lazy initialization (now everything is initialized lazily)
-* initialization using factory methods / factory objects
 * classes for easy collection handling like initializing object dependency using a list of other registered objects
 
 Limitations:
