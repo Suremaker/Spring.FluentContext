@@ -32,9 +32,11 @@ Implemented API Features:
 	* with inline object definition
 * Lookup Method injection with registered objects
 * Autowiring
+* Aliasing
+* Indirect dependencies creation (allowing to specify order of objects creation / destruction) 
 * Dependency check
-* Getting type-safe references used in further injections
-* Making definition aliases
+* Type-safe, literal-less references
+
 
 Not Implemented Features:
 * lazy and non-lazy initialization (now everything is initialized lazily)
