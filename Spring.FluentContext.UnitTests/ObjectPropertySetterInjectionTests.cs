@@ -95,7 +95,7 @@ namespace Spring.FluentContext.UnitTests
 		{
 			_ctx.RegisterDefault<DerivedFromSimpleType>();
 			_ctx.RegisterDefault<NestingType>()
-				.BindProperty(n => n.Simple).ToRegisteredDefaultOfType<DerivedFromSimpleType>();
+				.BindProperty(n => n.Simple).ToRegisteredDefaultOf<DerivedFromSimpleType>();
 
 			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.TypeOf<DerivedFromSimpleType>());
 		}

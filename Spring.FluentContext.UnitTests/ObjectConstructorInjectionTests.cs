@@ -162,7 +162,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<DerivedFromNestingType>();
 
 			_ctx.RegisterDefault<CtorHavingType>()
-				.BindConstructorArg<NestingType>().ToRegisteredDefaultOfType<DerivedFromNestingType>();
+				.BindConstructorArg<NestingType>().ToRegisteredDefaultOf<DerivedFromNestingType>();
 
 			var actual = _ctx.GetObject<CtorHavingType>();
 
