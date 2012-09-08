@@ -88,5 +88,33 @@ namespace Spring.FluentContext.UnitTests
 			var expected = _ctx.GetObject<SimpleType>();
 			Assert.That(actual, Is.SameAs(expected));
 		}
+
+		[Test]
+		public void Register_default_using_derived_type()
+		{
+			_ctx.RegisterDefault<Calculator>();
+			_ctx.RegisterDefaultAlias<ICalculator>().ToRegisteredDefault<Calculator>();
+
+			Assert.That(_ctx.GetObject<ICalculator>(), Is.TypeOf<Calculator>());
+		}
+
+		[Test]
+		public void Register_named_using_derived_type()
+		{
+			_ctx.RegisterNamed<Calculator>("impl");
+			_ctx.RegisterNamedAlias<ICalculator>("test").ToRegistered<Calculator>("impl");
+			
+			Assert.That(_ctx.GetObject<ICalculator>("test"), Is.TypeOf<Calculator>());
+		}
+
+		[Test]
+		public void Register_uniquely_named_using_derived_type()
+		{
+			var implRef = _ctx.RegisterUniquelyNamed<Calculator>().GetReference();
+			ObjectRef<ICalculator> reference = _ctx.RegisterUniquelyNamedAlias<ICalculator>().ToRegistered(implRef)
+				.GetReference();
+			
+			Assert.That(_ctx.GetObject(reference), Is.TypeOf<Calculator>());
+		}
 	}
 }

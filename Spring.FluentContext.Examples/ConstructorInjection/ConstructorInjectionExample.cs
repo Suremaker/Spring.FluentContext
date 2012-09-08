@@ -38,11 +38,13 @@ namespace Spring.FluentContext.Examples.ConstructorInjection
 				.BindConstructorArg<string>().ToValue("Kitty");
 
 			ctx.RegisterDefault<PersonWithCat>()
-				.BindConstructorArg<string>().ToValue("Josephine") //binds string type argument to constant value
-				.BindConstructorArg<Cat>().ToRegisteredDefault(); //binds Cat type argument to registered Cat instance
+				.UseConstructor((string name, Cat cat) => new PersonWithCat(name, cat))
+				.BindConstructorArg().ToValue("Josephine") //binds string type argument to constant value
+				.BindConstructorArg().ToRegisteredDefault(); //binds Cat type argument to registered Cat instance
 
 			return ctx;
 		}
+
 		protected override void RunExample(IApplicationContext ctx)
 		{
 			ctx.GetObject<PersonWithCat>().Introduce();

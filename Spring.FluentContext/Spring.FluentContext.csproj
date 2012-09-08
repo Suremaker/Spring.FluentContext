@@ -78,6 +78,8 @@
     <Compile Include="BuildingStages\ILooseCtorDefinitionBuildStage.cs" />
     <Compile Include="Builders\IFactoryMethodDefinitionBuilder.cs" />
     <Compile Include="Impl\FactoryMethodDefinitionBuilder.cs" />
+    <Compile Include="Impl\AliasDefinitionBuilder.cs" />
+    <Compile Include="Builders\IAliasDefinitionBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

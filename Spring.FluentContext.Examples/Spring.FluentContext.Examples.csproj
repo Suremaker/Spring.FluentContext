@@ -111,6 +111,7 @@
     <Compile Include="ProxyFactoryUsage\DisplayingInterceptor.cs" />
     <Compile Include="ProxyFactoryUsage\ICalculator.cs" />
     <Compile Include="ProxyFactoryUsage\ProxyFactoryUsageExample.cs" />
+    <Compile Include="VariousCreationMethods\VariousCreationMethodsExample.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spring.FluentContext\Spring.FluentContext.csproj">
@@ -152,4 +153,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="VariousCreationMethods\" />
+  </ItemGroup>
 </Project>

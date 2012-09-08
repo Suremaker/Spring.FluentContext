@@ -24,13 +24,13 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-
 using Spring.Context;
 using Spring.Context.Support;
 using Spring.FluentContext.BuildingStages;
 using Spring.FluentContext.Impl;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Support;
+using Spring.FluentContext.Builders;
 
 namespace Spring.FluentContext
 {
@@ -39,23 +39,44 @@ namespace Spring.FluentContext
 		public FluentApplicationContext()
 		{
 		}
+
 		public FluentApplicationContext(bool caseSensitive) : base(caseSensitive)
 		{
 		}
+
 		public FluentApplicationContext(DefaultListableObjectFactory objectFactory) : base(objectFactory)
 		{
 		}
+
 		public FluentApplicationContext(IApplicationContext parent) : base(parent)
 		{
 		}
+
 		public FluentApplicationContext(string name, bool caseSensitive, IApplicationContext parent) : base(name, caseSensitive, parent)
 		{
 		}
+
 		public FluentApplicationContext(DefaultListableObjectFactory objectFactory, IApplicationContext parent) : base(objectFactory, parent)
 		{
 		}
+
 		public FluentApplicationContext(string name, bool caseSensitive, IApplicationContext parent, DefaultListableObjectFactory objectFactory) : base(name, caseSensitive, parent, objectFactory)
 		{
+		}
+
+		public IAliasDefinitionBuilder<T> RegisterDefaultAlias<T>()
+		{
+			return RegisterNamedAlias<T>(IdGenerator<T>.GetDefaultId());
+		}
+
+		public IAliasDefinitionBuilder<T> RegisterUniquelyNamedAlias<T>()
+		{
+			return RegisterNamedAlias<T>(IdGenerator<T>.GetUniqueId());
+		}
+
+		public IAliasDefinitionBuilder<T> RegisterNamedAlias<T>(string id)
+		{
+			return new AliasDefinitionBuilder<T>(this, id);
 		}
 
 		public IScopeBuildStage<T> RegisterNamed<T>(string id)
