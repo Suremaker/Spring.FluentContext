@@ -73,11 +73,11 @@
     <Compile Include="Builders\ICtorArgumentDefinitionBuilder.cs" />
     <Compile Include="Impl\CtorArgumentDefinitionBuilder.cs" />
     <Compile Include="Impl\CtorDefinitionBuilder.cs" />
-    <Compile Include="e:\code\Spring.FluentContext\Spring.FluentContext\Impl\IDefinitionHolder.cs" />
+    <Compile Include="Builders\IDefinitionHolder.cs" />
     <Compile Include="BuildingStages\ICtorDefinitionBuildStage.cs" />
     <Compile Include="BuildingStages\ILooseCtorDefinitionBuildStage.cs" />
     <Compile Include="Builders\IFactoryMethodDefinitionBuilder.cs" />
-    <Compile Include="e:\code\Spring.FluentContext\Spring.FluentContext\Impl\FactoryMethodDefinitionBuilder.cs" />
+    <Compile Include="Impl\FactoryMethodDefinitionBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
