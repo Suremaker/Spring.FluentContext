@@ -1,6 +1,6 @@
-﻿//
+//
 //  Author:
-//    Wojciech Kotlarski
+//    Wojciech Kotlarski wojciech.kotlarski@gmail.com
 //
 //  Copyright (c) 2012, Wojciech Kotlarski
 //
@@ -25,12 +25,23 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext.UnitTests.TestTypes
 {
-	public interface IScopeBuildStage<TObject> : IExternalDependencyBuildStage<TObject>
-	{
-		IExternalDependencyBuildStage<TObject> AsPrototype();
 
-		IExternalDependencyBuildStage<TObject> AsSingleton();	
+	public class OtherCountingType
+	{
+		public OtherCountingType()
+		{
+			CurrentCount = ++Count;
+		}
+		
+		public int CurrentCount { get; private set; }
+		
+		public static int Count { get; private set; }
+		
+		public static void ClearCounter()
+		{
+			Count = 0;
+		}
 	}
 }

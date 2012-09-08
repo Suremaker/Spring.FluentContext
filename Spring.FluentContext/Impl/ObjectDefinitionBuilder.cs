@@ -31,6 +31,7 @@ using Spring.FluentContext.BuildingStages;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Support;
 using Spring.Objects.Factory.Config;
+using System.Linq;
 
 namespace Spring.FluentContext.Impl
 {
@@ -50,16 +51,32 @@ namespace Spring.FluentContext.Impl
 			get { return _definition; }
 		}
 
-		public IInstantiationBuildStage<TObject> AsPrototype()
+		public IExternalDependencyBuildStage<TObject> AsPrototype()
 		{
 			_definition.IsSingleton = false;
 			return this;
 		}
 
-		public IInstantiationBuildStage<TObject> AsSingleton()
+		public IExternalDependencyBuildStage<TObject> AsSingleton()
 		{
 			_definition.IsSingleton = true;
 			return this;
+		}
+
+		public IExternalDependencyBuildStage<TObject> DependingOnDefault<TOtherObject>()
+		{
+			return DependingOn<TOtherObject>(IdGenerator<TOtherObject>.GetDefaultId());
+		}
+
+		public IExternalDependencyBuildStage<TObject> DependingOn<TOtherObject>(string objectId)
+		{
+			_definition.DependsOn = _definition.DependsOn.AsEnumerable().Union(Enumerable.Repeat(objectId, 1)).ToArray();
+			return this;
+		}
+
+		public IExternalDependencyBuildStage<TObject> DependingOn<TOtherObject>(ObjectRef<TOtherObject> reference)
+		{
+			return DependingOn<TOtherObject>(reference.Id);
 		}
 
 		public IConfigurationBuildStage<TObject> Autowire()

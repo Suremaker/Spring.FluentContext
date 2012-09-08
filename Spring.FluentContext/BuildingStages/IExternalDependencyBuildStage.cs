@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -27,10 +27,11 @@
 
 namespace Spring.FluentContext.BuildingStages
 {
-	public interface IScopeBuildStage<TObject> : IExternalDependencyBuildStage<TObject>
-	{
-		IExternalDependencyBuildStage<TObject> AsPrototype();
 
-		IExternalDependencyBuildStage<TObject> AsSingleton();	
+	public interface IExternalDependencyBuildStage<TObject> : IInstantiationBuildStage<TObject>
+	{
+		IExternalDependencyBuildStage<TObject> DependingOnDefault<TOtherObject>();
+		IExternalDependencyBuildStage<TObject> DependingOn<TOtherObject>(string objectId);
+		IExternalDependencyBuildStage<TObject> DependingOn<TOtherObject>(ObjectRef<TOtherObject> reference);
 	}
 }

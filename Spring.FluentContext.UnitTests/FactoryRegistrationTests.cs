@@ -38,6 +38,8 @@ namespace Spring.FluentContext.UnitTests
 		public void SetUp()
 		{
 			_ctx = new FluentApplicationContext();
+			CountingType.ClearCounter();
+			OtherCountingType.ClearCounter();
 		}
 
 		[Test]
@@ -153,6 +155,61 @@ namespace Spring.FluentContext.UnitTests
 			var proxy2 = _ctx.GetObject<ICalculator>();
 			
 			Assert.That(proxy1, Is.SameAs(proxy2));
+		}
+
+		[Test]
+		public void Specify_dependency_on_default_object()
+		{
+			_ctx.RegisterDefault<CountingType>();
+
+			_ctx.RegisterDefault<SimpleType>()
+				.DependingOnDefault<CountingType>();
+
+			_ctx.GetObject<SimpleType>();
+			Assert.That(CountingType.Count, Is.EqualTo(1));
+		}
+
+		[Test]
+		public void Specify_dependency_on_named_object()
+		{
+			_ctx.RegisterNamed<CountingType>("counting");
+
+			_ctx.RegisterDefault<SimpleType>()
+				.DependingOn<CountingType>("counting");
+			
+			_ctx.GetObject<SimpleType>();
+			Assert.That(CountingType.Count, Is.EqualTo(1));
+		}
+
+		[Test]
+		public void Specify_dependency_on_uniquely_named_object()
+		{
+			var reference = _ctx.RegisterUniquelyNamed<CountingType>().GetReference();
+			
+			_ctx.RegisterDefault<SimpleType>()
+				.DependingOn<CountingType>(reference);
+			
+			_ctx.GetObject<SimpleType>();
+			Assert.That(CountingType.Count, Is.EqualTo(1));
+		}
+
+		[Test]
+		public void Specify_multiple_dependencies()
+		{
+			_ctx.RegisterDefault<CountingType>();
+			_ctx.RegisterDefault<OtherCountingType>();
+			
+			_ctx.RegisterDefault<SimpleType>()
+				.DependingOnDefault<CountingType>()
+				.DependingOnDefault<OtherCountingType>();
+
+			Assert.That(CountingType.Count, Is.EqualTo(0));
+			Assert.That(OtherCountingType.Count, Is.EqualTo(0));
+
+			_ctx.GetObject<SimpleType>();
+
+			Assert.That(CountingType.Count, Is.EqualTo(1));
+			Assert.That(OtherCountingType.Count, Is.EqualTo(1));
 		}
 	}
 }

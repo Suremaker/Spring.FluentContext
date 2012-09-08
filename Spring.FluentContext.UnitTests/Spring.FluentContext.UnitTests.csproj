@@ -80,6 +80,7 @@
     <Compile Include="ObjectScopeTests.cs" />
     <Compile Include="ObjectFactoryMethodTests.cs" />
     <Compile Include="TestTypes\ComplexTypeFactory.cs" />
+    <Compile Include="TestTypes\OtherCountingType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
