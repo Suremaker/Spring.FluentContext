@@ -116,5 +116,32 @@ namespace Spring.FluentContext.UnitTests
 			
 			Assert.That(_ctx.GetObject(reference), Is.TypeOf<Calculator>());
 		}
+
+		[Test]
+		public void Register_named_singleton()
+		{
+			SimpleType type = new SimpleType();
+			_ctx.RegisterNamedSingleton("test", type);
+
+			Assert.That(_ctx.GetObject<SimpleType>("test"), Is.SameAs(type));
+		}
+
+		[Test]
+		public void Register_default_singleton()
+		{
+			SimpleType type = new SimpleType();
+			_ctx.RegisterDefaultSingleton(type);
+			
+			Assert.That(_ctx.GetObject<SimpleType>(), Is.SameAs(type));
+		}
+
+		[Test]
+		public void Register_uniquely_named_singleton()
+		{
+			SimpleType type = new SimpleType();
+			var reference = _ctx.RegisterUniquelyNamedSingleton(type);
+			
+			Assert.That(_ctx.GetObject(reference), Is.SameAs(type));
+		}
 	}
 }

@@ -112,5 +112,21 @@ namespace Spring.FluentContext
 		{
 			return RegisterNamedProxyFactory<T>(IdGenerator<T>.GetUniqueId());
 		}
+
+		public ObjectRef<T> RegisterNamedSingleton<T>(string id, T instance)
+		{
+			ObjectFactory.RegisterSingleton(id, instance);
+			return new ObjectRef<T>(id);
+		}
+
+		public ObjectRef<T> RegisterDefaultSingleton<T>(T instance)
+		{
+			return RegisterNamedSingleton(IdGenerator<T>.GetDefaultId(), instance);
+		}
+
+		public ObjectRef<T> RegisterUniquelyNamedSingleton<T>(T instance)
+		{
+			return RegisterNamedSingleton(IdGenerator<T>.GetUniqueId(), instance);
+		}
 	}
 }
