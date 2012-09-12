@@ -45,12 +45,12 @@ namespace Spring.FluentContext.Examples.AdvancedLookupMethodInjection
 			ctx.RegisterDefault<Barn>()
 				.AsPrototype();
 
-			ctx.RegisterDefault<Pigstry>()
-				.AsSingleton(); //The Pigstry is registered as singleton, so every request returns the same instance (what is visible on second RunFarm())
+			ctx.RegisterDefault<Pigsty>()
+				.AsSingleton(); //The Pigsty is registered as singleton, so every request returns the same instance (what is visible on second RunFarm())
 
 			ctx.RegisterNamed<Farm>("pigFarm")
 				.BindLookupMethod(f => f.CreateAnimal()).ToRegisteredDefaultOf<Pig>()
-				.BindLookupMethod(f => f.CreateShelter()).ToRegisteredDefaultOf<Pigstry>();
+				.BindLookupMethod(f => f.CreateShelter()).ToRegisteredDefaultOf<Pigsty>();
 
 			ctx.RegisterNamed<Farm>("cowFarm")
 				.BindLookupMethod(f => f.CreateAnimal()).ToRegisteredDefaultOf<Cow>()
