@@ -18,6 +18,7 @@ Implemented API Features:
 	* support for multiple interceptors addition
 	* support for type-safe targeting
 	* support for defining if factory supposed to create proxies as singleton or prototype
+* Registration of existing singleton instances with specified, default or unique id
 * Object instantiation using:
 	* selected or matching constructor
 	* static factory method
