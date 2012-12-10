@@ -25,14 +25,16 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+using AopAlliance.Aop;
+
 namespace Spring.FluentContext.BuildingStages
 {
 	public interface IProxyInterceptorDefinitionBuildStage<TObject>: IReferencingStage<TObject>
 	{
 		IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy(string objectId);
 
-		IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy<TInterceptorType>(ObjectRef<TInterceptorType> reference);
+        IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy<TInterceptorType>(ObjectRef<TInterceptorType> reference) where TInterceptorType : IAdvice;
 
-		IProxyInterceptorDefinitionBuildStage<TObject> InterceptedByDefault<TInterceptorType>();
+        IProxyInterceptorDefinitionBuildStage<TObject> InterceptedByDefault<TInterceptorType>() where TInterceptorType : IAdvice;
 	}
 }

@@ -26,6 +26,7 @@
 //
 
 using System.Collections.Generic;
+using AopAlliance.Aop;
 using Spring.Aop.Framework;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Config;
@@ -79,12 +80,12 @@ namespace Spring.FluentContext.Impl
 			return this;
 		}
 
-		public IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy<TInterceptorType>(ObjectRef<TInterceptorType> reference)
+        public IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy<TInterceptorType>(ObjectRef<TInterceptorType> reference) where TInterceptorType : IAdvice
 		{
 			return InterceptedBy(reference.Id);
 		}
 
-		public IProxyInterceptorDefinitionBuildStage<TObject> InterceptedByDefault<TInterceptorType>()
+        public IProxyInterceptorDefinitionBuildStage<TObject> InterceptedByDefault<TInterceptorType>() where TInterceptorType : IAdvice
 		{
 			return InterceptedBy(IdGenerator<TInterceptorType>.GetDefaultId());
 		}
