@@ -32,7 +32,7 @@ namespace Spring.FluentContext.Impl
 {
 	internal class FactoryMethodDefinitionBuilder<TFactory,TObject> : IFactoryMethodDefinitionBuilder<TFactory,TObject>
 	{
-		private ObjectDefinitionBuilder<TObject> _builder;
+		private readonly ObjectDefinitionBuilder<TObject> _builder;
 
 		public FactoryMethodDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
 		{

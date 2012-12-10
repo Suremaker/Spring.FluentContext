@@ -30,11 +30,11 @@ using Spring.FluentContext.BuildingStages;
 
 namespace Spring.FluentContext.Impl
 {
-	internal class GenericCtorDefinitionBuilder<TBuilder, TObject, TArgument>
+	internal class GenericCtorDefinitionBuilder<TBuilder, TArgument>
 	{
-		public IDefinitionHolder Holder { get; set; }
+		protected IDefinitionHolder Holder { private get; set; }
 
-		public TBuilder Builder { get; set; }
+		protected TBuilder Builder { private get; set; }
 
 		public ICtorArgumentDefinitionBuilder<TBuilder, TArgument> BindConstructorArg()
 		{
@@ -43,7 +43,7 @@ namespace Spring.FluentContext.Impl
 	}
 
 	internal class CtorDefinitionBuilder<TObject, TArg> 
-		: GenericCtorDefinitionBuilder<IAutoConfigurationBuildStage<TObject>,TObject, TArg>, 
+		: GenericCtorDefinitionBuilder<IAutoConfigurationBuildStage<TObject>, TArg>, 
 		ICtorDefinitionBuildStage<TObject, TArg>
 	{
 		public CtorDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
@@ -54,7 +54,7 @@ namespace Spring.FluentContext.Impl
 	}
 
 	internal class CtorDefinitionBuilder<TObject, TArg1, TArg2> 
-		: GenericCtorDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2>, TObject, TArg1>, 
+		: GenericCtorDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2>, TArg1>, 
 		ICtorDefinitionBuildStage<TObject, TArg1, TArg2>
 	{
 		public CtorDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
@@ -65,7 +65,7 @@ namespace Spring.FluentContext.Impl
 	}
 
 	internal class CtorDefinitionBuilder<TObject, TArg1, TArg2, TArg3> 
-		: GenericCtorDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2, TArg3>, TObject, TArg1>, 
+		: GenericCtorDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2, TArg3>, TArg1>, 
 		ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3>
 	{
 		public CtorDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
@@ -76,7 +76,7 @@ namespace Spring.FluentContext.Impl
 	}
 
 	internal class CtorDefinitionBuilder<TObject, TArg1, TArg2, TArg3, TArg4> 
-		: GenericCtorDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2, TArg3, TArg4>, TObject, TArg1>, 
+		: GenericCtorDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2, TArg3, TArg4>, TArg1>, 
 		ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3, TArg4>
 	{
 		public CtorDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)

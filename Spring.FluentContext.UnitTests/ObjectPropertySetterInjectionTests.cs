@@ -118,7 +118,8 @@ namespace Spring.FluentContext.UnitTests
 			const string expectedText = "some text";
 
 			_ctx.RegisterNamed<NestingType>("nesting")
-				.BindProperty(n => n.Simple).ToInlineDefinition<SimpleType>(
+				.BindProperty(n => n.Simple)
+				.ToInlineDefinition<SimpleType>(
 					def => def.BindProperty(s => s.Text).ToValue(expectedText));
 
 			var actual = _ctx.GetObject<NestingType>("nesting");

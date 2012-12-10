@@ -36,7 +36,7 @@ namespace Spring.FluentContext
 
 		public string Id { get; private set; }
 
-		protected bool Equals(ObjectRef<T> other)
+		private bool Equals(ObjectRef<T> other)
 		{
 			return string.Equals(Id, other.Id);
 		}

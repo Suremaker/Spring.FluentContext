@@ -34,8 +34,8 @@ namespace Spring.FluentContext.Impl
 {
 	internal class AliasDefinitionBuilder<TObject> : IAliasDefinitionBuilder<TObject>, IReferencingStage<TObject>
 	{
-		private string _alias;
-		private GenericApplicationContext _ctx;
+		private readonly string _alias;
+		private readonly GenericApplicationContext _ctx;
 
 		public AliasDefinitionBuilder(GenericApplicationContext ctx, string alias)
 		{

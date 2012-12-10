@@ -127,7 +127,7 @@ namespace Spring.FluentContext.UnitTests
 				.InterceptedByDefault<MultiplingInterceptor>()
 				.GetReference();
 
-			Assert.That(_ctx.GetObject<ICalculator>(proxyRef).Add(3, 5), Is.EqualTo(80));
+			Assert.That(_ctx.GetObject(proxyRef).Add(3, 5), Is.EqualTo(80));
 		}
 
 		[Test]

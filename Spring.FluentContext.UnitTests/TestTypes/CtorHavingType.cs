@@ -36,19 +36,23 @@ namespace Spring.FluentContext.UnitTests.TestTypes
 
 		public double OtherValue { get; private set; }
 
-		public CtorHavingType(string text) : this(null, text, 0)
+		public CtorHavingType(string text)
+			: this(null, text, 0)
 		{
 		}
 
-		public CtorHavingType(string text, int value) : this(null,text,value)
+		public CtorHavingType(string text, int value)
+			: this(null, text, value)
 		{
 		}
 
-		public CtorHavingType(NestingType nesting) : this(nesting,null,0)
+		public CtorHavingType(NestingType nesting)
+			: this(nesting, null, 0)
 		{
 		}
 
-		public CtorHavingType(NestingType nesting, string text, int value) : this(nesting, text, value, 0.0)
+		public CtorHavingType(NestingType nesting, string text, int value)
+			: this(nesting, text, value, 0.0)
 		{
 		}
 
