@@ -3,8 +3,8 @@ Spring.FluentContext
 
 Allows creating Spring.NET IoC container from code using fluent way:
 * without XML
-* without literals (while it is also possible)
-* without any static classes or objects (it is possible to create as many context as are needed)
+* without literals (while it is also possible to use them)
+* without any static classes or objects (it is possible to create as many contexts as are needed)
 * with type-safe injections
 * with possibility to integrate with other contexts (like XML ones) using hierarchical context construction
 
