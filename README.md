@@ -13,6 +13,11 @@ It is possible to download package using [NuGet](http://nuget.org): `PM> Install
 
 or compile from sources available on Git: `git clone git://github.com/Suremaker/Spring.FluentContext.git`
 
+## Examples and help
+* The project documentation is available on [Wiki](wiki) page.
+* Solution contains also [Spring.FluentContext.Examples](tree/master/Spring.FluentContext.Examples) project presenting usage of major features.
+* All implemented features contains unit tests which shows also how to use them.
+
 ## Implemented API Features
 * Registration of objects:
 	* with specified id
@@ -50,8 +55,3 @@ or compile from sources available on Git: `git clone git://github.com/Suremaker/
 
 ## Limitations
 * it is not possible to use lambda expressions to point protected methods or properties with non-public getters, that is why API allows also to use literals.
-
-## Examples and help
-* Solution contains Spring.FluentContext.Examples presenting usage of implemented features
-* All implemented features contains also unit tests which shows also its usage
-* Please also see the wiki page for details how to use this project
