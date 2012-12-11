@@ -26,13 +26,13 @@
 //
 
 using Spring.Context.Support;
-using Spring.FluentContext.Builders;
 using Spring.FluentContext.BuildingStages;
+using Spring.FluentContext.BuildingStages.Aliases;
 using Spring.FluentContext.Utils;
 
 namespace Spring.FluentContext.Impl
 {
-	internal class AliasDefinitionBuilder<TObject> : IAliasDefinitionBuilder<TObject>, IReferencingStage<TObject>
+	internal class AliasDefinitionBuilder<TObject> : IAliasLinkingBuildStage<TObject>, IReferencingStage<TObject>
 	{
 		private readonly string _alias;
 		private readonly GenericApplicationContext _ctx;

@@ -30,6 +30,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Spring.FluentContext.Builders;
 using Spring.FluentContext.BuildingStages;
+using Spring.FluentContext.BuildingStages.Objects;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Config;
 using Spring.Objects.Factory.Support;

@@ -24,14 +24,12 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-namespace Spring.FluentContext.BuildingStages
-{
-	public interface IProxyTargetDefinitionBuildStage<TObject>
+
+namespace Spring.FluentContext.BuildingStages.ProxyFactories
+{	
+	public interface IProxyInstantiationDefinitionBuildStage<TObject> : IProxyInterceptorDefinitionBuildStage<TObject>
 	{
-		IProxyInstantiationDefinitionBuildStage<TObject> Targeting(string objectId);
-
-		IProxyInstantiationDefinitionBuildStage<TObject> TargetingDefault<TReferencedType>() where TReferencedType : TObject;
-
-		IProxyInstantiationDefinitionBuildStage<TObject> Targeting<TReferencedType>(ObjectRef<TReferencedType> reference) where TReferencedType : TObject;
-	}
+		IProxyInterceptorDefinitionBuildStage<TObject> ReturningPrototypes();
+		IProxyInterceptorDefinitionBuildStage<TObject> ReturningSingleton();
+	}	
 }

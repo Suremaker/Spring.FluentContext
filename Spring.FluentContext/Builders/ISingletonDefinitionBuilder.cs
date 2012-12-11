@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -25,12 +25,12 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext.Builders
 {
-	public interface IScopeBuildStage<TObject> : IIndirectDependencyBuildStage<TObject>
+	public interface ISingletonDefinitionBuilder
 	{
-		IIndirectDependencyBuildStage<TObject> AsPrototype();
-
-		IIndirectDependencyBuildStage<TObject> AsSingleton();	
+		ObjectRef<T> RegisterNamedSingleton<T>(string id, T instance);
+		ObjectRef<T> RegisterDefaultSingleton<T>(T instance);
+		ObjectRef<T> RegisterUniquelyNamedSingleton<T>(T instance);
 	}
 }

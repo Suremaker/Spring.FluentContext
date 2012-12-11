@@ -1,4 +1,4 @@
-//
+﻿//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -25,13 +25,13 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-namespace Spring.FluentContext.BuildingStages
-{
+using Spring.Objects.Factory.Config;
 
-	public interface IIndirectDependencyBuildStage<TObject> : IInstantiationBuildStage<TObject>
+namespace Spring.FluentContext.BuildingStages.Objects
+{
+	public interface IAutoConfigurationBuildStage<TObject> : IObjectConfigurationBuildStage<TObject>
 	{
-		IIndirectDependencyBuildStage<TObject> DependingOnDefault<TOtherObject>();
-		IIndirectDependencyBuildStage<TObject> DependingOn<TOtherObject>(string objectId);
-		IIndirectDependencyBuildStage<TObject> DependingOn<TOtherObject>(ObjectRef<TOtherObject> reference);
+		IObjectConfigurationBuildStage<TObject> Autowire();
+		IObjectConfigurationBuildStage<TObject> Autowire(AutoWiringMode mode);
 	}
 }

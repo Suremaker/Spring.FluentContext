@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -25,13 +25,13 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using Spring.Objects.Factory.Config;
+using Spring.Objects.Factory.Support;
 
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext.BuildingStages.Objects
 {
-	public interface IAutoConfigurationBuildStage<TObject> : IObjectConfigurationBuildStage<TObject>
+	public interface IValidationBuildStage<TObject> : IReferencingStage<TObject>
 	{
-		IObjectConfigurationBuildStage<TObject> Autowire();
-		IObjectConfigurationBuildStage<TObject> Autowire(AutoWiringMode mode);
+		IReferencingStage<TObject> CheckDependencies();
+		IReferencingStage<TObject> CheckDependencies(DependencyCheckingMode mode);
 	}
 }

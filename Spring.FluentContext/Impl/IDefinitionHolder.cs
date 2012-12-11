@@ -25,14 +25,13 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using Spring.FluentContext.Builders;
+using Spring.Objects.Factory.Support;
 
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext.Impl
 {
-
-	public interface ILooseCtorDefinitionBuildStage<TObject> : IMethodConfigurationBuildStage<TObject>
+	internal interface IDefinitionHolder
 	{
-		ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>(int argIndex);
-		ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>();
+		GenericObjectDefinition Definition { get; }
 	}
+
 }

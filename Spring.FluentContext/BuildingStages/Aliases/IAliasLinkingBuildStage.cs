@@ -25,16 +25,15 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using AopAlliance.Aop;
-
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext.BuildingStages.Aliases
 {
-	public interface IProxyInterceptorDefinitionBuildStage<TObject>: IReferencingStage<TObject>
-	{
-		IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy(string objectId);
-
-        IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy<TInterceptorType>(ObjectRef<TInterceptorType> reference) where TInterceptorType : IAdvice;
-
-        IProxyInterceptorDefinitionBuildStage<TObject> InterceptedByDefault<TInterceptorType>() where TInterceptorType : IAdvice;
+	public interface IAliasBuilder<TObject> {
+		IReferencingStage<TObject> ToRegisteredDefault<TDerived>() where TDerived : TObject;
+		IReferencingStage<TObject> ToRegistered<TDerived>(string objectId) where TDerived : TObject;
+		IReferencingStage<TObject> ToRegistered<TDerived>(ObjectRef<TDerived> reference) where TDerived : TObject;
 	}
+
+	public interface IAliasLinkingBuildStage<TObject> : IAliasBuilder<TObject>
+	{}
+
 }

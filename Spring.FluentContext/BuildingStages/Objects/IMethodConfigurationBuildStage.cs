@@ -1,4 +1,4 @@
-//
+﻿//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -27,13 +27,13 @@
 
 using System;
 using System.Linq.Expressions;
+using Spring.FluentContext.Builders;
 
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext.BuildingStages.Objects
 {
-
-	public interface IInitBehaviorBuildStage<TObject> : IDestroyBehaviorBuildStage<TObject>
+	public interface IMethodConfigurationBuildStage<TObject> : IAutoConfigurationBuildStage<TObject>
 	{
-		IDestroyBehaviorBuildStage<TObject> CallOnInit(Expression<Action<TObject>> initMethodSelector);
+		ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethod<TResult>(Expression<Func<TObject, TResult>> methodSelector);
+		ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethodNamed<TResult>(string methodName);
 	}
-
 }

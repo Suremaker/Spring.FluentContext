@@ -28,7 +28,7 @@
 using System.Collections.Generic;
 using AopAlliance.Aop;
 using Spring.Aop.Framework;
-using Spring.FluentContext.BuildingStages;
+using Spring.FluentContext.BuildingStages.ProxyFactories;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Config;
 

@@ -1,4 +1,4 @@
-//
+﻿//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -25,35 +25,24 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+using System;
+using System.Linq.Expressions;
 using Spring.FluentContext.Builders;
-using Spring.FluentContext.BuildingStages.Objects;
-using Spring.FluentContext.Utils;
 
-namespace Spring.FluentContext.Impl
+namespace Spring.FluentContext.BuildingStages.Objects
 {
-	internal class FactoryMethodDefinitionBuilder<TFactory,TObject> : IFactoryMethodDefinitionBuilder<TFactory,TObject>
+	public interface IInstantiationBuildStage<TObject> : ILooseCtorDefinitionBuildStage<TObject>
 	{
-		private readonly ObjectDefinitionBuilder<TObject> _builder;
+		IAutoConfigurationBuildStage<TObject> UseStaticFactoryMethod(Func<TObject> factoryMethodSelector);
 
-		public FactoryMethodDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
-		{
-			_builder = builder;
-		}
+		IFactoryMethodDefinitionBuilder<TFactory, TObject> UseFactoryMethod<TFactory>(Expression<Func<TFactory,TObject>> factoryMethodSelector);
 
-		public IAutoConfigurationBuildStage<TObject> OfRegisteredDefault()
-		{
-			return OfRegistered(IdGenerator<TFactory>.GetDefaultId());
-		}
+		ICtorDefinitionBuildStage<TObject, TArg> UseConstructor<TArg>(Func<TArg,TObject> constructorSelector);
 
-		public IAutoConfigurationBuildStage<TObject> OfRegistered(string objectId)
-		{
-			_builder.Definition.FactoryObjectName = objectId;
-			return _builder;
-		}
+		ICtorDefinitionBuildStage<TObject, TArg1, TArg2> UseConstructor<TArg1,TArg2>(Func<TArg1,TArg2,TObject> constructorSelector);
 
-		public IAutoConfigurationBuildStage<TObject> OfRegistered(ObjectRef<TFactory> reference)
-		{
-			return OfRegistered(reference.Id);
-		}
+		ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3> UseConstructor<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,TObject> constructorSelector);
+
+		ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3, TArg4> UseConstructor<TArg1,TArg2,TArg3,TArg4>(Func<TArg1,TArg2,TArg3,TArg4,TObject> constructorSelector);
 	}
 }

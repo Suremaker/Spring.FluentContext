@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -25,15 +25,16 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using System;
-using System.Linq.Expressions;
-using Spring.FluentContext.Builders;
+using AopAlliance.Aop;
 
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext.BuildingStages.ProxyFactories
 {
-	public interface IObjectConfigurationBuildStage<TObject> : IInitBehaviorBuildStage<TObject>
+	public interface IProxyInterceptorDefinitionBuildStage<TObject>: IReferencingStage<TObject>
 	{
-		IPropertyDefinitionBuilder<TObject, TProperty> BindProperty<TProperty>(Expression<Func<TObject, TProperty>> propertySelector);
-		IPropertyDefinitionBuilder<TObject, TProperty> BindPropertyNamed<TProperty>(string propertyName);		
+		IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy(string objectId);
+
+        IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy<TInterceptorType>(ObjectRef<TInterceptorType> reference) where TInterceptorType : IAdvice;
+
+        IProxyInterceptorDefinitionBuildStage<TObject> InterceptedByDefault<TInterceptorType>() where TInterceptorType : IAdvice;
 	}
 }

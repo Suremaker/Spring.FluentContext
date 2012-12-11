@@ -25,14 +25,14 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using System;
-using System.Linq.Expressions;
+using Spring.FluentContext.BuildingStages.ProxyFactories;
 
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext.Builders
 {
-
-	public interface IDestroyBehaviorBuildStage<TObject> : IValidationBuildStage<TObject>
+	public interface IProxyFactoryDefinitionBuilder
 	{
-		IValidationBuildStage<TObject> CallOnDestroy(Expression<Action<TObject>> destroyMethodSelector);
+		IProxyTargetDefinitionBuildStage<T> RegisterNamedProxyFactory<T>(string id);
+		IProxyTargetDefinitionBuildStage<T> RegisterDefaultProxyFactory<T>();
+		IProxyTargetDefinitionBuildStage<T> RegisterUniquelyNamedProxyFactory<T>();
 	}
 }

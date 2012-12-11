@@ -25,13 +25,14 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using Spring.Objects.Factory.Support;
-
-namespace Spring.FluentContext.Builders
+namespace Spring.FluentContext.BuildingStages.ProxyFactories
 {
-	public interface IDefinitionHolder
+	public interface IProxyTargetDefinitionBuildStage<TObject>
 	{
-		GenericObjectDefinition Definition { get; }
-	}
+		IProxyInstantiationDefinitionBuildStage<TObject> Targeting(string objectId);
 
+		IProxyInstantiationDefinitionBuildStage<TObject> TargetingDefault<TReferencedType>() where TReferencedType : TObject;
+
+		IProxyInstantiationDefinitionBuildStage<TObject> Targeting<TReferencedType>(ObjectRef<TReferencedType> reference) where TReferencedType : TObject;
+	}
 }

@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -25,15 +25,14 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using System;
-using System.Linq.Expressions;
 using Spring.FluentContext.Builders;
 
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext.BuildingStages.Objects
 {
-	public interface IMethodConfigurationBuildStage<TObject> : IAutoConfigurationBuildStage<TObject>
+
+	public interface ILooseCtorDefinitionBuildStage<TObject> : IMethodConfigurationBuildStage<TObject>
 	{
-		ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethod<TResult>(Expression<Func<TObject, TResult>> methodSelector);
-		ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethodNamed<TResult>(string methodName);
+		ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>(int argIndex);
+		ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>();
 	}
 }

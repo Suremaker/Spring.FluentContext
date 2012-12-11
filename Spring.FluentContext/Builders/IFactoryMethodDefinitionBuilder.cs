@@ -25,7 +25,7 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using Spring.FluentContext.BuildingStages;
+using Spring.FluentContext.BuildingStages.Objects;
 
 namespace Spring.FluentContext.Builders
 {

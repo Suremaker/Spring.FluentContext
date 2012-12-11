@@ -1,4 +1,4 @@
-//
+﻿//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -25,35 +25,15 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+using System;
+using System.Linq.Expressions;
 using Spring.FluentContext.Builders;
-using Spring.FluentContext.BuildingStages.Objects;
-using Spring.FluentContext.Utils;
 
-namespace Spring.FluentContext.Impl
+namespace Spring.FluentContext.BuildingStages.Objects
 {
-	internal class FactoryMethodDefinitionBuilder<TFactory,TObject> : IFactoryMethodDefinitionBuilder<TFactory,TObject>
+	public interface IObjectConfigurationBuildStage<TObject> : IInitBehaviorBuildStage<TObject>
 	{
-		private readonly ObjectDefinitionBuilder<TObject> _builder;
-
-		public FactoryMethodDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
-		{
-			_builder = builder;
-		}
-
-		public IAutoConfigurationBuildStage<TObject> OfRegisteredDefault()
-		{
-			return OfRegistered(IdGenerator<TFactory>.GetDefaultId());
-		}
-
-		public IAutoConfigurationBuildStage<TObject> OfRegistered(string objectId)
-		{
-			_builder.Definition.FactoryObjectName = objectId;
-			return _builder;
-		}
-
-		public IAutoConfigurationBuildStage<TObject> OfRegistered(ObjectRef<TFactory> reference)
-		{
-			return OfRegistered(reference.Id);
-		}
+		IPropertyDefinitionBuilder<TObject, TProperty> BindProperty<TProperty>(Expression<Func<TObject, TProperty>> propertySelector);
+		IPropertyDefinitionBuilder<TObject, TProperty> BindPropertyNamed<TProperty>(string propertyName);		
 	}
 }

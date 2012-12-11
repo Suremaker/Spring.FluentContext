@@ -25,35 +25,13 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using Spring.FluentContext.Builders;
-using Spring.FluentContext.BuildingStages.Objects;
-using Spring.FluentContext.Utils;
-
-namespace Spring.FluentContext.Impl
+namespace Spring.FluentContext.BuildingStages.Objects
 {
-	internal class FactoryMethodDefinitionBuilder<TFactory,TObject> : IFactoryMethodDefinitionBuilder<TFactory,TObject>
+
+	public interface IIndirectDependencyBuildStage<TObject> : IInstantiationBuildStage<TObject>
 	{
-		private readonly ObjectDefinitionBuilder<TObject> _builder;
-
-		public FactoryMethodDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
-		{
-			_builder = builder;
-		}
-
-		public IAutoConfigurationBuildStage<TObject> OfRegisteredDefault()
-		{
-			return OfRegistered(IdGenerator<TFactory>.GetDefaultId());
-		}
-
-		public IAutoConfigurationBuildStage<TObject> OfRegistered(string objectId)
-		{
-			_builder.Definition.FactoryObjectName = objectId;
-			return _builder;
-		}
-
-		public IAutoConfigurationBuildStage<TObject> OfRegistered(ObjectRef<TFactory> reference)
-		{
-			return OfRegistered(reference.Id);
-		}
+		IIndirectDependencyBuildStage<TObject> DependingOnDefault<TOtherObject>();
+		IIndirectDependencyBuildStage<TObject> DependingOn<TOtherObject>(string objectId);
+		IIndirectDependencyBuildStage<TObject> DependingOn<TOtherObject>(ObjectRef<TOtherObject> reference);
 	}
 }

@@ -25,17 +25,14 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using Spring.FluentContext.BuildingStages;
+using Spring.FluentContext.BuildingStages.Aliases;
 
 namespace Spring.FluentContext.Builders
 {
-	public interface IAliasDefinitionBuilder<TObject>
+	public interface IAliasDefinitionBuilder
 	{
-		IReferencingStage<TObject> ToRegisteredDefault<TDerived>() where TDerived : TObject;
-
-		IReferencingStage<TObject> ToRegistered<TDerived>(string objectId) where TDerived : TObject;
-
-		IReferencingStage<TObject> ToRegistered<TDerived>(ObjectRef<TDerived> reference) where TDerived : TObject;
+		IAliasLinkingBuildStage<T> RegisterDefaultAlias<T>();
+		IAliasLinkingBuildStage<T> RegisterUniquelyNamedAlias<T>();
+		IAliasLinkingBuildStage<T> RegisterNamedAlias<T>(string id);
 	}
-
 }

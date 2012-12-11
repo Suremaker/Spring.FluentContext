@@ -37,7 +37,7 @@ namespace Spring.FluentContext.UnitTests
 	{
 		[Test]
 		public void Get_named_object()
-		{
+		{			
 			var ctx = new StaticApplicationContext();
 			ctx.ObjectFactory.RegisterSingleton("test", new SimpleType());
 

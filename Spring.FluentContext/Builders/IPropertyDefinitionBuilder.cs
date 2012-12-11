@@ -26,7 +26,7 @@
 //
 
 using Spring.FluentContext.Binders;
-using Spring.FluentContext.BuildingStages;
+using Spring.FluentContext.BuildingStages.Objects;
 
 namespace Spring.FluentContext.Builders
 {

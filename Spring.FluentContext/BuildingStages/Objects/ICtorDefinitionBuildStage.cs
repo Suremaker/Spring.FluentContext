@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -25,24 +25,27 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using System;
-using System.Linq.Expressions;
 using Spring.FluentContext.Builders;
 
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext.BuildingStages.Objects
 {
-	public interface IInstantiationBuildStage<TObject> : ILooseCtorDefinitionBuildStage<TObject>
+	public interface ICtorDefinitionBuildStage<TObject, TArg>
 	{
-		IAutoConfigurationBuildStage<TObject> UseStaticFactoryMethod(Func<TObject> factoryMethodSelector);
+		ICtorArgumentDefinitionBuilder<IMethodConfigurationBuildStage<TObject>, TArg> BindConstructorArg();
+	}
 
-		IFactoryMethodDefinitionBuilder<TFactory, TObject> UseFactoryMethod<TFactory>(Expression<Func<TFactory,TObject>> factoryMethodSelector);
+	public interface ICtorDefinitionBuildStage<TObject, TArg1, TArg2>
+	{
+		ICtorArgumentDefinitionBuilder<ICtorDefinitionBuildStage<TObject,TArg2>, TArg1> BindConstructorArg();
+	}
 
-		ICtorDefinitionBuildStage<TObject, TArg> UseConstructor<TArg>(Func<TArg,TObject> constructorSelector);
+	public interface ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3>
+	{
+		ICtorArgumentDefinitionBuilder<ICtorDefinitionBuildStage<TObject,TArg2,TArg3>, TArg1> BindConstructorArg();
+	}
 
-		ICtorDefinitionBuildStage<TObject, TArg1, TArg2> UseConstructor<TArg1,TArg2>(Func<TArg1,TArg2,TObject> constructorSelector);
-
-		ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3> UseConstructor<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,TObject> constructorSelector);
-
-		ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3, TArg4> UseConstructor<TArg1,TArg2,TArg3,TArg4>(Func<TArg1,TArg2,TArg3,TArg4,TObject> constructorSelector);
+	public interface ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3, TArg4>
+	{
+		ICtorArgumentDefinitionBuilder<ICtorDefinitionBuildStage<TObject,TArg2,TArg3,TArg4>, TArg1> BindConstructorArg();
 	}
 }

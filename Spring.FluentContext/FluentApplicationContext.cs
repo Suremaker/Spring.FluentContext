@@ -27,15 +27,16 @@
 
 using Spring.Context;
 using Spring.Context.Support;
-using Spring.FluentContext.Builders;
-using Spring.FluentContext.BuildingStages;
+using Spring.FluentContext.BuildingStages.Aliases;
+using Spring.FluentContext.BuildingStages.Objects;
+using Spring.FluentContext.BuildingStages.ProxyFactories;
 using Spring.FluentContext.Impl;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Support;
 
 namespace Spring.FluentContext
 {
-	public class FluentApplicationContext : GenericApplicationContext
+	public class FluentApplicationContext : GenericApplicationContext, IFluentApplicationContext
 	{
 		public FluentApplicationContext()
 		{
@@ -65,17 +66,17 @@ namespace Spring.FluentContext
 		{
 		}
 
-		public IAliasDefinitionBuilder<T> RegisterDefaultAlias<T>()
+		public IAliasLinkingBuildStage<T> RegisterDefaultAlias<T>()
 		{
 			return RegisterNamedAlias<T>(IdGenerator<T>.GetDefaultId());
 		}
 
-		public IAliasDefinitionBuilder<T> RegisterUniquelyNamedAlias<T>()
+		public IAliasLinkingBuildStage<T> RegisterUniquelyNamedAlias<T>()
 		{
 			return RegisterNamedAlias<T>(IdGenerator<T>.GetUniqueId());
 		}
 
-		public IAliasDefinitionBuilder<T> RegisterNamedAlias<T>(string id)
+		public IAliasLinkingBuildStage<T> RegisterNamedAlias<T>(string id)
 		{
 			return new AliasDefinitionBuilder<T>(this, id);
 		}

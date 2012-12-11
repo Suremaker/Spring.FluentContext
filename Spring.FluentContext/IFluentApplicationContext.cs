@@ -25,27 +25,15 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+using Spring.Context;
 using Spring.FluentContext.Builders;
 
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext
 {
-	public interface ICtorDefinitionBuildStage<TObject, TArg>
-	{
-		ICtorArgumentDefinitionBuilder<IMethodConfigurationBuildStage<TObject>, TArg> BindConstructorArg();
-	}
-
-	public interface ICtorDefinitionBuildStage<TObject, TArg1, TArg2>
-	{
-		ICtorArgumentDefinitionBuilder<ICtorDefinitionBuildStage<TObject,TArg2>, TArg1> BindConstructorArg();
-	}
-
-	public interface ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3>
-	{
-		ICtorArgumentDefinitionBuilder<ICtorDefinitionBuildStage<TObject,TArg2,TArg3>, TArg1> BindConstructorArg();
-	}
-
-	public interface ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3, TArg4>
-	{
-		ICtorArgumentDefinitionBuilder<ICtorDefinitionBuildStage<TObject,TArg2,TArg3,TArg4>, TArg1> BindConstructorArg();
-	}
+	public interface IFluentApplicationContext : IApplicationContext,
+		IAliasDefinitionBuilder,
+		IObjectDefinitionBuilder,
+		IProxyFactoryDefinitionBuilder,
+		ISingletonDefinitionBuilder
+	{ }
 }

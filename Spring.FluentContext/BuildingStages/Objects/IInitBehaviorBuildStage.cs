@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -25,13 +25,15 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using Spring.Objects.Factory.Support;
+using System;
+using System.Linq.Expressions;
 
-namespace Spring.FluentContext.BuildingStages
+namespace Spring.FluentContext.BuildingStages.Objects
 {
-	public interface IValidationBuildStage<TObject> : IReferencingStage<TObject>
+
+	public interface IInitBehaviorBuildStage<TObject> : IDestroyBehaviorBuildStage<TObject>
 	{
-		IReferencingStage<TObject> CheckDependencies();
-		IReferencingStage<TObject> CheckDependencies(DependencyCheckingMode mode);
+		IDestroyBehaviorBuildStage<TObject> CallOnInit(Expression<Action<TObject>> initMethodSelector);
 	}
+
 }
