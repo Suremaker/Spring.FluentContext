@@ -1,7 +1,7 @@
 Spring.FluentContext
 ===========
 
-Allows creating Spring.NET IoC container from code using fluent way:
+Allows creating Spring.NET IoC container from code using fluent API:
 * without XML
 * without literals (while it is also possible to use them)
 * without any static classes or objects (it is possible to create as many contexts as are needed)

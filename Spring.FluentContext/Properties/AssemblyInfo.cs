@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Spring.FluentContext")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Allows creating Spring.NET IoC container from code using fluent API")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Spring.FluentContext")]
