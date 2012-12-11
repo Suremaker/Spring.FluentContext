@@ -52,7 +52,7 @@ namespace Spring.FluentContext.Builders
 		/// Registers alias with <c>id</c> for object of <c>T</c> type.
 		/// </summary>
 		/// <typeparam name="T">Type of object returned by alias.</typeparam>
-		/// <param name="id"></param>
+		/// <param name="id">Alias id.</param>
 		/// <returns>Next build stage.</returns>
 		IAliasLinkingBuildStage<T> RegisterNamedAlias<T>(string id);
 	}
