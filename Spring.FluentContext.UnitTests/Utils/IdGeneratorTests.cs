@@ -24,6 +24,7 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
+
 using NUnit.Framework;
 using Spring.FluentContext.UnitTests.TestTypes;
 using Spring.FluentContext.Utils;

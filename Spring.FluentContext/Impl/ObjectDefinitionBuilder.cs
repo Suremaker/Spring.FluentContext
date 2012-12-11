@@ -24,14 +24,15 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
+
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 using Spring.FluentContext.Builders;
 using Spring.FluentContext.BuildingStages;
 using Spring.FluentContext.Utils;
-using Spring.Objects.Factory.Support;
 using Spring.Objects.Factory.Config;
-using System.Linq;
+using Spring.Objects.Factory.Support;
 
 namespace Spring.FluentContext.Impl
 {

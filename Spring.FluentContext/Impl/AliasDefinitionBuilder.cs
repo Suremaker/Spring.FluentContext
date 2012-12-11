@@ -26,9 +26,9 @@
 //
 
 using Spring.Context.Support;
+using Spring.FluentContext.Builders;
 using Spring.FluentContext.BuildingStages;
 using Spring.FluentContext.Utils;
-using Spring.FluentContext.Builders;
 
 namespace Spring.FluentContext.Impl
 {

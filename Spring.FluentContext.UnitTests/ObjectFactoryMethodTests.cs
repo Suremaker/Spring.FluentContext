@@ -24,6 +24,7 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
+
 using NUnit.Framework;
 using Spring.FluentContext.UnitTests.TestTypes;
 
@@ -46,7 +47,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<ComplexType>()
 				.UseStaticFactoryMethod(ComplexTypeFactory.CreateInstance);
 
-			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(ComplexTypeFactory.DEFAULT_INSTANCE_TEXT));
+			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(ComplexTypeFactory.DefaultInstanceText));
 		}
 
 		[Test]
