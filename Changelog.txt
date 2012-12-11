@@ -1,5 +1,8 @@
 Spring.FluentContext
 ===========================================
+Version 1.0.4
+-------------------------------------------
++ recreated nuget package to include newest version of dll
 
 Version 1.0.3
 -------------------------------------------
