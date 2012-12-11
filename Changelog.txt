@@ -1,0 +1,12 @@
+Spring.FluentContext
+===========================================
+
+Version 1.0.3
+-------------------------------------------
++ Synchronized version with NuGet package version
++ Added documentation to public members
+
+Version 1.0.0
+-------------------------------------------
++ Implemented basic fluent API features
++ Created changelog
