@@ -10,7 +10,8 @@ Allows creating Spring.NET IoC container from code using fluent API:
 
 ## Download
 It is possible to download package using [NuGet](http://nuget.org): `PM> Install-Package Spring.FluentContext`
-Or compile from sources available on Git: `git clone git://github.com/Suremaker/Spring.FluentContext.git`
+
+or compile from sources available on Git: `git clone git://github.com/Suremaker/Spring.FluentContext.git`
 
 ## Implemented API Features
 * Registration of objects:
