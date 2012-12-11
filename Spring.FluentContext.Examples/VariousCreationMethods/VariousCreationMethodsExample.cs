@@ -25,62 +25,10 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 using Spring.Context;
-using System;
+using Spring.FluentContext.Examples.VariousCreationMethods.Objects;
 
 namespace Spring.FluentContext.Examples.VariousCreationMethods
 {
-	class Button
-	{
-		private Action<Button> _clickAction;
-
-		public string Name { get; set; }
-
-		public Button(Action<Button> clickAction)
-		{
-			_clickAction = clickAction;
-		}
-
-		public void Click()
-		{
-			_clickAction(this);
-		}
-	}
-
-	class ButtonFactory
-	{
-		public static ButtonFactory CreateInstance()
-		{
-			return new ButtonFactory();
-		}
-
-		public Button CreateButton()
-		{
-			return new Button(b => Console.WriteLine("Button {0} clicked...", b.Name));
-		}
-
-		private ButtonFactory()
-		{
-		}
-	}
-
-	interface IWindow
-	{
-		void SimulateGuiActions();
-	}
-
-	class Window : IWindow
-	{
-		public Button CloseButton { get; set; }
-
-		public Button SaveButton { get; set; }
-
-		public void SimulateGuiActions()
-		{
-			SaveButton.Click();
-			CloseButton.Click();
-		}
-	}
-
 	class VariousCreationMethodsExample : Example
 	{
 		protected override IApplicationContext CreateContext()

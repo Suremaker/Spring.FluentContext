@@ -26,6 +26,7 @@
 //
 using System;
 using Spring.Context;
+using Spring.FluentContext.Examples.ProxyFactoryUsage.Objects;
 
 namespace Spring.FluentContext.Examples.ProxyFactoryUsage
 {

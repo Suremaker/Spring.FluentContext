@@ -24,44 +24,46 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
+
 using System;
-using Spring.Context;
-using Spring.FluentContext.Examples.LookupMethodInjection.Objects;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace Spring.FluentContext.Examples.LookupMethodInjection
+namespace Spring.FluentContext.Examples.Complex.Objects
 {
-	internal class LookupMethodInjectionExample : Example
+	public abstract class Consumer
 	{
-		protected override IApplicationContext CreateContext()
+		private readonly IEndpoint _endpoint;
+
+		protected Consumer(IEndpoint endpoint)
 		{
-			var ctx = new FluentApplicationContext();
-
-			ctx.RegisterDefault<ArithmenticMeanCalculator>();
-
-			ctx.RegisterDefault<CreditsCalculator>()
-				.BindConstructorArg<double>().ToValue(2.5)
-			//the line below instruct Spring to override GetMeanCalculator() method with one returning ArithmeticMeanCalculator instance registered above
-				.BindLookupMethod(c => c.GetMeanCalculator()).ToRegisteredDefaultOf<ArithmenticMeanCalculator>();
-
-			ctx.RegisterDefaultAlias<ICreditsCalculator>().ToRegisteredDefault<CreditsCalculator>();
-
-			return ctx;
+			_endpoint = endpoint;
 		}
 
-		protected override void RunExample(IApplicationContext ctx)
+		public void Start()
 		{
-			var calc = ctx.GetObject<ICreditsCalculator>();
-			CalculateCredits(calc, "Josh", 2.4, 4.3, 5.8);
-			CalculateCredits(calc, "John", 2.4, 1.3, 3.2);
+			new Thread(RunConsumer).Start();
 		}
 
-		private void CalculateCredits(ICreditsCalculator calc, string person, params double[] points)
+		private void RunConsumer()
 		{
-			Console.WriteLine("{0} has {1} with his points: {2}",
-				person,
-				calc.IsAcceptable(points) ? "passed" : "NOT passed",
-				string.Join(", ", points));
+			try
+			{
+				while(true)
+				{
+					var message = _endpoint.Receive();
 
+					var command = GetCommand();
+					command.Message = message;
+					Task.Factory.StartNew(command.Execute);
+				}
+			}
+			catch(ObjectDisposedException)
+			{
+				Console.WriteLine("Consumer stopped.");
+			}
 		}
+
+		protected abstract ICommand GetCommand();
 	}
 }

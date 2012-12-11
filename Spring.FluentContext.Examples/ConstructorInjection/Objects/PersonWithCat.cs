@@ -24,44 +24,25 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
+
 using System;
-using Spring.Context;
-using Spring.FluentContext.Examples.LookupMethodInjection.Objects;
 
-namespace Spring.FluentContext.Examples.LookupMethodInjection
+namespace Spring.FluentContext.Examples.ConstructorInjection.Objects
 {
-	internal class LookupMethodInjectionExample : Example
+	class PersonWithCat
 	{
-		protected override IApplicationContext CreateContext()
+		public string Name { get; private set; }
+		public Cat Cat { get; private set; }
+
+		public PersonWithCat(string name, Cat cat)
 		{
-			var ctx = new FluentApplicationContext();
-
-			ctx.RegisterDefault<ArithmenticMeanCalculator>();
-
-			ctx.RegisterDefault<CreditsCalculator>()
-				.BindConstructorArg<double>().ToValue(2.5)
-			//the line below instruct Spring to override GetMeanCalculator() method with one returning ArithmeticMeanCalculator instance registered above
-				.BindLookupMethod(c => c.GetMeanCalculator()).ToRegisteredDefaultOf<ArithmenticMeanCalculator>();
-
-			ctx.RegisterDefaultAlias<ICreditsCalculator>().ToRegisteredDefault<CreditsCalculator>();
-
-			return ctx;
+			Name = name;
+			Cat = cat;
 		}
 
-		protected override void RunExample(IApplicationContext ctx)
+		public void Introduce()
 		{
-			var calc = ctx.GetObject<ICreditsCalculator>();
-			CalculateCredits(calc, "Josh", 2.4, 4.3, 5.8);
-			CalculateCredits(calc, "John", 2.4, 1.3, 3.2);
-		}
-
-		private void CalculateCredits(ICreditsCalculator calc, string person, params double[] points)
-		{
-			Console.WriteLine("{0} has {1} with his points: {2}",
-				person,
-				calc.IsAcceptable(points) ? "passed" : "NOT passed",
-				string.Join(", ", points));
-
+			Console.WriteLine("Hello, I am {0}. I have a nice cat called {1}.", Name, Cat);
 		}
 	}
 }

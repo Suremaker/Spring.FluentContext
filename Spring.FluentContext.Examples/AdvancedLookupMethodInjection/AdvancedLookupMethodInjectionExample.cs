@@ -26,6 +26,7 @@
 //
 using System;
 using Spring.Context;
+using Spring.FluentContext.Examples.AdvancedLookupMethodInjection.Objects;
 
 namespace Spring.FluentContext.Examples.AdvancedLookupMethodInjection
 {

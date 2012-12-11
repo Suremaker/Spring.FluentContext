@@ -24,44 +24,26 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-using System;
-using Spring.Context;
-using Spring.FluentContext.Examples.LookupMethodInjection.Objects;
 
-namespace Spring.FluentContext.Examples.LookupMethodInjection
+using System.Threading;
+using AopAlliance.Intercept;
+
+namespace Spring.FluentContext.Examples.Complex.Objects
 {
-	internal class LookupMethodInjectionExample : Example
+	class DelayingInterceptor : IMethodInterceptor
 	{
-		protected override IApplicationContext CreateContext()
+		private readonly int _time;
+
+		public DelayingInterceptor(int time)
 		{
-			var ctx = new FluentApplicationContext();
-
-			ctx.RegisterDefault<ArithmenticMeanCalculator>();
-
-			ctx.RegisterDefault<CreditsCalculator>()
-				.BindConstructorArg<double>().ToValue(2.5)
-			//the line below instruct Spring to override GetMeanCalculator() method with one returning ArithmeticMeanCalculator instance registered above
-				.BindLookupMethod(c => c.GetMeanCalculator()).ToRegisteredDefaultOf<ArithmenticMeanCalculator>();
-
-			ctx.RegisterDefaultAlias<ICreditsCalculator>().ToRegisteredDefault<CreditsCalculator>();
-
-			return ctx;
+			_time = time;
 		}
 
-		protected override void RunExample(IApplicationContext ctx)
+		public object Invoke(IMethodInvocation invocation)
 		{
-			var calc = ctx.GetObject<ICreditsCalculator>();
-			CalculateCredits(calc, "Josh", 2.4, 4.3, 5.8);
-			CalculateCredits(calc, "John", 2.4, 1.3, 3.2);
-		}
-
-		private void CalculateCredits(ICreditsCalculator calc, string person, params double[] points)
-		{
-			Console.WriteLine("{0} has {1} with his points: {2}",
-				person,
-				calc.IsAcceptable(points) ? "passed" : "NOT passed",
-				string.Join(", ", points));
-
+			if(!invocation.Method.IsSpecialName)
+				Thread.Sleep(_time);
+			return invocation.Proceed();
 		}
 	}
 }

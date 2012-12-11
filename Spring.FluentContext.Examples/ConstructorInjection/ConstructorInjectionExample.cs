@@ -25,6 +25,7 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 using Spring.Context;
+using Spring.FluentContext.Examples.ConstructorInjection.Objects;
 
 namespace Spring.FluentContext.Examples.ConstructorInjection
 {

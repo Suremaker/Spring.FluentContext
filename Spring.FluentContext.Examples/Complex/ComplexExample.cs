@@ -26,6 +26,7 @@
 //
 using System.Threading;
 using Spring.Context;
+using Spring.FluentContext.Examples.Complex.Objects;
 
 namespace Spring.FluentContext.Examples.Complex
 {

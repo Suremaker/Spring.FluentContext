@@ -24,44 +24,27 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
+
 using System;
-using Spring.Context;
-using Spring.FluentContext.Examples.LookupMethodInjection.Objects;
 
-namespace Spring.FluentContext.Examples.LookupMethodInjection
+namespace Spring.FluentContext.Examples.Complex.Objects
 {
-	internal class LookupMethodInjectionExample : Example
+	class Sender
 	{
-		protected override IApplicationContext CreateContext()
+		private readonly IEndpoint _endpoint;
+
+		public Sender(IEndpoint endpoint)
 		{
-			var ctx = new FluentApplicationContext();
-
-			ctx.RegisterDefault<ArithmenticMeanCalculator>();
-
-			ctx.RegisterDefault<CreditsCalculator>()
-				.BindConstructorArg<double>().ToValue(2.5)
-			//the line below instruct Spring to override GetMeanCalculator() method with one returning ArithmeticMeanCalculator instance registered above
-				.BindLookupMethod(c => c.GetMeanCalculator()).ToRegisteredDefaultOf<ArithmenticMeanCalculator>();
-
-			ctx.RegisterDefaultAlias<ICreditsCalculator>().ToRegisteredDefault<CreditsCalculator>();
-
-			return ctx;
+			_endpoint = endpoint;
 		}
 
-		protected override void RunExample(IApplicationContext ctx)
+		public void Run()
 		{
-			var calc = ctx.GetObject<ICreditsCalculator>();
-			CalculateCredits(calc, "Josh", 2.4, 4.3, 5.8);
-			CalculateCredits(calc, "John", 2.4, 1.3, 3.2);
-		}
-
-		private void CalculateCredits(ICreditsCalculator calc, string person, params double[] points)
-		{
-			Console.WriteLine("{0} has {1} with his points: {2}",
-				person,
-				calc.IsAcceptable(points) ? "passed" : "NOT passed",
-				string.Join(", ", points));
-
+			Console.WriteLine("Please write text. Empty line stops execution.");
+			string text;
+			while((text = Console.ReadLine()) != string.Empty)
+				_endpoint.Send(text);
+			_endpoint.Dispose();
 		}
 	}
 }
