@@ -30,7 +30,7 @@ using System.Linq.Expressions;
 
 namespace Spring.FluentContext.Utils
 {
-	public static class ReflectionUtils
+	internal static class ReflectionUtils
 	{
 		public static string GetPropertyName<TObject, TProperty>(Expression<Func<TObject, TProperty>> propertySelector)
 		{
