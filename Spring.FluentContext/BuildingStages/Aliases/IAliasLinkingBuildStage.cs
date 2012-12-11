@@ -30,7 +30,7 @@ namespace Spring.FluentContext.BuildingStages.Aliases
 	public interface IAliasBuilder<TObject> {
 		IReferencingStage<TObject> ToRegisteredDefault<TDerived>() where TDerived : TObject;
 		IReferencingStage<TObject> ToRegistered<TDerived>(string objectId) where TDerived : TObject;
-		IReferencingStage<TObject> ToRegistered<TDerived>(ObjectRef<TDerived> reference) where TDerived : TObject;
+		IReferencingStage<TObject> ToRegistered(IObjectRef<TObject> reference);
 	}
 
 	public interface IAliasLinkingBuildStage<TObject> : IAliasBuilder<TObject>

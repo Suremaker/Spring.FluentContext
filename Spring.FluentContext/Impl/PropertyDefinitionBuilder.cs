@@ -55,7 +55,7 @@ namespace Spring.FluentContext.Impl
 			return AddPropertyValue(new PropertyValue(_propertyName, new RuntimeObjectReference(objectId)));
 		}
 
-		public IObjectConfigurationBuildStage<TObject> ToRegistered<TRef>(ObjectRef<TRef> reference) where TRef : TProperty
+		public IObjectConfigurationBuildStage<TObject> ToRegistered(IObjectRef<TProperty> reference)
 		{
 			return ToRegistered(reference.Id);
 		}

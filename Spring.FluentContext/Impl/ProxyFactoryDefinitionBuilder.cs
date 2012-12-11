@@ -68,7 +68,7 @@ namespace Spring.FluentContext.Impl
 			return Targeting(IdGenerator<TReferencedType>.GetDefaultId());
 		}
 
-		public IProxyInstantiationDefinitionBuildStage<TObject> Targeting<TReferencedType>(ObjectRef<TReferencedType> reference) where TReferencedType : TObject
+		public IProxyInstantiationDefinitionBuildStage<TObject> Targeting(IObjectRef<TObject> reference)
 		{
 			return Targeting(reference.Id);
 		}
@@ -80,7 +80,7 @@ namespace Spring.FluentContext.Impl
 			return this;
 		}
 
-        public IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy<TInterceptorType>(ObjectRef<TInterceptorType> reference) where TInterceptorType : IAdvice
+        public IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy<TInterceptorType>(IObjectRef<TInterceptorType> reference) where TInterceptorType : IAdvice
 		{
 			return InterceptedBy(reference.Id);
 		}
@@ -90,7 +90,7 @@ namespace Spring.FluentContext.Impl
 			return InterceptedBy(IdGenerator<TInterceptorType>.GetDefaultId());
 		}
 
-		public ObjectRef<TObject> GetReference()
+		public IObjectRef<TObject> GetReference()
 		{
 			return _ref;
 		}

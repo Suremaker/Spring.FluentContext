@@ -42,7 +42,7 @@ namespace Spring.FluentContext
 			return ctx.GetObject<T>(IdGenerator<T>.GetDefaultId());
 		}
 
-		public static T GetObject<T>(this IApplicationContext ctx, ObjectRef<T> reference)
+		public static T GetObject<T>(this IApplicationContext ctx, IObjectRef<T> reference)
 		{
 			return ctx.GetObject<T>(reference.Id);
 		}

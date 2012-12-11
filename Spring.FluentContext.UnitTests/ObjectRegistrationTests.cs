@@ -112,7 +112,7 @@ namespace Spring.FluentContext.UnitTests
 		public void Register_uniquely_named_using_derived_type()
 		{
 			var implRef = _ctx.RegisterUniquelyNamed<Calculator>().GetReference();
-			ObjectRef<ICalculator> reference = _ctx.RegisterUniquelyNamedAlias<ICalculator>().ToRegistered(implRef)
+			IObjectRef<ICalculator> reference = _ctx.RegisterUniquelyNamedAlias<ICalculator>().ToRegistered(implRef)
 				.GetReference();
 			
 			Assert.That(_ctx.GetObject(reference), Is.TypeOf<Calculator>());

@@ -33,7 +33,7 @@ namespace Spring.FluentContext.BuildingStages.ProxyFactories
 	{
 		IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy(string objectId);
 
-        IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy<TInterceptorType>(ObjectRef<TInterceptorType> reference) where TInterceptorType : IAdvice;
+        IProxyInterceptorDefinitionBuildStage<TObject> InterceptedBy<TInterceptorType>(IObjectRef<TInterceptorType> reference) where TInterceptorType : IAdvice;
 
         IProxyInterceptorDefinitionBuildStage<TObject> InterceptedByDefault<TInterceptorType>() where TInterceptorType : IAdvice;
 	}

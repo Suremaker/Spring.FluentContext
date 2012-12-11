@@ -32,6 +32,6 @@ namespace Spring.FluentContext.BuildingStages.Objects
 	{
 		IIndirectDependencyBuildStage<TObject> DependingOnDefault<TOtherObject>();
 		IIndirectDependencyBuildStage<TObject> DependingOn<TOtherObject>(string objectId);
-		IIndirectDependencyBuildStage<TObject> DependingOn<TOtherObject>(ObjectRef<TOtherObject> reference);
+		IIndirectDependencyBuildStage<TObject> DependingOn<TOtherObject>(IObjectRef<TOtherObject> reference);
 	}
 }

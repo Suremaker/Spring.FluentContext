@@ -29,8 +29,8 @@ namespace Spring.FluentContext.Builders
 {
 	public interface ISingletonDefinitionBuilder
 	{
-		ObjectRef<T> RegisterNamedSingleton<T>(string id, T instance);
-		ObjectRef<T> RegisterDefaultSingleton<T>(T instance);
-		ObjectRef<T> RegisterUniquelyNamedSingleton<T>(T instance);
+		IObjectRef<T> RegisterNamedSingleton<T>(string id, T instance);
+		IObjectRef<T> RegisterDefaultSingleton<T>(T instance);
+		IObjectRef<T> RegisterUniquelyNamedSingleton<T>(T instance);
 	}
 }

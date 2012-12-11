@@ -33,6 +33,6 @@ namespace Spring.FluentContext.Builders
 	{
 		IAutoConfigurationBuildStage<TObject> OfRegisteredDefault();
 		IAutoConfigurationBuildStage<TObject> OfRegistered(string objectId);
-		IAutoConfigurationBuildStage<TObject> OfRegistered(ObjectRef<TFactory> reference);
+		IAutoConfigurationBuildStage<TObject> OfRegistered(IObjectRef<TFactory> reference);
 	}
 }

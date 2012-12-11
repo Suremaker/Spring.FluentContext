@@ -76,7 +76,7 @@ namespace Spring.FluentContext.Impl
 			return this;
 		}
 
-		public IIndirectDependencyBuildStage<TObject> DependingOn<TOtherObject>(ObjectRef<TOtherObject> reference)
+		public IIndirectDependencyBuildStage<TObject> DependingOn<TOtherObject>(IObjectRef<TOtherObject> reference)
 		{
 			return DependingOn<TOtherObject>(reference.Id);
 		}
@@ -179,7 +179,7 @@ namespace Spring.FluentContext.Impl
 			return this;
 		}
 
-		public ObjectRef<TObject> GetReference()
+		public IObjectRef<TObject> GetReference()
 		{
 			return _ref;
 		}

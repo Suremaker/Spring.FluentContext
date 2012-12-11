@@ -59,7 +59,7 @@ namespace Spring.FluentContext.Impl
 			return ToRegistered(IdGenerator<TReferencedType>.GetDefaultId());
 		}
 
-		public IMethodConfigurationBuildStage<TObject> ToRegistered<TRef>(ObjectRef<TRef> reference) where TRef : TResult
+		public IMethodConfigurationBuildStage<TObject> ToRegistered(IObjectRef<TResult> reference)
 		{
 			return ToRegistered(reference.Id);
 		}

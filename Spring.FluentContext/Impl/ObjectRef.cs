@@ -25,48 +25,36 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using Spring.Context.Support;
-using Spring.FluentContext.BuildingStages;
-using Spring.FluentContext.BuildingStages.Aliases;
-using Spring.FluentContext.Utils;
-
 namespace Spring.FluentContext.Impl
 {
-	internal class AliasDefinitionBuilder<TObject> : IAliasLinkingBuildStage<TObject>, IReferencingStage<TObject>
+	internal class ObjectRef<T> : IObjectRef<T>
 	{
-		private readonly string _alias;
-		private readonly GenericApplicationContext _ctx;
-
-		public AliasDefinitionBuilder(GenericApplicationContext ctx, string alias)
+		public ObjectRef(string id)
 		{
-			_ctx = ctx;
-			_alias = alias;
+			Id = id;
 		}
 
-		public IReferencingStage<TObject> ToRegisteredDefault<TDerived>() where TDerived : TObject
+		public string Id { get; private set; }
+
+		private bool Equals(ObjectRef<T> other)
 		{
-			return MakeAlias(IdGenerator<TDerived>.GetDefaultId());
+			return string.Equals(Id, other.Id);
 		}
 
-		public IReferencingStage<TObject> ToRegistered<TDerived>(string objectId) where TDerived : TObject
+		public override bool Equals(object obj)
 		{
-			return MakeAlias(objectId);
+			if (ReferenceEquals(null, obj))
+				return false;
+			if (ReferenceEquals(this, obj))
+				return true;
+			if (obj.GetType() != GetType())
+				return false;
+			return Equals((ObjectRef<T>)obj);
 		}
 
-		public IReferencingStage<TObject> ToRegistered(IObjectRef<TObject> reference)
+		public override int GetHashCode()
 		{
-			return MakeAlias(reference.Id);
-		}
-
-		public IObjectRef<TObject> GetReference()
-		{
-			return new ObjectRef<TObject>(_alias);
-		}
-
-		private IReferencingStage<TObject> MakeAlias(string objectId)
-		{
-			_ctx.RegisterAlias(objectId, _alias);
-			return this;
+			return (Id != null ? Id.GetHashCode() : 0);
 		}
 	}
 }

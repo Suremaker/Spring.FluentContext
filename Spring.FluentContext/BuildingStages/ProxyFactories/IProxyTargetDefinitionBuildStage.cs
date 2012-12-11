@@ -33,6 +33,6 @@ namespace Spring.FluentContext.BuildingStages.ProxyFactories
 
 		IProxyInstantiationDefinitionBuildStage<TObject> TargetingDefault<TReferencedType>() where TReferencedType : TObject;
 
-		IProxyInstantiationDefinitionBuildStage<TObject> Targeting<TReferencedType>(ObjectRef<TReferencedType> reference) where TReferencedType : TObject;
+		IProxyInstantiationDefinitionBuildStage<TObject> Targeting(IObjectRef<TObject> reference);
 	}
 }

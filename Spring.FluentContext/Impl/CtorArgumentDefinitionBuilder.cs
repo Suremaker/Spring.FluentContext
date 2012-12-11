@@ -65,7 +65,7 @@ namespace Spring.FluentContext.Impl
 			return _builder;
 		}
 
-		public TBuilder ToRegistered<TRef>(ObjectRef<TRef> reference) where TRef : TArgument
+		public TBuilder ToRegistered(IObjectRef<TArgument> reference)
 		{
 			return ToRegistered(reference.Id);
 		}

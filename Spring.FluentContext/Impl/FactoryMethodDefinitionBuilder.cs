@@ -51,7 +51,7 @@ namespace Spring.FluentContext.Impl
 			return _builder;
 		}
 
-		public IAutoConfigurationBuildStage<TObject> OfRegistered(ObjectRef<TFactory> reference)
+		public IAutoConfigurationBuildStage<TObject> OfRegistered(IObjectRef<TFactory> reference)
 		{
 			return OfRegistered(reference.Id);
 		}
