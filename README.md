@@ -14,8 +14,8 @@ It is possible to download package using [NuGet](http://nuget.org): `PM> Install
 or compile from sources available on Git: `git clone git://github.com/Suremaker/Spring.FluentContext.git`
 
 ## Examples and help
-* The project documentation is available on [Wiki](wiki) page.
-* Solution contains also [Spring.FluentContext.Examples](tree/master/Spring.FluentContext.Examples) project presenting usage of major features.
+* The project documentation is available on [Wiki](Spring.FluentContext/wiki) page.
+* Solution contains also [Spring.FluentContext.Examples](Spring.FluentContext/tree/master/Spring.FluentContext.Examples) project presenting usage of major features.
 * All implemented features contains unit tests which shows also how to use them.
 
 ## Implemented API Features
