@@ -8,7 +8,11 @@ Allows creating Spring.NET IoC container from code using fluent API:
 * with type-safe injections
 * with possibility to integrate with other contexts (like XML ones) using hierarchical context construction
 
-Implemented API Features:
+## Download
+It is possible to download package using [NuGet](http://nuget.org): `PM> Install-Package Spring.FluentContext`
+Or compile from sources available on Git: `git clone git://github.com/Suremaker/Spring.FluentContext.git`
+
+## Implemented API Features
 * Registration of objects:
 	* with specified id
 	* with default id
@@ -39,15 +43,14 @@ Implemented API Features:
 * Dependency check
 * Type-safe, literal-less references
 
-
-Not Implemented Features:
+## Not Implemented Features
 * lazy and non-lazy initialization (now everything is initialized lazily)
 * classes for easy collection handling like initializing object dependency using a list of other registered objects
 
-Limitations:
+## Limitations
 * it is not possible to use lambda expressions to point protected methods or properties with non-public getters, that is why API allows also to use literals.
 
-Examples and help:
+## Examples and help
 * Solution contains Spring.FluentContext.Examples presenting usage of implemented features
 * All implemented features contains also unit tests which shows also its usage
 * Please also see the wiki page for details how to use this project
