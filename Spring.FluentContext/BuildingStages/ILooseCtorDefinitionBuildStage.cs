@@ -30,7 +30,7 @@ using Spring.FluentContext.Builders;
 namespace Spring.FluentContext.BuildingStages
 {
 
-	public interface ILooseCtorDefinitionBuildStage<TObject> : IAutoConfigurationBuildStage<TObject>
+	public interface ILooseCtorDefinitionBuildStage<TObject> : IMethodConfigurationBuildStage<TObject>
 	{
 		ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>(int argIndex);
 		ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>();

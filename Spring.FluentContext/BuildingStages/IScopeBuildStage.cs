@@ -27,10 +27,10 @@
 
 namespace Spring.FluentContext.BuildingStages
 {
-	public interface IScopeBuildStage<TObject> : IExternalDependencyBuildStage<TObject>
+	public interface IScopeBuildStage<TObject> : IIndirectDependencyBuildStage<TObject>
 	{
-		IExternalDependencyBuildStage<TObject> AsPrototype();
+		IIndirectDependencyBuildStage<TObject> AsPrototype();
 
-		IExternalDependencyBuildStage<TObject> AsSingleton();	
+		IIndirectDependencyBuildStage<TObject> AsSingleton();	
 	}
 }

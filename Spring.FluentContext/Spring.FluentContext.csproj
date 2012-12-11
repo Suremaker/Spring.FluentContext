@@ -54,8 +54,9 @@
     <Compile Include="Builders\ILookupMethodDefinitionBuilder.cs" />
     <Compile Include="Builders\IPropertyDefinitionBuilder.cs" />
     <Compile Include="BuildingStages\IAutoConfigurationBuildStage.cs" />
-    <Compile Include="BuildingStages\IConfigurationBuildStage.cs" />
+    <Compile Include="BuildingStages\IObjectConfigurationBuildStage.cs" />
     <Compile Include="BuildingStages\IInstantiationBuildStage.cs" />
+    <Compile Include="BuildingStages\IMethodConfigurationBuildStage.cs" />
     <Compile Include="BuildingStages\IReferencingStage.cs" />
     <Compile Include="BuildingStages\IScopeBuildStage.cs" />
     <Compile Include="BuildingStages\IValidationBuildStage.cs" />
@@ -79,7 +80,7 @@
     <Compile Include="Impl\FactoryMethodDefinitionBuilder.cs" />
     <Compile Include="Impl\AliasDefinitionBuilder.cs" />
     <Compile Include="Builders\IAliasDefinitionBuilder.cs" />
-    <Compile Include="BuildingStages\IExternalDependencyBuildStage.cs" />
+    <Compile Include="BuildingStages\IIndirectDependencyBuildStage.cs" />
     <Compile Include="BuildingStages\IDestroyBehaviorBuildStage.cs" />
     <Compile Include="BuildingStages\IInitBehaviorBuildStage.cs" />
     <Compile Include="BuildingStages\IProxyTargetDefinitionBuildStage.cs" />

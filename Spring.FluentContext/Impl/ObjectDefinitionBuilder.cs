@@ -52,40 +52,40 @@ namespace Spring.FluentContext.Impl
 			get { return _definition; }
 		}
 
-		public IExternalDependencyBuildStage<TObject> AsPrototype()
+		public IIndirectDependencyBuildStage<TObject> AsPrototype()
 		{
 			_definition.IsSingleton = false;
 			return this;
 		}
 
-		public IExternalDependencyBuildStage<TObject> AsSingleton()
+		public IIndirectDependencyBuildStage<TObject> AsSingleton()
 		{
 			_definition.IsSingleton = true;
 			return this;
 		}
 
-		public IExternalDependencyBuildStage<TObject> DependingOnDefault<TOtherObject>()
+		public IIndirectDependencyBuildStage<TObject> DependingOnDefault<TOtherObject>()
 		{
 			return DependingOn<TOtherObject>(IdGenerator<TOtherObject>.GetDefaultId());
 		}
 
-		public IExternalDependencyBuildStage<TObject> DependingOn<TOtherObject>(string objectId)
+		public IIndirectDependencyBuildStage<TObject> DependingOn<TOtherObject>(string objectId)
 		{
 			_definition.DependsOn = _definition.DependsOn.AsEnumerable().Union(Enumerable.Repeat(objectId, 1)).ToArray();
 			return this;
 		}
 
-		public IExternalDependencyBuildStage<TObject> DependingOn<TOtherObject>(ObjectRef<TOtherObject> reference)
+		public IIndirectDependencyBuildStage<TObject> DependingOn<TOtherObject>(ObjectRef<TOtherObject> reference)
 		{
 			return DependingOn<TOtherObject>(reference.Id);
 		}
 
-		public IConfigurationBuildStage<TObject> Autowire()
+		public IObjectConfigurationBuildStage<TObject> Autowire()
 		{
 			return Autowire(AutoWiringMode.AutoDetect);
 		}
 
-		public IConfigurationBuildStage<TObject> Autowire(AutoWiringMode mode)
+		public IObjectConfigurationBuildStage<TObject> Autowire(AutoWiringMode mode)
 		{
 			_definition.AutowireMode = mode;
 			return this;

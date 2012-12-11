@@ -43,23 +43,23 @@ namespace Spring.FluentContext.Impl
 			_methodName = methodName;
 		}
 
-		public IConfigurationBuildStage<TObject> ToRegistered(string objectId)
+		public IMethodConfigurationBuildStage<TObject> ToRegistered(string objectId)
 		{
 			_builder.Definition.MethodOverrides.Add(new LookupMethodOverride(_methodName, objectId));
 			return _builder;
 		}
 
-		public IConfigurationBuildStage<TObject> ToRegisteredDefault()
+		public IMethodConfigurationBuildStage<TObject> ToRegisteredDefault()
 		{
 			return ToRegistered(IdGenerator<TResult>.GetDefaultId());
 		}
 
-		public IConfigurationBuildStage<TObject> ToRegisteredDefaultOf<TReferencedType>() where TReferencedType : TResult
+		public IMethodConfigurationBuildStage<TObject> ToRegisteredDefaultOf<TReferencedType>() where TReferencedType : TResult
 		{
 			return ToRegistered(IdGenerator<TReferencedType>.GetDefaultId());
 		}
 
-		public IConfigurationBuildStage<TObject> ToRegistered<TRef>(ObjectRef<TRef> reference) where TRef : TResult
+		public IMethodConfigurationBuildStage<TObject> ToRegistered<TRef>(ObjectRef<TRef> reference) where TRef : TResult
 		{
 			return ToRegistered(reference.Id);
 		}

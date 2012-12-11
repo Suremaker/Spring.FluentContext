@@ -57,8 +57,8 @@ namespace Spring.FluentContext.Examples.Complex
 				.Autowire(); //autowiring endpoint dependency
 
 			ctx.RegisterDefault<Consumer>()
-				.Autowire() //autowiring endpoint dependency
 				.BindLookupMethodNamed<ICommand>("GetCommand").ToRegisteredDefault() //method is protected so it is not possible to use lambda to get it
+				.Autowire() //autowiring endpoint dependency				
 				.CallOnInit(c => c.Start());
 
 			return ctx;

@@ -45,44 +45,44 @@ namespace Spring.FluentContext.Impl
 			_propertyName = propertyName;
 		}
 
-		public IConfigurationBuildStage<TObject> ToValue(TProperty value)
+		public IObjectConfigurationBuildStage<TObject> ToValue(TProperty value)
 		{
 			return AddPropertyValue(new PropertyValue(_propertyName, value));
 		}
 
-		public IConfigurationBuildStage<TObject> ToRegistered(string objectId)
+		public IObjectConfigurationBuildStage<TObject> ToRegistered(string objectId)
 		{
 			return AddPropertyValue(new PropertyValue(_propertyName, new RuntimeObjectReference(objectId)));
 		}
 
-		public IConfigurationBuildStage<TObject> ToRegistered<TRef>(ObjectRef<TRef> reference) where TRef : TProperty
+		public IObjectConfigurationBuildStage<TObject> ToRegistered<TRef>(ObjectRef<TRef> reference) where TRef : TProperty
 		{
 			return ToRegistered(reference.Id);
 		}
 
-		public IConfigurationBuildStage<TObject> ToRegisteredDefaultOf<TReferencedType>() where TReferencedType : TProperty
+		public IObjectConfigurationBuildStage<TObject> ToRegisteredDefaultOf<TReferencedType>() where TReferencedType : TProperty
 		{
 			return ToRegistered(IdGenerator<TReferencedType>.GetDefaultId());
 		}
 
-		public IConfigurationBuildStage<TObject> ToRegisteredDefault()
+		public IObjectConfigurationBuildStage<TObject> ToRegisteredDefault()
 		{
 			return ToRegistered(IdGenerator<TProperty>.GetDefaultId());
 		}
 
-		public IConfigurationBuildStage<TObject> ToInlineDefinition<TInnerObject>() where TInnerObject : TProperty
+		public IObjectConfigurationBuildStage<TObject> ToInlineDefinition<TInnerObject>() where TInnerObject : TProperty
 		{
 			return AddPropertyValue(new PropertyValue(_propertyName, new ObjectDefinitionBuilder<TInnerObject>(null).Definition));
 		}
 
-		public IConfigurationBuildStage<TObject> ToInlineDefinition<TInnerObject>(Action<IInstantiationBuildStage<TInnerObject>> innerObjectBuildAction) where TInnerObject : TProperty
+		public IObjectConfigurationBuildStage<TObject> ToInlineDefinition<TInnerObject>(Action<IInstantiationBuildStage<TInnerObject>> innerObjectBuildAction) where TInnerObject : TProperty
 		{
 			var builder = new ObjectDefinitionBuilder<TInnerObject>(null);
 			innerObjectBuildAction(builder);
 			return AddPropertyValue(new PropertyValue(_propertyName, builder.Definition));
 		}
 
-		private IConfigurationBuildStage<TObject> AddPropertyValue(PropertyValue propertyValue)
+		private IObjectConfigurationBuildStage<TObject> AddPropertyValue(PropertyValue propertyValue)
 		{
 			_builder.Definition.PropertyValues.Add(propertyValue);
 			return _builder;

@@ -29,9 +29,9 @@ using Spring.Objects.Factory.Config;
 
 namespace Spring.FluentContext.BuildingStages
 {
-	public interface IAutoConfigurationBuildStage<TObject> : IConfigurationBuildStage<TObject>
+	public interface IAutoConfigurationBuildStage<TObject> : IObjectConfigurationBuildStage<TObject>
 	{
-		IConfigurationBuildStage<TObject> Autowire();
-		IConfigurationBuildStage<TObject> Autowire(AutoWiringMode mode);
+		IObjectConfigurationBuildStage<TObject> Autowire();
+		IObjectConfigurationBuildStage<TObject> Autowire(AutoWiringMode mode);
 	}
 }

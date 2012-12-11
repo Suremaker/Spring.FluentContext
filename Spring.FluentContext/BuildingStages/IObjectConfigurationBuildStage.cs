@@ -1,4 +1,4 @@
-//
+﻿//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -25,13 +25,15 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+using System;
+using System.Linq.Expressions;
+using Spring.FluentContext.Builders;
+
 namespace Spring.FluentContext.BuildingStages
 {
-
-	public interface IExternalDependencyBuildStage<TObject> : IInstantiationBuildStage<TObject>
+	public interface IObjectConfigurationBuildStage<TObject> : IInitBehaviorBuildStage<TObject>
 	{
-		IExternalDependencyBuildStage<TObject> DependingOnDefault<TOtherObject>();
-		IExternalDependencyBuildStage<TObject> DependingOn<TOtherObject>(string objectId);
-		IExternalDependencyBuildStage<TObject> DependingOn<TOtherObject>(ObjectRef<TOtherObject> reference);
+		IPropertyDefinitionBuilder<TObject, TProperty> BindProperty<TProperty>(Expression<Func<TObject, TProperty>> propertySelector);
+		IPropertyDefinitionBuilder<TObject, TProperty> BindPropertyNamed<TProperty>(string propertyName);		
 	}
 }

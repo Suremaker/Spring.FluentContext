@@ -42,8 +42,8 @@ namespace Spring.FluentContext.Impl
 		}
 	}
 
-	internal class CtorDefinitionBuilder<TObject, TArg> 
-		: GenericCtorDefinitionBuilder<IAutoConfigurationBuildStage<TObject>, TArg>, 
+	internal class CtorDefinitionBuilder<TObject, TArg>
+		: GenericCtorDefinitionBuilder<IMethodConfigurationBuildStage<TObject>, TArg>, 
 		ICtorDefinitionBuildStage<TObject, TArg>
 	{
 		public CtorDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
