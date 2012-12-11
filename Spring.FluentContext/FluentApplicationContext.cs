@@ -36,51 +36,115 @@ using Spring.Objects.Factory.Support;
 
 namespace Spring.FluentContext
 {
+	/// <summary>
+	/// Class offering fluent API for object definition construction.
+	/// </summary>
 	public class FluentApplicationContext : GenericApplicationContext, IFluentApplicationContext
 	{
+		/// <summary>
+		/// Creates new context.
+		/// </summary>
 		public FluentApplicationContext()
 		{
 		}
 
-		public FluentApplicationContext(bool caseSensitive) : base(caseSensitive)
+		/// <summary>
+		/// Creates new context.
+		/// </summary>
+		/// <param name="caseSensitive">if set to <c>true</c> names in the context are case sensitive.</param>
+		public FluentApplicationContext(bool caseSensitive)
+			: base(caseSensitive)
 		{
 		}
 
-		public FluentApplicationContext(DefaultListableObjectFactory objectFactory) : base(objectFactory)
+		/// <summary>
+		/// Creates new context.
+		/// </summary>
+		/// <param name="objectFactory">The object factory instance to use for this context.</param>
+		public FluentApplicationContext(DefaultListableObjectFactory objectFactory)
+			: base(objectFactory)
 		{
 		}
 
-		public FluentApplicationContext(IApplicationContext parent) : base(parent)
+		/// <summary>
+		/// Creates new context.
+		/// </summary>
+		/// <param name="parent">The parent application context.</param>
+		public FluentApplicationContext(IApplicationContext parent)
+			: base(parent)
 		{
 		}
 
-		public FluentApplicationContext(string name, bool caseSensitive, IApplicationContext parent) : base(name, caseSensitive, parent)
+		/// <summary>
+		/// Creates new context.
+		/// </summary>
+		/// <param name="name">The name of the application context.</param>
+		/// <param name="caseSensitive">if set to <c>true</c> names in the context are case sensitive.</param>
+		/// <param name="parent">The parent application context.</param>
+		public FluentApplicationContext(string name, bool caseSensitive, IApplicationContext parent)
+			: base(name, caseSensitive, parent)
 		{
 		}
 
-		public FluentApplicationContext(DefaultListableObjectFactory objectFactory, IApplicationContext parent) : base(objectFactory, parent)
+		/// <summary>
+		/// Creates new context.
+		/// </summary>
+		/// <param name="objectFactory">The object factory to use for this context</param>
+		/// <param name="parent">The parent application context.</param>
+		public FluentApplicationContext(DefaultListableObjectFactory objectFactory, IApplicationContext parent)
+			: base(objectFactory, parent)
 		{
 		}
 
-		public FluentApplicationContext(string name, bool caseSensitive, IApplicationContext parent, DefaultListableObjectFactory objectFactory) : base(name, caseSensitive, parent, objectFactory)
+		/// <summary>
+		/// Creates new context.
+		/// </summary>
+		/// <param name="name">The name of the application context.</param>
+		/// <param name="caseSensitive">if set to <c>true</c> names in the context are case sensitive.</param>
+		/// <param name="parent">The parent application context.</param>
+		/// <param name="objectFactory">The object factory to use for this context</param>
+		public FluentApplicationContext(string name, bool caseSensitive, IApplicationContext parent, DefaultListableObjectFactory objectFactory)
+			: base(name, caseSensitive, parent, objectFactory)
 		{
 		}
 
+		/// <summary>
+		/// Registers alias with default id for object of <c>T</c> type.
+		/// </summary>
+		/// <typeparam name="T">Type of object returned by alias.</typeparam>
+		/// <returns>Next build stage.</returns>
 		public IAliasLinkingBuildStage<T> RegisterDefaultAlias<T>()
 		{
 			return RegisterNamedAlias<T>(IdGenerator<T>.GetDefaultId());
 		}
 
+		/// <summary>
+		/// Registers alias with unique id for object of <c>T</c> type.
+		/// </summary>
+		/// <typeparam name="T">Type of object returned by alias.</typeparam>
+		/// <returns>Next build stage.</returns>
 		public IAliasLinkingBuildStage<T> RegisterUniquelyNamedAlias<T>()
 		{
 			return RegisterNamedAlias<T>(IdGenerator<T>.GetUniqueId());
 		}
 
+		/// <summary>
+		/// Registers alias with <c>id</c> for object of <c>T</c> type.
+		/// </summary>
+		/// <typeparam name="T">Type of object returned by alias.</typeparam>
+		/// <param name="id">Alias id.</param>
+		/// <returns>Next build stage.</returns>
 		public IAliasLinkingBuildStage<T> RegisterNamedAlias<T>(string id)
 		{
 			return new AliasDefinitionBuilder<T>(this, id);
 		}
 
+		/// <summary>
+		/// Registers object definition with specified <c>id</c> for <c>T</c> type.
+		/// </summary>
+		/// <typeparam name="T">Type of configured object.</typeparam>
+		/// <param name="id">Object id.</param>
+		/// <returns>Next build stage.</returns>
 		public IScopeBuildStage<T> RegisterNamed<T>(string id)
 		{
 			var builder = new ObjectDefinitionBuilder<T>(id);
@@ -88,16 +152,32 @@ namespace Spring.FluentContext
 			return builder;
 		}
 
+		/// <summary>
+		/// Registers object definition with default id for <c>T</c> type.
+		/// </summary>
+		/// <typeparam name="T">Type of configured object.</typeparam>
+		/// <returns>Next build stage.</returns>
 		public IScopeBuildStage<T> RegisterDefault<T>()
 		{
 			return RegisterNamed<T>(IdGenerator<T>.GetDefaultId());
 		}
 
+		/// <summary>
+		/// Registers object definition with unique id for <c>T</c> type.
+		/// </summary>
+		/// <typeparam name="T">Type of configured object.</typeparam>
+		/// <returns>Next build stage.</returns>
 		public IScopeBuildStage<T> RegisterUniquelyNamed<T>()
 		{
 			return RegisterNamed<T>(IdGenerator<T>.GetUniqueId());
 		}
 
+		/// <summary>
+		/// Registers proxy factory with specified <c>id</c> for proxies of <c>T</c> type.
+		/// </summary>
+		/// <typeparam name="T">Type to proxy.</typeparam>
+		/// <param name="id">Proxy definition id.</param>
+		/// <returns>Next build stage.</returns>
 		public IProxyTargetDefinitionBuildStage<T> RegisterNamedProxyFactory<T>(string id)
 		{
 			var builder = new ProxyFactoryDefinitionBuilder<T>(id);
@@ -105,27 +185,56 @@ namespace Spring.FluentContext
 			return builder;
 		}
 
+		/// <summary>
+		/// Registers proxy factory with default id for proxies of <c>T</c> type.
+		/// </summary>
+		/// <typeparam name="T">Type to proxy.</typeparam>
+		/// <returns>Next build stage.</returns>
 		public IProxyTargetDefinitionBuildStage<T> RegisterDefaultProxyFactory<T>()
 		{
 			return RegisterNamedProxyFactory<T>(IdGenerator<T>.GetDefaultId());
 		}
 
+		/// <summary>
+		/// Registers proxy factory with unique id for proxies of <c>T</c> type.
+		/// </summary>
+		/// <typeparam name="T">Type to proxy.</typeparam>
+		/// <returns>Next build stage.</returns>
 		public IProxyTargetDefinitionBuildStage<T> RegisterUniquelyNamedProxyFactory<T>()
 		{
 			return RegisterNamedProxyFactory<T>(IdGenerator<T>.GetUniqueId());
 		}
 
+		/// <summary>
+		/// Registers singleton <c>instance</c> with specified <c>id</c>.
+		/// </summary>
+		/// <typeparam name="T">Type of singleton instance.</typeparam>
+		/// <param name="id">Id of registered object.</param>
+		/// <param name="instance">Singleton instance to register.</param>
+		/// <returns>Registered object reference.</returns>
 		public IObjectRef<T> RegisterNamedSingleton<T>(string id, T instance)
 		{
 			ObjectFactory.RegisterSingleton(id, instance);
 			return new ObjectRef<T>(id);
 		}
 
+		/// <summary>
+		/// Registers singleton <c>instance</c> with default id.
+		/// </summary>
+		/// <typeparam name="T">Type of singleton instance.</typeparam>		
+		/// <param name="instance">Singleton instance to register.</param>
+		/// <returns>Registered object reference.</returns>
 		public IObjectRef<T> RegisterDefaultSingleton<T>(T instance)
 		{
 			return RegisterNamedSingleton(IdGenerator<T>.GetDefaultId(), instance);
 		}
 
+		/// <summary>
+		/// Registers singleton <c>instance</c> with unique id.
+		/// </summary>
+		/// <typeparam name="T">Type of singleton instance.</typeparam>		
+		/// <param name="instance">Singleton instance to register.</param>
+		/// <returns>Registered object reference.</returns>
 		public IObjectRef<T> RegisterUniquelyNamedSingleton<T>(T instance)
 		{
 			return RegisterNamedSingleton(IdGenerator<T>.GetUniqueId(), instance);
