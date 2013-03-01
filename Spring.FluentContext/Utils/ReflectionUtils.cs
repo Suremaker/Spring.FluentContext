@@ -26,7 +26,10 @@
 //
 
 using System;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
+using System.Text;
 
 namespace Spring.FluentContext.Utils
 {
@@ -39,12 +42,43 @@ namespace Spring.FluentContext.Utils
 
 		public static string GetMethodName<TObject, TResult>(Expression<Func<TObject, TResult>> methodCallExpression)
 		{
-			return ((MethodCallExpression)methodCallExpression.Body).Method.Name;
+			return GetMethodName(GetMethodInfo(methodCallExpression));
 		}
 
 		public static string GetMethodName<TObject>(Expression<Action<TObject>> methodCallExpression)
 		{
-			return ((MethodCallExpression)methodCallExpression.Body).Method.Name;
+			return GetMethodName(GetMethodInfo(methodCallExpression));
+		}
+
+		public static MethodInfo GetMethodInfo<TObject, TResult>(Expression<Func<TObject, TResult>> methodCallExpression)
+		{
+			return ((MethodCallExpression) methodCallExpression.Body).Method;
+		}
+
+		public static MethodInfo GetMethodInfo<TObject>(Expression<Action<TObject>> methodCallExpression)
+		{
+			return ((MethodCallExpression)methodCallExpression.Body).Method;
+		}
+
+		public static string GetMethodName(MethodInfo methodInfo)
+		{
+			if (!methodInfo.IsGenericMethod)
+				return methodInfo.Name;
+			return string.Format("{0}<{1}>", methodInfo.Name, string.Join(",", methodInfo.GetGenericArguments().Select(GetTypeFullName)));
+		}
+
+		public static string GetTypeFullName(Type type)
+		{
+			if (!type.IsGenericType)
+				return type.FullName;
+
+			var sb = new StringBuilder();
+
+			if (type.Namespace != null)
+				sb.Append(type.Namespace).Append('.');
+
+			sb.AppendFormat("{0}<{1}>", type.Name.Substring(0, type.Name.IndexOf('`')), string.Join(",", type.GetGenericArguments().Select(GetTypeFullName)));
+			return sb.ToString();
 		}
 	}
 }

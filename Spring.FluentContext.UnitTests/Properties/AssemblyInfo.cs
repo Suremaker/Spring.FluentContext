@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Spring.FluentContext.UnitTests")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCopyright("Copyright © 2012-2013, Wojciech Kotlarski")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

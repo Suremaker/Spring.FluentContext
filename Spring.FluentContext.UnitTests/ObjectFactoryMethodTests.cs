@@ -25,6 +25,7 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+using System.Collections.Generic;
 using NUnit.Framework;
 using Spring.FluentContext.UnitTests.TestTypes;
 
@@ -34,7 +35,7 @@ namespace Spring.FluentContext.UnitTests
 	public class ObjectFactoryMethodTests
 	{
 		private FluentApplicationContext _ctx;
-		
+
 		[SetUp]
 		public void SetUp()
 		{
@@ -69,10 +70,10 @@ namespace Spring.FluentContext.UnitTests
 			string expectedValue = "some text";
 			_ctx.RegisterNamed<ComplexTypeFactory>("factory")
 				.BindProperty(f => f.InstanceText).ToValue(expectedValue);
-			
+
 			_ctx.RegisterDefault<ComplexType>()
 				.UseFactoryMethod<ComplexTypeFactory>(f => f.Create()).OfRegistered("factory");
-			
+
 			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedValue));
 		}
 
@@ -83,11 +84,40 @@ namespace Spring.FluentContext.UnitTests
 			var reference = _ctx.RegisterUniquelyNamed<ComplexTypeFactory>()
 				.BindProperty(f => f.InstanceText).ToValue(expectedValue)
 				.GetReference();
-			
+
 			_ctx.RegisterDefault<ComplexType>()
 				.UseFactoryMethod<ComplexTypeFactory>(f => f.Create()).OfRegistered(reference);
-			
+
 			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedValue));
+		}
+
+		[Test]
+		public void Use_generic_factory_method_creates_object_by_generic_method_call_on_referenced_registered_object()
+		{
+			var reference = _ctx.RegisterUniquelyNamed<GenericTypeFactory>().GetReference();
+
+			_ctx.RegisterDefault<ComplexType>()
+				.UseFactoryMethod<GenericTypeFactory>(f => f.Create<ComplexType>()).OfRegistered(reference);
+
+			Assert.That(_ctx.GetObject<ComplexType>(), Is.Not.Null);
+		}
+
+		[Test]
+		public void Use_generic_static_factory_method_creates_object_by_generic_static_method_call()
+		{
+			_ctx.RegisterDefault<ComplexType>()
+				.UseStaticFactoryMethod(GenericTypeFactory.CreateInstance<ComplexType>);
+
+			Assert.That(_ctx.GetObject<ComplexType>(), Is.Not.Null);
+		}
+
+		[Test]
+		public void Use_generic_static_factory_method_creates_generic_object_by_generic_static_method_call()
+		{
+			_ctx.RegisterDefault<List<int>>()
+				.UseStaticFactoryMethod(GenericTypeFactory.CreateInstance<List<int>>);
+
+			Assert.That(_ctx.GetObject<List<int>>(), Is.Not.Null);
 		}
 	}
 }

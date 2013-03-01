@@ -1,8 +1,15 @@
 Spring.FluentContext
 ===========================================
+
+Version 1.0.5
+-------------------------------------------
++ modified UseStaticFactoryMethod() and UseFactoryMethod() methods to accept generic factory methods, like:
+  _ctx.RegisterDefault<ComplexType>().UseStaticFactoryMethod(GenericTypeFactory.CreateInstance<ComplexType>);
++ modified BindLookupMethod() method to throw meaningful exception if target method is generic
+
 Version 1.0.4
 -------------------------------------------
-+ recreated nuget package to include newest version of dll
++ Recreated nuget package to include newest version of dll
 
 Version 1.0.3
 -------------------------------------------

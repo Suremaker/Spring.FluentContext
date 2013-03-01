@@ -25,8 +25,10 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+using System;
 using NUnit.Framework;
 using Spring.FluentContext.UnitTests.TestTypes;
+using Spring.FluentContext.Utils;
 
 namespace Spring.FluentContext.UnitTests
 {
@@ -117,6 +119,19 @@ namespace Spring.FluentContext.UnitTests
 				.BindLookupMethod(t => t.CreateType()).ToRegisteredDefaultOf<DerivedFromCountingType>();
 
 			Assert.That(_ctx.GetObject<TypeWithFactoryMethod>().CreateType(), Is.TypeOf<DerivedFromCountingType>());
+		}
+
+		[Test]
+		public void Bind_lookup_method_to_generic_method_throws_exception()
+		{
+			_ctx.RegisterDefault<DerivedFromCountingType>().AsSingleton();
+			_ctx.RegisterDefault<CountingType>().AsSingleton();
+
+			var ex = Assert.Throws<InvalidOperationException>(
+				() => _ctx.RegisterDefault<GenericFactoryMethod>()
+					.BindLookupMethod<CountingType>(f => f.CreateType<CountingType>()).ToRegisteredDefault());
+			Assert.That(ex.Message, Is.EqualTo(
+				string.Format("Lookup method binding for CreateType<Spring.FluentContext.UnitTests.TestTypes.CountingType>() in object named '{0}' is not supported, because target method is generic.", IdGenerator<GenericFactoryMethod>.GetDefaultId())));
 		}
 
 		[Test]

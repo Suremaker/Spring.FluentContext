@@ -63,6 +63,8 @@
     <Compile Include="TestTypes\DerivedFromCountingType.cs" />
     <Compile Include="TestTypes\DerivedFromNestingType.cs" />
     <Compile Include="TestTypes\DerivedFromSimpleType.cs" />
+    <Compile Include="TestTypes\GenericFactoryMethod.cs" />
+    <Compile Include="TestTypes\GenericTypeFactory.cs" />
     <Compile Include="TestTypes\ICalculator.cs" />
     <Compile Include="TestTypes\IocType.cs" />
     <Compile Include="TestTypes\MultiplingInterceptor.cs" />

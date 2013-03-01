@@ -116,15 +116,15 @@ namespace Spring.FluentContext.Impl
 		public IAutoConfigurationBuildStage<TObject> UseStaticFactoryMethod(Func<TObject> factoryMethodSelector)
 		{
 			_definition.ObjectType = factoryMethodSelector.Method.DeclaringType;
-			_definition.FactoryMethodName = factoryMethodSelector.Method.Name;
+			_definition.FactoryMethodName = ReflectionUtils.GetMethodName(factoryMethodSelector.Method);
 			return this;
 		}
 
-		public IFactoryMethodDefinitionBuilder<TFactory, TObject> UseFactoryMethod<TFactory>(Expression<Func<TFactory,TObject>> factoryMethodSelector)
+		public IFactoryMethodDefinitionBuilder<TFactory, TObject> UseFactoryMethod<TFactory>(Expression<Func<TFactory, TObject>> factoryMethodSelector)
 		{
 			_definition.ObjectType = typeof(TFactory);
 			_definition.FactoryMethodName = ReflectionUtils.GetMethodName(factoryMethodSelector);
-			return new FactoryMethodDefinitionBuilder<TFactory,TObject>(this);
+			return new FactoryMethodDefinitionBuilder<TFactory, TObject>(this);
 		}
 
 		public ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>(int argIndex)
@@ -137,29 +137,37 @@ namespace Spring.FluentContext.Impl
 			return new CtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty>(this, this);
 		}
 
-		public ICtorDefinitionBuildStage<TObject,TArg> UseConstructor<TArg>(Func<TArg,TObject> constructorSelector)
+		public ICtorDefinitionBuildStage<TObject, TArg> UseConstructor<TArg>(Func<TArg, TObject> constructorSelector)
 		{
 			return new CtorDefinitionBuilder<TObject, TArg>(this);
 		}
 
-		public ICtorDefinitionBuildStage<TObject,TArg1,TArg2> UseConstructor<TArg1,TArg2>(Func<TArg1,TArg2,TObject> constructorSelector)
+		public ICtorDefinitionBuildStage<TObject, TArg1, TArg2> UseConstructor<TArg1, TArg2>(Func<TArg1, TArg2, TObject> constructorSelector)
 		{
 			return new CtorDefinitionBuilder<TObject, TArg1, TArg2>(this);
 		}
 
-		public ICtorDefinitionBuildStage<TObject,TArg1,TArg2,TArg3> UseConstructor<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,TObject> constructorSelector)
+		public ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3> UseConstructor<TArg1, TArg2, TArg3>(Func<TArg1, TArg2, TArg3, TObject> constructorSelector)
 		{
 			return new CtorDefinitionBuilder<TObject, TArg1, TArg2, TArg3>(this);
 		}
 
-		public ICtorDefinitionBuildStage<TObject,TArg1,TArg2,TArg3,TArg4> UseConstructor<TArg1,TArg2,TArg3,TArg4>(Func<TArg1,TArg2,TArg3,TArg4,TObject> constructorSelector)
+		public ICtorDefinitionBuildStage<TObject, TArg1, TArg2, TArg3, TArg4> UseConstructor<TArg1, TArg2, TArg3, TArg4>(Func<TArg1, TArg2, TArg3, TArg4, TObject> constructorSelector)
 		{
 			return new CtorDefinitionBuilder<TObject, TArg1, TArg2, TArg3, TArg4>(this);
 		}
 
 		public ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethod<TResult>(Expression<Func<TObject, TResult>> methodSelector)
 		{
-			return new LookupMethodDefinitionBuilder<TObject, TResult>(this, ReflectionUtils.GetMethodName(methodSelector));
+			var methodInfo = ReflectionUtils.GetMethodInfo(methodSelector);
+
+			if (methodInfo.IsGenericMethod)
+				throw new InvalidOperationException(
+					string.Format("Lookup method binding for {0}() in object named '{1}' is not supported, because target method is generic.",
+					ReflectionUtils.GetMethodName(methodInfo),
+					IdGenerator<TObject>.GetDefaultId()));
+
+			return new LookupMethodDefinitionBuilder<TObject, TResult>(this, methodInfo.Name);
 		}
 
 		public ILookupMethodDefinitionBuilder<TObject, TResult> BindLookupMethodNamed<TResult>(string methodName)
