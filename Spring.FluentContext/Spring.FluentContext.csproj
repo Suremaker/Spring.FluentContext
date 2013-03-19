@@ -80,6 +80,7 @@
     <Compile Include="Definitions\Definition.cs" />
     <Compile Include="Definitions\IDefinition.cs" />
     <Compile Include="Definitions\Ref.cs" />
+    <Compile Include="Definitions\Value.cs" />
     <Compile Include="FluentApplicationContext.cs" />
     <Compile Include="IFluentApplicationContext.cs" />
     <Compile Include="Impl\IDefinitionHolder.cs" />

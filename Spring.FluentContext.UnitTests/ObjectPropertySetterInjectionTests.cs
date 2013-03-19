@@ -180,8 +180,8 @@ namespace Spring.FluentContext.UnitTests
 		public void Bind_property_to_references_using_generic_binding()
 		{
 			_ctx.RegisterDefault<NestingType>()
-			    .BindProperty(t => t.Other).To(Ref.Default<OtherType>())
-			    .BindProperty(t => t.Simple).To(Ref.Named<SimpleType>("simple"));
+				.BindProperty(t => t.Other).To(Ref.Default<OtherType>())
+				.BindProperty(t => t.Simple).To(Ref.Named<SimpleType>("simple"));
 
 			_ctx.RegisterNamed<SimpleType>("simple");
 			_ctx.RegisterDefault<OtherType>();
@@ -189,6 +189,17 @@ namespace Spring.FluentContext.UnitTests
 			var actual = _ctx.GetObject<NestingType>();
 			Assert.That(actual.Simple, Is.SameAs(_ctx.GetObject<SimpleType>("simple")));
 			Assert.That(actual.Other, Is.SameAs(_ctx.GetObject<OtherType>()));
+		}
+
+		[Test]
+		public void Bind_property_to_value_using_generic_binding()
+		{
+			const string expected = "test";
+			_ctx.RegisterDefault<SimpleType>()
+				.BindProperty(s => s.Text).To(Value.Const(expected));
+
+			var actual = _ctx.GetObject<SimpleType>();
+			Assert.That(actual.Text, Is.EqualTo(expected));
 		}
 	}
 }

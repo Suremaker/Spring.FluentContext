@@ -257,7 +257,7 @@ namespace Spring.FluentContext.UnitTests
 				.UseConstructor((string text, int value) => new CtorHavingType(text, value))
 					.BindConstructorArg().ToValue(expectedText)
 					.BindConstructorArg().ToValue(expectedValue);
-			
+
 			Assert.That(_ctx.GetObject<CtorHavingType>().Text, Is.EqualTo(expectedText));
 			Assert.That(_ctx.GetObject<CtorHavingType>().Value, Is.EqualTo(expectedValue));
 		}
@@ -275,7 +275,7 @@ namespace Spring.FluentContext.UnitTests
 					.BindConstructorArg().ToRegisteredDefault()
 					.BindConstructorArg().ToValue(expectedText)
 					.BindConstructorArg().ToValue(expectedValue);
-			
+
 			Assert.That(_ctx.GetObject<CtorHavingType>().Text, Is.EqualTo(expectedText));
 			Assert.That(_ctx.GetObject<CtorHavingType>().Value, Is.EqualTo(expectedValue));
 			Assert.That(_ctx.GetObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetObject<NestingType>()));
@@ -295,7 +295,7 @@ namespace Spring.FluentContext.UnitTests
 					.BindConstructorArg().ToValue(expectedText)
 					.BindConstructorArg().ToValue(expectedValue)
 					.BindConstructorArg().ToValue(expectedOther);
-			
+
 			Assert.That(_ctx.GetObject<CtorHavingType>().Text, Is.EqualTo(expectedText));
 			Assert.That(_ctx.GetObject<CtorHavingType>().Value, Is.EqualTo(expectedValue));
 			Assert.That(_ctx.GetObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetObject<NestingType>()));
@@ -306,9 +306,9 @@ namespace Spring.FluentContext.UnitTests
 		public void Bind_constructor_to_default_ref_using_generic_binder()
 		{
 			_ctx.RegisterDefault<CtorHavingType>()
-			    .UseConstructor((NestingType n) => new CtorHavingType(n))
-			    .BindConstructorArg().To(Ref.Default<NestingType>());
-			
+				.UseConstructor((NestingType n) => new CtorHavingType(n))
+				.BindConstructorArg().To(Ref.Default<NestingType>());
+
 			_ctx.RegisterDefault<NestingType>();
 
 			Assert.That(_ctx.GetObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetObject<NestingType>()));
@@ -324,6 +324,17 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterNamed<NestingType>("test");
 
 			Assert.That(_ctx.GetObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetObject<NestingType>("test")));
+		}
+
+		[Test]
+		public void Bind_constructor_to_value_using_generic_binder()
+		{
+			const string expected = "test";
+			_ctx.RegisterDefault<CtorHavingType>()
+				.UseConstructor((string t) => new CtorHavingType(t))
+				.BindConstructorArg().To(Value.Const(expected));
+
+			Assert.That(_ctx.GetObject<CtorHavingType>().Text, Is.EqualTo(expected));
 		}
 	}
 }
