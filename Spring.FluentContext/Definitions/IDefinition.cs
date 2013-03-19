@@ -1,8 +1,8 @@
-//
+﻿//
 //  Author:
 //    Wojciech Kotlarski
 //
-//  Copyright (c) 2012, Wojciech Kotlarski
+//  Copyright (c) 2013, Wojciech Kotlarski
 //
 //  All rights reserved.
 //
@@ -25,21 +25,17 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using Spring.FluentContext.Binders;
-using Spring.FluentContext.BuildingStages.Objects;
-
-namespace Spring.FluentContext.Builders
+namespace Spring.FluentContext.Definitions
 {
 	/// <summary>
-	/// Interface for property definition builder.
+	/// Interface for object definitions.
 	/// </summary>
-	/// <typeparam name="TObject">Type of configured object.</typeparam>
-	/// <typeparam name="TProperty">Type of property.</typeparam>
-	public interface IPropertyDefinitionBuilder<TObject, in TProperty>
-		: IReferenceBinder<IObjectConfigurationBuildStage<TObject>, TProperty>,
-		IValueBinder<IObjectConfigurationBuildStage<TObject>, TProperty>,
-		IInlineDefinitionBinder<IObjectConfigurationBuildStage<TObject>, TProperty>,
-		IDefinitionBinder<IObjectConfigurationBuildStage<TObject>,TProperty> 
+	/// <typeparam name="TTargetType">Type of defined object.</typeparam>
+	public interface IDefinition<out TTargetType>
 	{
+		/// <summary>
+		/// Internal definition object.
+		/// </summary>
+		object DefinitionObject { get; }
 	}
 }

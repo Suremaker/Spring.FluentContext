@@ -2,7 +2,7 @@
 //  Author:
 //    Wojciech Kotlarski
 //
-//  Copyright (c) 2012, Wojciech Kotlarski
+//  Copyright (c) 2013, Wojciech Kotlarski
 //
 //  All rights reserved.
 //
@@ -25,21 +25,23 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using Spring.FluentContext.Binders;
-using Spring.FluentContext.BuildingStages.Objects;
+using Spring.FluentContext.Definitions;
 
-namespace Spring.FluentContext.Builders
+namespace Spring.FluentContext.Binders
 {
 	/// <summary>
-	/// Interface for property definition builder.
+	/// Interface for definition binder.
 	/// </summary>
-	/// <typeparam name="TObject">Type of configured object.</typeparam>
-	/// <typeparam name="TProperty">Type of property.</typeparam>
-	public interface IPropertyDefinitionBuilder<TObject, in TProperty>
-		: IReferenceBinder<IObjectConfigurationBuildStage<TObject>, TProperty>,
-		IValueBinder<IObjectConfigurationBuildStage<TObject>, TProperty>,
-		IInlineDefinitionBinder<IObjectConfigurationBuildStage<TObject>, TProperty>,
-		IDefinitionBinder<IObjectConfigurationBuildStage<TObject>,TProperty> 
+	/// <typeparam name="TBuilder">Type of builder returned after binding is done.</typeparam>
+	/// <typeparam name="TTargetType">Type of binding.</typeparam>
+	public interface IDefinitionBinder<out TBuilder, in TTargetType>
 	{
+		/// <summary>
+		/// Specifies object defined by <c>definition</c> as binding target.
+		/// To see available definition builder classes, see classes with <see cref="Spring.FluentContext.Definitions"/> namespace.
+		/// </summary>
+		/// <param name="definition">Definition of object that would be bound.</param>
+		/// <returns>Builder.</returns>
+		TBuilder To(IDefinition<TTargetType> definition);
 	}
 }

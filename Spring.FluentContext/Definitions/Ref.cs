@@ -1,8 +1,8 @@
-//
+﻿//
 //  Author:
 //    Wojciech Kotlarski
 //
-//  Copyright (c) 2012, Wojciech Kotlarski
+//  Copyright (c) 2013, Wojciech Kotlarski
 //
 //  All rights reserved.
 //
@@ -25,21 +25,35 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using Spring.FluentContext.Binders;
-using Spring.FluentContext.BuildingStages.Objects;
+using Spring.FluentContext.Utils;
+using Spring.Objects.Factory.Config;
 
-namespace Spring.FluentContext.Builders
+namespace Spring.FluentContext.Definitions
 {
 	/// <summary>
-	/// Interface for property definition builder.
+	/// Class allowing to create definitions referencing to existing objects in context.
 	/// </summary>
-	/// <typeparam name="TObject">Type of configured object.</typeparam>
-	/// <typeparam name="TProperty">Type of property.</typeparam>
-	public interface IPropertyDefinitionBuilder<TObject, in TProperty>
-		: IReferenceBinder<IObjectConfigurationBuildStage<TObject>, TProperty>,
-		IValueBinder<IObjectConfigurationBuildStage<TObject>, TProperty>,
-		IInlineDefinitionBinder<IObjectConfigurationBuildStage<TObject>, TProperty>,
-		IDefinitionBinder<IObjectConfigurationBuildStage<TObject>,TProperty> 
+	public static class Ref
 	{
+		/// <summary>
+		/// Creates definition referencing to object of <c>TTargetType</c> type with default id.
+		/// </summary>
+		/// <typeparam name="TTargetType">Type of referenced object.</typeparam>
+		/// <returns>Definition.</returns>
+		public static IDefinition<TTargetType> Default<TTargetType>()
+		{
+			return Named<TTargetType>(IdGenerator<TTargetType>.GetDefaultId());
+		}
+
+		/// <summary>
+		/// Creates definition referencing to object of <c>TTargetType</c> type with <c>objectId</c> id.
+		/// </summary>
+		/// <typeparam name="TTargetType">Type of referenced object.</typeparam>
+		/// <param name="objectId">Id of referenced object</param>
+		/// <returns>Definition.</returns>
+		public static IDefinition<TTargetType> Named<TTargetType>(string objectId)
+		{
+			return new Definition<TTargetType>(new RuntimeObjectReference(objectId));
+		}
 	}
 }

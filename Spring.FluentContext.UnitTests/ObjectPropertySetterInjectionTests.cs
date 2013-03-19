@@ -26,6 +26,7 @@
 //
 
 using NUnit.Framework;
+using Spring.FluentContext.Definitions;
 using Spring.FluentContext.UnitTests.TestTypes;
 
 namespace Spring.FluentContext.UnitTests
@@ -173,6 +174,21 @@ namespace Spring.FluentContext.UnitTests
 
 			var actual = _ctx.GetObject<IocType>("test");
 			Assert.That(actual.ToString(), Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void Bind_property_to_references_using_generic_binding()
+		{
+			_ctx.RegisterDefault<NestingType>()
+			    .BindProperty(t => t.Other).To(Ref.Default<OtherType>())
+			    .BindProperty(t => t.Simple).To(Ref.Named<SimpleType>("simple"));
+
+			_ctx.RegisterNamed<SimpleType>("simple");
+			_ctx.RegisterDefault<OtherType>();
+
+			var actual = _ctx.GetObject<NestingType>();
+			Assert.That(actual.Simple, Is.SameAs(_ctx.GetObject<SimpleType>("simple")));
+			Assert.That(actual.Other, Is.SameAs(_ctx.GetObject<OtherType>()));
 		}
 	}
 }

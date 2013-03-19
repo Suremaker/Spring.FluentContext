@@ -25,6 +25,8 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+using Spring.FluentContext.Definitions;
+
 namespace Spring.FluentContext.Binders
 {
 	/// <summary>

@@ -26,6 +26,7 @@
 //
 
 using NUnit.Framework;
+using Spring.FluentContext.Definitions;
 using Spring.FluentContext.UnitTests.TestTypes;
 
 namespace Spring.FluentContext.UnitTests
@@ -299,6 +300,30 @@ namespace Spring.FluentContext.UnitTests
 			Assert.That(_ctx.GetObject<CtorHavingType>().Value, Is.EqualTo(expectedValue));
 			Assert.That(_ctx.GetObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetObject<NestingType>()));
 			Assert.That(_ctx.GetObject<CtorHavingType>().OtherValue, Is.EqualTo(expectedOther));
+		}
+
+		[Test]
+		public void Bind_constructor_to_default_ref_using_generic_binder()
+		{
+			_ctx.RegisterDefault<CtorHavingType>()
+			    .UseConstructor((NestingType n) => new CtorHavingType(n))
+			    .BindConstructorArg().To(Ref.Default<NestingType>());
+			
+			_ctx.RegisterDefault<NestingType>();
+
+			Assert.That(_ctx.GetObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetObject<NestingType>()));
+		}
+
+		[Test]
+		public void Bind_constructor_to_named_ref_using_generic_binder()
+		{
+			_ctx.RegisterDefault<CtorHavingType>()
+				.UseConstructor((NestingType n) => new CtorHavingType(n))
+				.BindConstructorArg().To(Ref.Named<NestingType>("test"));
+
+			_ctx.RegisterNamed<NestingType>("test");
+
+			Assert.That(_ctx.GetObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetObject<NestingType>("test")));
 		}
 	}
 }

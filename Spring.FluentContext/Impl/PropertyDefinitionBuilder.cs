@@ -28,6 +28,7 @@
 using System;
 using Spring.FluentContext.Builders;
 using Spring.FluentContext.BuildingStages.Objects;
+using Spring.FluentContext.Definitions;
 using Spring.FluentContext.Utils;
 using Spring.Objects;
 using Spring.Objects.Factory.Config;
@@ -68,6 +69,11 @@ namespace Spring.FluentContext.Impl
 		public IObjectConfigurationBuildStage<TObject> ToRegisteredDefault()
 		{
 			return ToRegistered(IdGenerator<TProperty>.GetDefaultId());
+		}
+
+		public IObjectConfigurationBuildStage<TObject> To(IDefinition<TProperty> definition)
+		{
+			return AddPropertyValue(new PropertyValue(_propertyName, definition.DefinitionObject));
 		}
 
 		public IObjectConfigurationBuildStage<TObject> ToInlineDefinition<TInnerObject>() where TInnerObject : TProperty

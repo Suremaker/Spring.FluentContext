@@ -28,6 +28,7 @@
 using System;
 using Spring.FluentContext.Builders;
 using Spring.FluentContext.BuildingStages.Objects;
+using Spring.FluentContext.Definitions;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Config;
 
@@ -94,6 +95,12 @@ namespace Spring.FluentContext.Impl
 			var innerObjectBuilder = new ObjectDefinitionBuilder<TInnerObject>(null);
 			innerObjectBuildAction(innerObjectBuilder);
 			_insertCtorArgAction(_holder.Definition.ConstructorArgumentValues, innerObjectBuilder.Definition);
+			return _builder;
+		}
+
+		public TBuilder To(IDefinition<TArgument> definition)
+		{
+			_insertCtorArgAction(_holder.Definition.ConstructorArgumentValues, definition.DefinitionObject);
 			return _builder;
 		}
 	}

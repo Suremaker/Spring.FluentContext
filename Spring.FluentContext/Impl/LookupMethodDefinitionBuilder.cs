@@ -27,6 +27,7 @@
 
 using Spring.FluentContext.Builders;
 using Spring.FluentContext.BuildingStages.Objects;
+using Spring.FluentContext.Definitions;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Support;
 

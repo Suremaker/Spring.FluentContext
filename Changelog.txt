@@ -1,11 +1,17 @@
 Spring.FluentContext
 ===========================================
 
+Version 1.0.6
+-------------------------------------------
++ Added IDefinition<> interface describing object definitions.
++ Extended constructor and property binding methods with To(IDefinition<> definition) method allowing to provide definition of object that would be bound.
++ Added Ref class allowing to create reference definitions (pointing to existing objects in container).
+
 Version 1.0.5
 -------------------------------------------
-+ modified UseStaticFactoryMethod() and UseFactoryMethod() methods to accept generic factory methods, like:
++ Modified UseStaticFactoryMethod() and UseFactoryMethod() methods to accept generic factory methods, like:
   _ctx.RegisterDefault<ComplexType>().UseStaticFactoryMethod(GenericTypeFactory.CreateInstance<ComplexType>);
-+ modified BindLookupMethod() method to throw meaningful exception if target method is generic
++ Modified BindLookupMethod() method to throw meaningful exception if target method is generic
 
 Version 1.0.4
 -------------------------------------------

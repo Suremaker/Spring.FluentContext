@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Binders\IDefinitionBinder.cs" />
     <Compile Include="Binders\IInlineDefinitionBinder.cs" />
     <Compile Include="Binders\IReferenceBinder.cs" />
     <Compile Include="Binders\IValueBinder.cs" />
@@ -76,6 +77,9 @@
     <Compile Include="BuildingStages\ProxyFactories\IProxyInterceptorDefinitionBuildStage.cs" />
     <Compile Include="BuildingStages\ProxyFactories\IProxyTargetDefinitionBuildStage.cs" />
     <Compile Include="ContextExtensions.cs" />
+    <Compile Include="Definitions\Definition.cs" />
+    <Compile Include="Definitions\IDefinition.cs" />
+    <Compile Include="Definitions\Ref.cs" />
     <Compile Include="FluentApplicationContext.cs" />
     <Compile Include="IFluentApplicationContext.cs" />
     <Compile Include="Impl\IDefinitionHolder.cs" />
