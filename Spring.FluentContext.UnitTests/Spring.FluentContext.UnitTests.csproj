@@ -59,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ObjectPropertySetterInjectionTests.cs" />
     <Compile Include="TestTypes\Calculator.cs" />
+    <Compile Include="TestTypes\CollectionHolder.cs" />
     <Compile Include="TestTypes\CtorHavingType.cs" />
     <Compile Include="TestTypes\DerivedFromCountingType.cs" />
     <Compile Include="TestTypes\DerivedFromNestingType.cs" />

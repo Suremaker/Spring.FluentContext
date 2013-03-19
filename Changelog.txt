@@ -7,6 +7,7 @@ Version 1.0.6
 + Extended constructor and property binding methods with To(IDefinition<> definition) method allowing to provide definition of object that would be bound.
 + Added Ref class allowing to create reference definitions (pointing to existing objects in container).
 + Added Value class allowing to create value definitions (constant values).
++ Added Collection class allowing to create collection definitions (arrays/list).
 
 Version 1.0.5
 -------------------------------------------

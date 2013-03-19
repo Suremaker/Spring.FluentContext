@@ -25,22 +25,46 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+using System.Collections.Generic;
+using System.Linq;
+using Spring.Objects.Factory.Config;
+
 namespace Spring.FluentContext.Definitions
 {
 	/// <summary>
-	/// Class allowing to create definitions of constant values.
+	/// Class allowing to create definitions of collections, where items can be described with another definitions.
 	/// </summary>
-	public static class Value
+	public static class Collection
 	{
 		/// <summary>
-		/// Creates definition of constant <c>value</c> of <c>TTargetType</c> type.
+		/// Creates definition of array of <c>TTargetType</c> type, containing elements described by <c>items</c> definitions.
 		/// </summary>
-		/// <typeparam name="TTargetType">Type of constant value.</typeparam>
-		/// <param name="value">Value.</param>
+		/// <typeparam name="TTargetType">Array item type.</typeparam>
+		/// <param name="items">Definitions of array items.</param>
 		/// <returns>Definition.</returns>
-		public static IDefinition<TTargetType> Const<TTargetType>(TTargetType value)
+		public static IDefinition<TTargetType[]> Array<TTargetType>(params IDefinition<TTargetType>[] items)
 		{
-			return new Definition<TTargetType>(value);
+			return new Definition<TTargetType[]>(ToList(items));
 		}
+
+		/// <summary>
+		/// Creates definition of list of <c>TTargetType</c> type, containing elements described by <c>items</c> definitions.
+		/// </summary>
+		/// <typeparam name="TTargetType">List item type.</typeparam>
+		/// <param name="items">Definitions of list items.</param>
+		/// <returns>Definition.</returns>
+		public static IDefinition<List<TTargetType>> List<TTargetType>(params IDefinition<TTargetType>[] items)
+		{
+			return new Definition<List<TTargetType>>(ToList(items));
+		}
+
+		private static ManagedList ToList<TTargetType>(IEnumerable<IDefinition<TTargetType>> items)
+		{
+			var list = new ManagedList {ElementTypeName = typeof (TTargetType).FullName};
+			foreach (var def in items.Select(i => i.DefinitionObject))
+				list.Add(def);
+			return list;
+		}
+
 	}
 }

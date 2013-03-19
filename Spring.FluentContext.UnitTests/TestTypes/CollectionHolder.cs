@@ -25,22 +25,32 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-namespace Spring.FluentContext.Definitions
+using System.Collections.Generic;
+
+namespace Spring.FluentContext.UnitTests.TestTypes
 {
-	/// <summary>
-	/// Class allowing to create definitions of constant values.
-	/// </summary>
-	public static class Value
+	class CollectionHolder
 	{
-		/// <summary>
-		/// Creates definition of constant <c>value</c> of <c>TTargetType</c> type.
-		/// </summary>
-		/// <typeparam name="TTargetType">Type of constant value.</typeparam>
-		/// <param name="value">Value.</param>
-		/// <returns>Definition.</returns>
-		public static IDefinition<TTargetType> Const<TTargetType>(TTargetType value)
+		public SimpleType[] Array { get; set; }
+		public List<OtherType> List { get; set; }
+		public IEnumerable<DerivedFromSimpleType> Collection { get; set; }
+
+		public CollectionHolder() { }
+
+		public CollectionHolder(SimpleType[] values)
 		{
-			return new Definition<TTargetType>(value);
+			Array = values;
 		}
+
+		public CollectionHolder(List<OtherType> values)
+		{
+			List = values;
+		}
+
+		public CollectionHolder(IEnumerable<DerivedFromSimpleType> values)
+		{
+			Collection = values;
+		}
+
 	}
 }

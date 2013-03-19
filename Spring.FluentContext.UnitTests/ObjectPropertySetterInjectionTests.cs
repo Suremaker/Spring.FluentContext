@@ -25,6 +25,7 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+using System.Linq;
 using NUnit.Framework;
 using Spring.FluentContext.Definitions;
 using Spring.FluentContext.UnitTests.TestTypes;
@@ -200,6 +201,60 @@ namespace Spring.FluentContext.UnitTests
 
 			var actual = _ctx.GetObject<SimpleType>();
 			Assert.That(actual.Text, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void Bind_property_to_array_using_generic_binding()
+		{
+			_ctx.RegisterDefault<SimpleType>()
+				.BindProperty(s => s.Text).ToValue("1");
+
+			_ctx.RegisterNamed<SimpleType>("test")
+				.BindProperty(s => s.Text).ToValue("2");
+
+			_ctx.RegisterDefault<CollectionHolder>()
+				.BindProperty(h => h.Array).To(Collection.Array(
+					Ref.Default<SimpleType>(),
+					Ref.Named<SimpleType>("test"),
+					Value.Const(new SimpleType { Text = "3" })));
+
+			Assert.That(_ctx.GetObject<CollectionHolder>().Array.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+		}
+
+		[Test]
+		public void Bind_property_to_list_using_generic_binding()
+		{
+			_ctx.RegisterDefault<OtherType>()
+				.BindProperty(s => s.Text).ToValue("1");
+
+			_ctx.RegisterNamed<OtherType>("test")
+				.BindProperty(s => s.Text).ToValue("2");
+
+			_ctx.RegisterDefault<CollectionHolder>()
+				.BindProperty(h => h.List).To(Collection.List(
+					Ref.Default<OtherType>(),
+					Ref.Named<OtherType>("test"),
+					Value.Const(new OtherType { Text = "3" })));
+
+			Assert.That(_ctx.GetObject<CollectionHolder>().List.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+		}
+
+		[Test]
+		public void Bind_property_to_collection_using_generic_binding()
+		{
+			_ctx.RegisterDefault<DerivedFromSimpleType>()
+				.BindProperty(s => s.Text).ToValue("1");
+
+			_ctx.RegisterNamed<DerivedFromSimpleType>("test")
+				.BindProperty(s => s.Text).ToValue("2");
+
+			_ctx.RegisterDefault<CollectionHolder>()
+				.BindProperty(h => h.Collection).To(Collection.Array(
+					Ref.Default<DerivedFromSimpleType>(),
+					Ref.Named<DerivedFromSimpleType>("test"),
+					Value.Const(new DerivedFromSimpleType { Text = "3" })));
+
+			Assert.That(_ctx.GetObject<CollectionHolder>().Collection.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
 	}
 }

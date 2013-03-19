@@ -77,6 +77,7 @@
     <Compile Include="BuildingStages\ProxyFactories\IProxyInterceptorDefinitionBuildStage.cs" />
     <Compile Include="BuildingStages\ProxyFactories\IProxyTargetDefinitionBuildStage.cs" />
     <Compile Include="ContextExtensions.cs" />
+    <Compile Include="Definitions\Collection.cs" />
     <Compile Include="Definitions\Definition.cs" />
     <Compile Include="Definitions\IDefinition.cs" />
     <Compile Include="Definitions\Ref.cs" />
