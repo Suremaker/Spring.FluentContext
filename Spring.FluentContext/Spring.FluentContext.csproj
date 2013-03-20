@@ -79,6 +79,7 @@
     <Compile Include="ContextExtensions.cs" />
     <Compile Include="Definitions\Collection.cs" />
     <Compile Include="Definitions\Definition.cs" />
+    <Compile Include="Definitions\Def.cs" />
     <Compile Include="Definitions\IDefinition.cs" />
     <Compile Include="Definitions\Ref.cs" />
     <Compile Include="Definitions\Value.cs" />

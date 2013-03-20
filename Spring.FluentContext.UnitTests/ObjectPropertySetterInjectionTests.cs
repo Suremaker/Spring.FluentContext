@@ -256,5 +256,25 @@ namespace Spring.FluentContext.UnitTests
 
 			Assert.That(_ctx.GetObject<CollectionHolder>().Collection.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
+
+		[Test]
+		public void Bind_property_to_inline_definition_using_generic_binding()
+		{
+			const string expectedText = "some text";
+			const int expectedValue = 32;
+
+			_ctx.RegisterNamed<NestingType>("nesting")
+				.BindProperty(n => n.Simple).To(
+					Def.Inline<DerivedFromSimpleType>(def => def
+						.BindProperty(s => s.Text).ToValue(expectedText)
+						.BindProperty(s => s.Value).ToValue(expectedValue)));
+
+			var actual = _ctx.GetObject<NestingType>("nesting");
+			Assert.That(actual.Simple, Is.InstanceOf<DerivedFromSimpleType>());
+			
+			var simple = (DerivedFromSimpleType)actual.Simple;
+			Assert.That(simple.Text, Is.EqualTo(expectedText));
+			Assert.That(simple.Value, Is.EqualTo(expectedValue));
+		}
 	}
 }

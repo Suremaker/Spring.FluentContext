@@ -30,6 +30,7 @@ using System.Linq;
 using NUnit.Framework;
 using Spring.FluentContext.Definitions;
 using Spring.FluentContext.UnitTests.TestTypes;
+using Spring.Objects.Factory;
 
 namespace Spring.FluentContext.UnitTests
 {
@@ -394,6 +395,19 @@ namespace Spring.FluentContext.UnitTests
 						Value.Const(new DerivedFromSimpleType { Text = "3" })));
 
 			Assert.That(_ctx.GetObject<CollectionHolder>().Collection.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+		}
+
+		[Test]
+		public void Bind_constructor_to_inline_definition_using_generic_binding()
+		{
+			_ctx.RegisterDefault<CtorHavingType>()
+				.UseConstructor<NestingType>(n => new CtorHavingType(n))
+					.BindConstructorArg().To(Def.Inline<NestingType>(
+						def => def.BindProperty(n => n.Simple).ToRegisteredDefault()));
+			_ctx.RegisterDefault<SimpleType>();
+
+			Assert.That(_ctx.GetObject<CtorHavingType>().Nesting.Simple, Is.SameAs(_ctx.GetObject<SimpleType>()));
+			Assert.Throws<NoSuchObjectDefinitionException>(() => _ctx.GetObject<NestingType>());
 		}
 	}
 }
