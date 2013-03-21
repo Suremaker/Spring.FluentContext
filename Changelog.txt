@@ -3,8 +3,10 @@ Spring.FluentContext
 
 Version 1.0.7
 -------------------------------------------
-+ Merged Ref/Value/Collection/Def classes into one Def class.
++ Merged Ref/Value/Collection/Def classes into one Def class and renamed methods.
 + Added BinderExtensions class extending property value / constructor argument binders with ToCollection() method, available for IEnumerable<> types.
++ Modified IObjectRef<> to extend IDefinition<> interface
++ Modified Def.Reference() method to return IObjectRef<>
 
 Version 1.0.6
 -------------------------------------------

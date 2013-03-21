@@ -25,13 +25,15 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+using Spring.FluentContext.Definitions;
+
 namespace Spring.FluentContext
 {
 	/// <summary>
 	/// Interface for object reference.
 	/// </summary>
 	/// <typeparam name="T">Type of referenced object.</typeparam>
-	public interface IObjectRef<out T>
+	public interface IObjectRef<out T> : IDefinition<T>
 	{
 		/// <summary>
 		/// Object id.

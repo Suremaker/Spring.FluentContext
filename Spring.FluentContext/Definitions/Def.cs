@@ -58,7 +58,7 @@ namespace Spring.FluentContext.Definitions
 		/// </summary>
 		/// <typeparam name="TTargetType">Type of referenced object.</typeparam>
 		/// <returns>Definition.</returns>
-		public static IDefinition<TTargetType> Reference<TTargetType>()
+		public static IObjectRef<TTargetType> Reference<TTargetType>()
 		{
 			return Reference<TTargetType>(IdGenerator<TTargetType>.GetDefaultId());
 		}
@@ -69,9 +69,9 @@ namespace Spring.FluentContext.Definitions
 		/// <typeparam name="TTargetType">Type of referenced object.</typeparam>
 		/// <param name="objectId">Id of referenced object</param>
 		/// <returns>Definition.</returns>
-		public static IDefinition<TTargetType> Reference<TTargetType>(string objectId)
+		public static IObjectRef<TTargetType> Reference<TTargetType>(string objectId)
 		{
-			return new Definition<TTargetType>(new RuntimeObjectReference(objectId));
+			return new ObjectRef<TTargetType>(objectId);
 		}
 
 		/// <summary>

@@ -25,6 +25,8 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+using Spring.Objects.Factory.Config;
+
 namespace Spring.FluentContext.Impl
 {
 	internal class ObjectRef<T> : IObjectRef<T>
@@ -56,5 +58,7 @@ namespace Spring.FluentContext.Impl
 		{
 			return (Id != null ? Id.GetHashCode() : 0);
 		}
+
+		public object DefinitionObject { get { return new RuntimeObjectReference(Id); } }
 	}
 }

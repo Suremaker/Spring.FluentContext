@@ -204,6 +204,16 @@ namespace Spring.FluentContext.UnitTests
 		}
 
 		[Test]
+		public void Bind_property_to_ref_using_generic_binding()
+		{
+			var reference = _ctx.RegisterDefault<SimpleType>().GetReference();
+			_ctx.RegisterDefault<NestingType>()
+				.BindProperty(n => n.Simple).To(reference);
+
+			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.SameAs(_ctx.GetObject<SimpleType>()));
+		}
+
+		[Test]
 		public void Bind_property_to_array_using_generic_binding()
 		{
 			_ctx.RegisterDefault<SimpleType>()
