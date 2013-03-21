@@ -51,6 +51,8 @@ or compile from sources available on Git: `git clone git://github.com/Suremaker/
 
 ## Not Implemented Features
 * lazy and non-lazy initialization (now everything is initialized lazily)
+
+## Partially Implemented Features
 * classes for easy collection handling like initializing object dependency using a list of other registered objects
 
 ## Limitations

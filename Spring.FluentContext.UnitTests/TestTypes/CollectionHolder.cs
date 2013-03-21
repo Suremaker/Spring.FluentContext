@@ -34,14 +34,20 @@ namespace Spring.FluentContext.UnitTests.TestTypes
 		public SimpleType[] Array { get; set; }
 		public List<OtherType> List { get; set; }
 		public IEnumerable<DerivedFromSimpleType> Collection { get; set; }
+		public Dictionary<int, SimpleType> Dictionary { get; set; } 
 
 		public CollectionHolder() { }
+
+		public CollectionHolder(Dictionary<int, SimpleType> values)
+		{
+			Dictionary = values;
+		}
 
 		public CollectionHolder(SimpleType[] values)
 		{
 			Array = values;
 		}
-
+		
 		public CollectionHolder(List<OtherType> values)
 		{
 			List = values;

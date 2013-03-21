@@ -25,35 +25,29 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using Spring.FluentContext.Utils;
-using Spring.Objects.Factory.Config;
+using System.Collections.Generic;
+using Spring.FluentContext.Binders;
+using Spring.FluentContext.Definitions;
 
-namespace Spring.FluentContext.Definitions
+namespace Spring.FluentContext
 {
 	/// <summary>
-	/// Class allowing to create definitions referencing to existing objects in context.
+	/// Binder extension class helping with binding constructor / property values to definitions such as collections
 	/// </summary>
-	public static class Ref
+	public static class BinderExtensions
 	{
 		/// <summary>
-		/// Creates definition referencing to object of <c>TTargetType</c> type with default id.
+		/// Allows to bind given <c>values</c> to constructor argument or property defined as a collection.
 		/// </summary>
-		/// <typeparam name="TTargetType">Type of referenced object.</typeparam>
-		/// <returns>Definition.</returns>
-		public static IDefinition<TTargetType> Default<TTargetType>()
+		/// <typeparam name="TBuilder">Result builder.</typeparam>
+		/// <typeparam name="TTargetCollection">Type of collection where values would be bound to.</typeparam>
+		/// <typeparam name="TTargetElement">Type of collection elements.</typeparam>
+		/// <param name="binder">Binder.</param>
+		/// <param name="values">Collection values.</param>
+		/// <returns>Builder.</returns>
+		public static TBuilder ToCollection<TBuilder, TTargetCollection, TTargetElement>(this IDefinitionBinder<TBuilder, TTargetCollection> binder, params IDefinition<TTargetElement>[] values) where TTargetCollection : IEnumerable<TTargetElement>
 		{
-			return Named<TTargetType>(IdGenerator<TTargetType>.GetDefaultId());
-		}
-
-		/// <summary>
-		/// Creates definition referencing to object of <c>TTargetType</c> type with <c>objectId</c> id.
-		/// </summary>
-		/// <typeparam name="TTargetType">Type of referenced object.</typeparam>
-		/// <param name="objectId">Id of referenced object</param>
-		/// <returns>Definition.</returns>
-		public static IDefinition<TTargetType> Named<TTargetType>(string objectId)
-		{
-			return new Definition<TTargetType>(new RuntimeObjectReference(objectId));
+			return binder.To(Def.Collection<TTargetCollection, TTargetElement>(values));
 		}
 	}
 }

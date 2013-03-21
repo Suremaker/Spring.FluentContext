@@ -181,8 +181,8 @@ namespace Spring.FluentContext.UnitTests
 		public void Bind_property_to_references_using_generic_binding()
 		{
 			_ctx.RegisterDefault<NestingType>()
-				.BindProperty(t => t.Other).To(Ref.Default<OtherType>())
-				.BindProperty(t => t.Simple).To(Ref.Named<SimpleType>("simple"));
+				.BindProperty(t => t.Other).To(Def.Reference<OtherType>())
+				.BindProperty(t => t.Simple).To(Def.Reference<SimpleType>("simple"));
 
 			_ctx.RegisterNamed<SimpleType>("simple");
 			_ctx.RegisterDefault<OtherType>();
@@ -197,7 +197,7 @@ namespace Spring.FluentContext.UnitTests
 		{
 			const string expected = "test";
 			_ctx.RegisterDefault<SimpleType>()
-				.BindProperty(s => s.Text).To(Value.Const(expected));
+				.BindProperty(s => s.Text).To(Def.Value(expected));
 
 			var actual = _ctx.GetObject<SimpleType>();
 			Assert.That(actual.Text, Is.EqualTo(expected));
@@ -213,10 +213,28 @@ namespace Spring.FluentContext.UnitTests
 				.BindProperty(s => s.Text).ToValue("2");
 
 			_ctx.RegisterDefault<CollectionHolder>()
-				.BindProperty(h => h.Array).To(Collection.Array(
-					Ref.Default<SimpleType>(),
-					Ref.Named<SimpleType>("test"),
-					Value.Const(new SimpleType { Text = "3" })));
+				.BindProperty(h => h.Array).To(Def.Array(
+					Def.Reference<SimpleType>(),
+					Def.Reference<SimpleType>("test"),
+					Def.Value(new SimpleType { Text = "3" })));
+
+			Assert.That(_ctx.GetObject<CollectionHolder>().Array.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+		}
+
+		[Test]
+		public void Bind_property_to_array_using_extension_binding()
+		{
+			_ctx.RegisterDefault<SimpleType>()
+				.BindProperty(s => s.Text).ToValue("1");
+
+			_ctx.RegisterNamed<SimpleType>("test")
+				.BindProperty(s => s.Text).ToValue("2");
+
+			_ctx.RegisterDefault<CollectionHolder>()
+				.BindProperty(h => h.Array).ToCollection(
+					Def.Reference<SimpleType>(),
+					Def.Reference<SimpleType>("test"),
+					Def.Value(new SimpleType { Text = "3" }));
 
 			Assert.That(_ctx.GetObject<CollectionHolder>().Array.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
@@ -231,10 +249,10 @@ namespace Spring.FluentContext.UnitTests
 				.BindProperty(s => s.Text).ToValue("2");
 
 			_ctx.RegisterDefault<CollectionHolder>()
-				.BindProperty(h => h.List).To(Collection.List(
-					Ref.Default<OtherType>(),
-					Ref.Named<OtherType>("test"),
-					Value.Const(new OtherType { Text = "3" })));
+				.BindProperty(h => h.List).To(Def.List(
+					Def.Reference<OtherType>(),
+					Def.Reference<OtherType>("test"),
+					Def.Value(new OtherType { Text = "3" })));
 
 			Assert.That(_ctx.GetObject<CollectionHolder>().List.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
@@ -249,12 +267,35 @@ namespace Spring.FluentContext.UnitTests
 				.BindProperty(s => s.Text).ToValue("2");
 
 			_ctx.RegisterDefault<CollectionHolder>()
-				.BindProperty(h => h.Collection).To(Collection.Array(
-					Ref.Default<DerivedFromSimpleType>(),
-					Ref.Named<DerivedFromSimpleType>("test"),
-					Value.Const(new DerivedFromSimpleType { Text = "3" })));
+				.BindProperty(h => h.Collection).To(Def.Array(
+					Def.Reference<DerivedFromSimpleType>(),
+					Def.Reference<DerivedFromSimpleType>("test"),
+					Def.Value(new DerivedFromSimpleType { Text = "3" })));
 
 			Assert.That(_ctx.GetObject<CollectionHolder>().Collection.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+		}
+
+		[Test]
+		public void Bind_property_to_collection_using_extension_binding()
+		{
+			_ctx.RegisterDefault<OtherType>().BindProperty(t => t.Text).ToValue("2");
+			_ctx.RegisterDefault<DerivedFromSimpleType>().BindProperty(t => t.Text).ToValue("2");
+			_ctx.RegisterDefault<SimpleType>().BindProperty(t => t.Text).ToValue("2");
+
+			_ctx.RegisterDefault<CollectionHolder>()
+				.BindProperty(h => h.Collection).ToCollection(
+					Def.Value(new DerivedFromSimpleType { Text = "1" }),
+					Def.Reference<DerivedFromSimpleType>())
+				.BindProperty(h => h.List).ToCollection(
+					Def.Value(new OtherType { Text = "1" }),
+					Def.Reference<OtherType>())
+				.BindProperty(h => h.Array).ToCollection(
+					Def.Value(new SimpleType { Text = "1" }),
+					Def.Reference<SimpleType>());
+
+			Assert.That(_ctx.GetObject<CollectionHolder>().Collection.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2" }));
+			Assert.That(_ctx.GetObject<CollectionHolder>().Array.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2" }));
+			Assert.That(_ctx.GetObject<CollectionHolder>().List.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2" }));
 		}
 
 		[Test]
@@ -265,13 +306,13 @@ namespace Spring.FluentContext.UnitTests
 
 			_ctx.RegisterNamed<NestingType>("nesting")
 				.BindProperty(n => n.Simple).To(
-					Def.Inline<DerivedFromSimpleType>(def => def
+					Def.Object<DerivedFromSimpleType>(def => def
 						.BindProperty(s => s.Text).ToValue(expectedText)
 						.BindProperty(s => s.Value).ToValue(expectedValue)));
 
 			var actual = _ctx.GetObject<NestingType>("nesting");
 			Assert.That(actual.Simple, Is.InstanceOf<DerivedFromSimpleType>());
-			
+
 			var simple = (DerivedFromSimpleType)actual.Simple;
 			Assert.That(simple.Text, Is.EqualTo(expectedText));
 			Assert.That(simple.Value, Is.EqualTo(expectedValue));

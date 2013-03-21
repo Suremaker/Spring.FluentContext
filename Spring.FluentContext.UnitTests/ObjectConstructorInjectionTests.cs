@@ -310,7 +310,7 @@ namespace Spring.FluentContext.UnitTests
 		{
 			_ctx.RegisterDefault<CtorHavingType>()
 				.UseConstructor((NestingType n) => new CtorHavingType(n))
-				.BindConstructorArg().To(Ref.Default<NestingType>());
+				.BindConstructorArg().To(Def.Reference<NestingType>());
 
 			_ctx.RegisterDefault<NestingType>();
 
@@ -322,7 +322,7 @@ namespace Spring.FluentContext.UnitTests
 		{
 			_ctx.RegisterDefault<CtorHavingType>()
 				.UseConstructor((NestingType n) => new CtorHavingType(n))
-				.BindConstructorArg().To(Ref.Named<NestingType>("test"));
+				.BindConstructorArg().To(Def.Reference<NestingType>("test"));
 
 			_ctx.RegisterNamed<NestingType>("test");
 
@@ -335,7 +335,7 @@ namespace Spring.FluentContext.UnitTests
 			const string expected = "test";
 			_ctx.RegisterDefault<CtorHavingType>()
 				.UseConstructor((string t) => new CtorHavingType(t))
-				.BindConstructorArg().To(Value.Const(expected));
+				.BindConstructorArg().To(Def.Value(expected));
 
 			Assert.That(_ctx.GetObject<CtorHavingType>().Text, Is.EqualTo(expected));
 		}
@@ -351,10 +351,10 @@ namespace Spring.FluentContext.UnitTests
 
 			_ctx.RegisterDefault<CollectionHolder>()
 				.UseConstructor<SimpleType[]>(c => new CollectionHolder(c))
-					.BindConstructorArg().To(Collection.Array(
-						Ref.Default<SimpleType>(),
-						Ref.Named<SimpleType>("test"),
-						Value.Const(new SimpleType { Text = "3" })));
+					.BindConstructorArg().To(Def.Array(
+						Def.Reference<SimpleType>(),
+						Def.Reference<SimpleType>("test"),
+						Def.Value(new SimpleType { Text = "3" })));
 
 			Assert.That(_ctx.GetObject<CollectionHolder>().Array.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
@@ -370,10 +370,10 @@ namespace Spring.FluentContext.UnitTests
 
 			_ctx.RegisterDefault<CollectionHolder>()
 				.UseConstructor<List<OtherType>>(c => new CollectionHolder(c))
-					.BindConstructorArg().To(Collection.List(
-						Ref.Default<OtherType>(),
-						Ref.Named<OtherType>("test"),
-						Value.Const(new OtherType { Text = "3" })));
+					.BindConstructorArg().To(Def.List(
+						Def.Reference<OtherType>(),
+						Def.Reference<OtherType>("test"),
+						Def.Value(new OtherType { Text = "3" })));
 
 			Assert.That(_ctx.GetObject<CollectionHolder>().List.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
@@ -389,10 +389,10 @@ namespace Spring.FluentContext.UnitTests
 
 			_ctx.RegisterDefault<CollectionHolder>()
 				.UseConstructor<IEnumerable<DerivedFromSimpleType>>(c => new CollectionHolder(c))
-					.BindConstructorArg().To(Collection.List(
-						Ref.Default<DerivedFromSimpleType>(),
-						Ref.Named<DerivedFromSimpleType>("test"),
-						Value.Const(new DerivedFromSimpleType { Text = "3" })));
+					.BindConstructorArg().To(Def.List(
+						Def.Reference<DerivedFromSimpleType>(),
+						Def.Reference<DerivedFromSimpleType>("test"),
+						Def.Value(new DerivedFromSimpleType { Text = "3" })));
 
 			Assert.That(_ctx.GetObject<CollectionHolder>().Collection.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
@@ -402,7 +402,7 @@ namespace Spring.FluentContext.UnitTests
 		{
 			_ctx.RegisterDefault<CtorHavingType>()
 				.UseConstructor<NestingType>(n => new CtorHavingType(n))
-					.BindConstructorArg().To(Def.Inline<NestingType>(
+					.BindConstructorArg().To(Def.Object<NestingType>(
 						def => def.BindProperty(n => n.Simple).ToRegisteredDefault()));
 			_ctx.RegisterDefault<SimpleType>();
 

@@ -26,27 +26,105 @@
 //
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Spring.FluentContext.BuildingStages.Objects;
 using Spring.FluentContext.Impl;
+using Spring.FluentContext.Utils;
+using Spring.Objects.Factory.Config;
 
 namespace Spring.FluentContext.Definitions
 {
 	/// <summary>
-	/// Class allowing to create inline object definitions.
+	/// Class allowing to create various object definitions.
 	/// </summary>
-	public static class Def
+	public class Def
 	{
 		/// <summary>
-		/// Creates inline object definition using <c>objectBuildAction</c>.
+		/// Creates object definition using <c>objectBuildAction</c>.
 		/// </summary>
 		/// <typeparam name="TObject">Type of defined object.</typeparam>
 		/// <param name="objectBuildAction">Action used to configure object.</param>
 		/// <returns>Definition.</returns>
-		public static IDefinition<TObject> Inline<TObject>(Action<IInstantiationBuildStage<TObject>> objectBuildAction)
+		public static IDefinition<TObject> Object<TObject>(Action<IInstantiationBuildStage<TObject>> objectBuildAction)
 		{
 			var builder = new ObjectDefinitionBuilder<TObject>(null);
 			objectBuildAction(builder);
 			return new Definition<TObject>(builder.Definition);
+		}
+
+		/// <summary>
+		/// Creates definition referencing to object of <c>TTargetType</c> type with default id.
+		/// </summary>
+		/// <typeparam name="TTargetType">Type of referenced object.</typeparam>
+		/// <returns>Definition.</returns>
+		public static IDefinition<TTargetType> Reference<TTargetType>()
+		{
+			return Reference<TTargetType>(IdGenerator<TTargetType>.GetDefaultId());
+		}
+
+		/// <summary>
+		/// Creates definition referencing to object of <c>TTargetType</c> type with <c>objectId</c> id.
+		/// </summary>
+		/// <typeparam name="TTargetType">Type of referenced object.</typeparam>
+		/// <param name="objectId">Id of referenced object</param>
+		/// <returns>Definition.</returns>
+		public static IDefinition<TTargetType> Reference<TTargetType>(string objectId)
+		{
+			return new Definition<TTargetType>(new RuntimeObjectReference(objectId));
+		}
+
+		/// <summary>
+		/// Creates definition of constant <c>value</c> of <c>TTargetType</c> type.
+		/// </summary>
+		/// <typeparam name="TTargetType">Type of constant value.</typeparam>
+		/// <param name="value">Value.</param>
+		/// <returns>Definition.</returns>
+		public static IDefinition<TTargetType> Value<TTargetType>(TTargetType value)
+		{
+			return new Definition<TTargetType>(value);
+		}
+
+		/// <summary>
+		/// Creates definition of array of <c>TTargetType</c> type, containing elements described by <c>items</c> definitions.
+		/// </summary>
+		/// <typeparam name="TTargetType">Array item type.</typeparam>
+		/// <param name="items">Definitions of array items.</param>
+		/// <returns>Definition.</returns>
+		public static IDefinition<TTargetType[]> Array<TTargetType>(params IDefinition<TTargetType>[] items)
+		{
+			return new Definition<TTargetType[]>(ToList(items));
+		}
+
+		/// <summary>
+		/// Creates definition of list of <c>TTargetType</c> type, containing elements described by <c>items</c> definitions.
+		/// </summary>
+		/// <typeparam name="TTargetType">List item type.</typeparam>
+		/// <param name="items">Definitions of list items.</param>
+		/// <returns>Definition.</returns>
+		public static IDefinition<List<TTargetType>> List<TTargetType>(params IDefinition<TTargetType>[] items)
+		{
+			return new Definition<List<TTargetType>>(ToList(items));
+		}
+
+		/// <summary>
+		/// Creates definition of list of <c>TCollection</c> type, containing elements of type <c>TElement</c>, described by <c>items</c> definitions.
+		/// </summary>
+		/// <typeparam name="TCollection">Collection type.</typeparam>
+		/// <typeparam name="TElement">Collection element type.</typeparam>
+		/// <param name="items">Definitions of collection items.</param>
+		/// <returns>Definition.</returns>
+		public static IDefinition<TCollection> Collection<TCollection, TElement>(params IDefinition<TElement>[] items) where TCollection : IEnumerable<TElement>
+		{
+			return new Definition<TCollection>(ToList(items));
+		}
+
+		private static IManagedCollection ToList<TTargetType>(IEnumerable<IDefinition<TTargetType>> items)
+		{
+			var list = new ManagedList { ElementTypeName = typeof(TTargetType).FullName };
+			foreach (var def in items.Select(i => i.DefinitionObject))
+				list.Add(def);
+			return list;
 		}
 	}
 }
