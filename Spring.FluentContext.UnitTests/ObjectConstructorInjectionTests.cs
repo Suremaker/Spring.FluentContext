@@ -369,7 +369,7 @@ namespace Spring.FluentContext.UnitTests
 				.BindProperty(s => s.Text).ToValue("2");
 
 			_ctx.RegisterDefault<CollectionHolder>()
-				.UseConstructor<List<OtherType>>(c => new CollectionHolder(c))
+				.UseConstructor<IList<OtherType>>(c => new CollectionHolder(c))
 					.BindConstructorArg().To(Def.List(
 						Def.Reference<OtherType>(),
 						Def.Reference<OtherType>("test"),

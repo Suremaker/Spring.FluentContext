@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -25,38 +25,29 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using System.Collections.Generic;
+using Spring.FluentContext.Definitions;
 
-namespace Spring.FluentContext.UnitTests.TestTypes
+namespace Spring.FluentContext.Builders
 {
-	class CollectionHolder
+	/// <summary>
+	/// Interface for dictionary definition builder.
+	/// </summary>
+	/// <typeparam name="TKey">Dictionary key type.</typeparam>
+	/// <typeparam name="TValue">Dictionary value type.</typeparam>
+	public interface IDictionaryDefinitionBuilder<in TKey, in TValue>
 	{
-		public SimpleType[] Array { get; set; }
-		public IList<OtherType> List { get; set; }
-		public IEnumerable<DerivedFromSimpleType> Collection { get; set; }
-		public IDictionary<int, SimpleType> Dictionary { get; set; } 
+		/// <summary>
+		/// Adds key-value definition to dictionary. If value for given key already exists, it is overwritten.
+		/// </summary>
+		/// <param name="key">Key definition.</param>
+		/// <param name="value">Value definition.</param>
+		/// <returns>Builder.</returns>
+		IDictionaryDefinitionBuilder<TKey, TValue> Set(IDefinition<TKey> key, IDefinition<TValue> value);
 
-		public CollectionHolder() { }
-
-		public CollectionHolder(IDictionary<int, SimpleType> values)
-		{
-			Dictionary = values;
-		}
-
-		public CollectionHolder(SimpleType[] values)
-		{
-			Array = values;
-		}
-		
-		public CollectionHolder(IList<OtherType> values)
-		{
-			List = values;
-		}
-
-		public CollectionHolder(IEnumerable<DerivedFromSimpleType> values)
-		{
-			Collection = values;
-		}
-
+		/// <summary>
+		/// Adds key-value definition to dictionary. If value for given key already exists, it is overwritten.
+		/// </summary>
+		/// <param name="key">Key definition.</param>
+		IDefinition<TValue> this[IDefinition<TKey> key] { set; }
 	}
 }

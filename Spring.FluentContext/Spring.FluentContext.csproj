@@ -56,6 +56,7 @@
     <Compile Include="Binders\IReferenceBinder.cs" />
     <Compile Include="Binders\IValueBinder.cs" />
     <Compile Include="Builders\IAliasDefinitionBuilder.cs" />
+    <Compile Include="Builders\IDictionaryDefinitionBuilder.cs" />
     <Compile Include="Builders\ILookupMethodDefinitionBuilder.cs" />
     <Compile Include="Builders\IObjectDefinitionBuilder.cs" />
     <Compile Include="Builders\IPropertyDefinitionBuilder.cs" />
@@ -78,11 +79,12 @@
     <Compile Include="BuildingStages\ProxyFactories\IProxyInterceptorDefinitionBuildStage.cs" />
     <Compile Include="BuildingStages\ProxyFactories\IProxyTargetDefinitionBuildStage.cs" />
     <Compile Include="ContextExtensions.cs" />
-    <Compile Include="Definitions\Definition.cs" />
     <Compile Include="Definitions\Def.cs" />
     <Compile Include="Definitions\IDefinition.cs" />
     <Compile Include="FluentApplicationContext.cs" />
     <Compile Include="IFluentApplicationContext.cs" />
+    <Compile Include="Impl\Definition.cs" />
+    <Compile Include="Impl\DictionaryDefinitionBuilder.cs" />
     <Compile Include="Impl\IDefinitionHolder.cs" />
     <Compile Include="Impl\LookupMethodDefinitionBuilder.cs" />
     <Compile Include="Impl\ObjectDefinitionBuilder.cs" />

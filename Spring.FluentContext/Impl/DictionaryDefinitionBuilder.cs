@@ -1,4 +1,4 @@
-﻿//
+//
 //  Author:
 //    Wojciech Kotlarski
 //
@@ -25,15 +25,34 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-namespace Spring.FluentContext.Definitions
+using Spring.FluentContext.Builders;
+using Spring.FluentContext.Definitions;
+using Spring.Objects.Factory.Config;
+
+namespace Spring.FluentContext.Impl
 {
-	internal class Definition<T> : IDefinition<T>
+	internal class DictionaryDefinitionBuilder<TKey, TValue> : IDictionaryDefinitionBuilder<TKey, TValue>
 	{
-		public Definition(object value)
+		private readonly ManagedDictionary _dictionary = new ManagedDictionary
 		{
-			DefinitionObject = value;
+			KeyTypeName = typeof(TKey).FullName,
+			ValueTypeName = typeof(TValue).FullName
+		};
+
+		public IDictionaryDefinitionBuilder<TKey, TValue> Set(IDefinition<TKey> key, IDefinition<TValue> value)
+		{
+			_dictionary[key.DefinitionObject] = value.DefinitionObject;
+			return this;
 		}
 
-		public object DefinitionObject { get; private set; }
+		public IDefinition<TValue> this[IDefinition<TKey> key]
+		{
+			set { Set(key, value); }
+		}
+
+		public ManagedDictionary Dictionary
+		{
+			get { return _dictionary; }
+		}
 	}
 }

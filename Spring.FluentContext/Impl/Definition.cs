@@ -25,38 +25,17 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-using System.Collections.Generic;
+using Spring.FluentContext.Definitions;
 
-namespace Spring.FluentContext.UnitTests.TestTypes
+namespace Spring.FluentContext.Impl
 {
-	class CollectionHolder
+	internal class Definition<T> : IDefinition<T>
 	{
-		public SimpleType[] Array { get; set; }
-		public IList<OtherType> List { get; set; }
-		public IEnumerable<DerivedFromSimpleType> Collection { get; set; }
-		public IDictionary<int, SimpleType> Dictionary { get; set; } 
-
-		public CollectionHolder() { }
-
-		public CollectionHolder(IDictionary<int, SimpleType> values)
+		public Definition(object value)
 		{
-			Dictionary = values;
+			DefinitionObject = value;
 		}
 
-		public CollectionHolder(SimpleType[] values)
-		{
-			Array = values;
-		}
-		
-		public CollectionHolder(IList<OtherType> values)
-		{
-			List = values;
-		}
-
-		public CollectionHolder(IEnumerable<DerivedFromSimpleType> values)
-		{
-			Collection = values;
-		}
-
+		public object DefinitionObject { get; private set; }
 	}
 }

@@ -7,6 +7,7 @@ Version 1.0.7
 + Added BinderExtensions class extending property value / constructor argument binders with ToCollection() method, available for IEnumerable<> types.
 + Modified IObjectRef<> to extend IDefinition<> interface
 + Modified Def.Reference() method to return IObjectRef<>
++ Added Def.Dictionary() and BinderExtensions.ToDictionary() methods to allow binding IDictionary<,> collections
 
 Version 1.0.6
 -------------------------------------------

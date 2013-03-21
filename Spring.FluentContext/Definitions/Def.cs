@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Spring.FluentContext.Builders;
 using Spring.FluentContext.BuildingStages.Objects;
 using Spring.FluentContext.Impl;
 using Spring.FluentContext.Utils;
@@ -75,48 +76,50 @@ namespace Spring.FluentContext.Definitions
 		}
 
 		/// <summary>
-		/// Creates definition of constant <c>value</c> of <c>TTargetType</c> type.
+		/// Creates definition of constant <c>value</c> of <c>TValue</c> type.
 		/// </summary>
-		/// <typeparam name="TTargetType">Type of constant value.</typeparam>
+		/// <typeparam name="TValue">Type of constant value.</typeparam>
 		/// <param name="value">Value.</param>
 		/// <returns>Definition.</returns>
-		public static IDefinition<TTargetType> Value<TTargetType>(TTargetType value)
+		public static IDefinition<TValue> Value<TValue>(TValue value)
 		{
-			return new Definition<TTargetType>(value);
+			return new Definition<TValue>(value);
 		}
 
 		/// <summary>
-		/// Creates definition of array of <c>TTargetType</c> type, containing elements described by <c>items</c> definitions.
+		/// Creates definition of array of <c>TElement</c> type, containing elements described by <c>items</c> definitions.
 		/// </summary>
-		/// <typeparam name="TTargetType">Array item type.</typeparam>
+		/// <typeparam name="TElement">Array item type.</typeparam>
 		/// <param name="items">Definitions of array items.</param>
 		/// <returns>Definition.</returns>
-		public static IDefinition<TTargetType[]> Array<TTargetType>(params IDefinition<TTargetType>[] items)
+		public static IDefinition<TElement[]> Array<TElement>(params IDefinition<TElement>[] items)
 		{
-			return new Definition<TTargetType[]>(ToList(items));
+			return new Definition<TElement[]>(ToList(items));
 		}
 
 		/// <summary>
-		/// Creates definition of list of <c>TTargetType</c> type, containing elements described by <c>items</c> definitions.
+		/// Creates definition of list of <c>TElement</c> type, containing elements described by <c>items</c> definitions.
 		/// </summary>
-		/// <typeparam name="TTargetType">List item type.</typeparam>
+		/// <typeparam name="TElement">List item type.</typeparam>
 		/// <param name="items">Definitions of list items.</param>
 		/// <returns>Definition.</returns>
-		public static IDefinition<List<TTargetType>> List<TTargetType>(params IDefinition<TTargetType>[] items)
+		public static IDefinition<List<TElement>> List<TElement>(params IDefinition<TElement>[] items)
 		{
-			return new Definition<List<TTargetType>>(ToList(items));
+			return new Definition<List<TElement>>(ToList(items));
 		}
 
 		/// <summary>
-		/// Creates definition of list of <c>TCollection</c> type, containing elements of type <c>TElement</c>, described by <c>items</c> definitions.
+		/// Creates definition of dictionary, where items are filled by <c>dictionaryBuilder</c> action.
 		/// </summary>
-		/// <typeparam name="TCollection">Collection type.</typeparam>
-		/// <typeparam name="TElement">Collection element type.</typeparam>
-		/// <param name="items">Definitions of collection items.</param>
+		/// <typeparam name="TKey">Dictionary key type.</typeparam>
+		/// <typeparam name="TValue">Dictionary value type.</typeparam>
+		/// <param name="dictionaryBuilder">Dictionary builder action filling constructed dictionary with key-value definitions.</param>
 		/// <returns>Definition.</returns>
-		public static IDefinition<TCollection> Collection<TCollection, TElement>(params IDefinition<TElement>[] items) where TCollection : IEnumerable<TElement>
+		public static IDefinition<Dictionary<TKey, TValue>> Dictionary<TKey, TValue>(Action<IDictionaryDefinitionBuilder<TKey, TValue>> dictionaryBuilder)
 		{
-			return new Definition<TCollection>(ToList(items));
+			var builder = new DictionaryDefinitionBuilder<TKey, TValue>();
+			dictionaryBuilder(builder);
+			return new Definition<Dictionary<TKey, TValue>>(builder.Dictionary);
 		}
 
 		private static IManagedCollection ToList<TTargetType>(IEnumerable<IDefinition<TTargetType>> items)
