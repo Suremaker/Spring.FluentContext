@@ -84,6 +84,14 @@
     <Compile Include="AdvancedPropertySetterInjection\Objects\IFactory.cs" />
     <Compile Include="AdvancedPropertySetterInjection\Objects\IFactoryEngineer.cs" />
     <Compile Include="AdvancedPropertySetterInjection\Objects\RobotEngineer.cs" />
+    <Compile Include="CollectionInjection\CollectionInjectionExample.cs" />
+    <Compile Include="CollectionInjection\Objects\Constructor.cs" />
+    <Compile Include="CollectionInjection\Objects\Distributor.cs" />
+    <Compile Include="CollectionInjection\Objects\Factory.cs" />
+    <Compile Include="CollectionInjection\Objects\IWorker.cs" />
+    <Compile Include="CollectionInjection\Objects\Painter.cs" />
+    <Compile Include="CollectionInjection\Objects\Polisher.cs" />
+    <Compile Include="CollectionInjection\Objects\Shop.cs" />
     <Compile Include="Complex\ComplexExample.cs" />
     <Compile Include="Complex\Objects\Consumer.cs" />
     <Compile Include="Complex\Objects\DelayingInterceptor.cs" />

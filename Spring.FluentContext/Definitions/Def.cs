@@ -55,6 +55,17 @@ namespace Spring.FluentContext.Definitions
 		}
 
 		/// <summary>
+		/// Creates default, inline object definition.
+		/// </summary>
+		/// <typeparam name="TObject">Type of defined object.</typeparam>
+		/// <returns>Definition.</returns>
+		public static IDefinition<TObject> Object<TObject>()
+		{
+			var builder = new ObjectDefinitionBuilder<TObject>(null);
+			return new Definition<TObject>(builder.Definition);
+		}
+
+		/// <summary>
 		/// Creates definition referencing to object of <c>TTargetType</c> type with default id.
 		/// </summary>
 		/// <typeparam name="TTargetType">Type of referenced object.</typeparam>

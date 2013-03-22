@@ -383,5 +383,14 @@ namespace Spring.FluentContext.UnitTests
 			Assert.That(simple.Text, Is.EqualTo(expectedText));
 			Assert.That(simple.Value, Is.EqualTo(expectedValue));
 		}
+
+		[Test]
+		public void Bind_property_to_inline_default_definition_using_generic_binding()
+		{
+			_ctx.RegisterDefault<NestingType>()
+				.BindProperty(n => n.Simple).To(Def.Object<DerivedFromSimpleType>());
+
+			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.InstanceOf<DerivedFromSimpleType>());
+		}
 	}
 }

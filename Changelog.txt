@@ -8,6 +8,7 @@ Version 1.0.7
 + Modified IObjectRef<> to extend IDefinition<> interface
 + Modified Def.Reference() method to return IObjectRef<>
 + Added Def.Dictionary() and BinderExtensions.ToDictionary() methods to allow binding IDictionary<,> collections
++ Added example for collection injection (CollectionInjectionExample)
 
 Version 1.0.6
 -------------------------------------------

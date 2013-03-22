@@ -36,11 +36,14 @@ or compile from sources available on Git: `git clone git://github.com/Suremaker/
 * Constructor injection:
 	* with constants
 	* with registered objects
-	* with inline object definition	
+	* with inline object definition
+	* with collections (if it is applicable to constructor parameter type)
 * Setter injection:
 	* with constants
 	* with registered objects
 	* with inline object definition
+	* with collections (if it is applicable to property type)
+* support for collections (array/list/dictionary) with possibility to mix values, object references and inline object definitions
 * Lookup Method injection with registered objects
 * Autowiring
 * Aliasing
@@ -51,9 +54,6 @@ or compile from sources available on Git: `git clone git://github.com/Suremaker/
 
 ## Not Implemented Features
 * lazy and non-lazy initialization (now everything is initialized lazily)
-
-## Partially Implemented Features
-* classes for easy collection handling like initializing object dependency using a list of other registered objects
 
 ## Limitations
 * it is not possible to use lambda expressions to point protected methods or properties with non-public getters, that is why API allows also to use literals.
