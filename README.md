@@ -14,42 +14,42 @@ It is possible to download package using [NuGet](http://nuget.org): `PM> Install
 or compile from sources available on Git: `git clone git://github.com/Suremaker/Spring.FluentContext.git`
 
 ## Examples and help
-* The project documentation is available on [Wiki](Spring.FluentContext/wiki) page.
-* Solution contains also [Spring.FluentContext.Examples](Spring.FluentContext/tree/master/Spring.FluentContext.Examples) project presenting usage of major features.
+* The project documentation is available on [Wiki](https://github.com/Suremaker/Spring.FluentContext/wiki) page.
+* Solution contains also [Spring.FluentContext.Examples](https://github.com/Suremaker/Spring.FluentContext/tree/master/Spring.FluentContext.Examples) project presenting usage of major features.
 * All implemented features contains unit tests which shows also how to use them.
 
 ## Implemented API Features
-* Registration of objects:
+* [Registration of objects](https://github.com/Suremaker/Spring.FluentContext/wiki/Object-definition-registration):
 	* with specified id
 	* with default id
 	* with unique id (automatically generated)
 	* as singleton / prototype
-* Registration of AOP Proxy Factories for given interface:
+* [Registration of existing singleton instances with specified, default or unique id](https://github.com/Suremaker/Spring.FluentContext/wiki/Object-definition-registration)
+* [Registration of AOP Proxy Factories for given interface](https://github.com/Suremaker/Spring.FluentContext/wiki/AOP-Proxy-Factories):
 	* support for multiple interceptors addition
 	* support for type-safe targeting
 	* support for defining if factory supposed to create proxies as singleton or prototype
-* Registration of existing singleton instances with specified, default or unique id
-* Object instantiation using:
+* [Object instantiation using](https://github.com/Suremaker/Spring.FluentContext/wiki/Object-instantiation):
 	* selected or matching constructor
 	* static factory method
 	* factory object
-* Constructor injection:
+* [Constructor injection](https://github.com/Suremaker/Spring.FluentContext/wiki/Constructor-Injection):
 	* with constants
 	* with registered objects
 	* with inline object definition
 	* with collections (if it is applicable to constructor parameter type)
-* Setter injection:
+* [Setter injection](https://github.com/Suremaker/Spring.FluentContext/wiki/Setter-Injection):
 	* with constants
 	* with registered objects
 	* with inline object definition
 	* with collections (if it is applicable to property type)
-* support for collections (array/list/dictionary) with possibility to mix values, object references and inline object definitions
-* Lookup Method injection with registered objects
-* Autowiring
-* Aliasing
-* Indirect dependencies creation (allowing to specify order of objects creation / destruction)
-* Init / Destroy method call specification 
-* Dependency check
+* [Lookup Method injection with registered objects](https://github.com/Suremaker/Spring.FluentContext/wiki/Lookup-Method-Injection)
+* [Collection injection (array/list/dictionary) with possibility to mix values, object references and inline object definitions](https://github.com/Suremaker/Spring.FluentContext/wiki/Collection-injection)
+* [Autowiring](https://github.com/Suremaker/Spring.FluentContext/wiki/Autowiring)
+* [Aliasing](https://github.com/Suremaker/Spring.FluentContext/wiki/Aliasing)
+* [Indirect dependencies creation](https://github.com/Suremaker/Spring.FluentContext/wiki/Indirect-dependencies) (allowing to specify order of objects creation / destruction)
+* [Init / Destroy method call specification ](https://github.com/Suremaker/Spring.FluentContext/wiki/Initialization-and-finalization)
+* [Dependency check](https://github.com/Suremaker/Spring.FluentContext/wiki/Dependency-checking)
 * Type-safe, literal-less references
 
 ## Not Implemented Features
