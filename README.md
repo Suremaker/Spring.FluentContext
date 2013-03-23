@@ -50,7 +50,7 @@ or compile from sources available on Git: `git clone git://github.com/Suremaker/
 * [Indirect dependencies creation](https://github.com/Suremaker/Spring.FluentContext/wiki/Indirect-dependencies) (allowing to specify order of objects creation / destruction)
 * [Init / Destroy method call specification ](https://github.com/Suremaker/Spring.FluentContext/wiki/Initialization-and-finalization)
 * [Dependency check](https://github.com/Suremaker/Spring.FluentContext/wiki/Dependency-checking)
-* Type-safe, literal-less references
+* [Type-safe, literal-less references](https://github.com/Suremaker/Spring.FluentContext/wiki/Object-definition-registration)
 
 ## Not Implemented Features
 * lazy and non-lazy initialization (now everything is initialized lazily)
