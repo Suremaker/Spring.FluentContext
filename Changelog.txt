@@ -1,6 +1,11 @@
 Spring.FluentContext
 ===========================================
 
+Version 1.0.8
+-------------------------------------------
++ Adjusted code to run on .NET3.5 framework
++ Introduced projects targeting to .NET3.5
+
 Version 1.0.7
 -------------------------------------------
 + Merged Ref/Value/Collection/Def classes into one Def class and renamed methods.

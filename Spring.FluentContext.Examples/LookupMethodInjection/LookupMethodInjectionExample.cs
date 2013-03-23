@@ -26,6 +26,8 @@
 //
 
 using System;
+using System.Globalization;
+using System.Linq;
 using Spring.Context;
 using Spring.FluentContext.Examples.LookupMethodInjection.Objects;
 
@@ -41,7 +43,7 @@ namespace Spring.FluentContext.Examples.LookupMethodInjection
 
 			ctx.RegisterDefault<CreditsCalculator>()
 				.BindConstructorArg<double>().ToValue(2.5)
-			//the line below instruct Spring to override GetMeanCalculator() method with one returning ArithmeticMeanCalculator instance registered above
+				//the line below instruct Spring to override GetMeanCalculator() method with one returning ArithmeticMeanCalculator instance registered above
 				.BindLookupMethod(c => c.GetMeanCalculator()).ToRegisteredDefaultOf<ArithmenticMeanCalculator>();
 
 			ctx.RegisterDefaultAlias<ICreditsCalculator>().ToRegisteredDefault<CreditsCalculator>();
@@ -61,8 +63,7 @@ namespace Spring.FluentContext.Examples.LookupMethodInjection
 			Console.WriteLine("{0} has {1} with his points: {2}",
 				person,
 				calc.IsAcceptable(points) ? "passed" : "NOT passed",
-				string.Join(", ", points));
-
+				string.Join(", ", points.Select(p => p.ToString(CultureInfo.InvariantCulture)).ToArray()));
 		}
 	}
 }

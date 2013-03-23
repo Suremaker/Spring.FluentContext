@@ -26,29 +26,47 @@
 //
 
 using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Spring.FluentContext.Examples.Complex.Objects
 {
 	class Endpoint : IEndpoint
 	{
-		private readonly BlockingCollection<string> _queue = new BlockingCollection<string>();
+		private readonly Queue<string> _queue = new Queue<string>();
 		private bool _disposed;
+		private readonly AutoResetEvent _event = new AutoResetEvent(false);
 
 		public void Send(string text)
 		{
-			_queue.Add(text);
+			lock (_queue)
+				_queue.Enqueue(text);
+			_event.Set();
 		}
 
 		public string Receive()
 		{
-			while(!_disposed)
+			while (!_disposed)
 			{
 				string result;
-				if(_queue.TryTake(out result, 500))
+				_event.WaitOne(500);
+				if (TryReceive(out result))
 					return result;
 			}
 			throw new ObjectDisposedException("_queue");
+		}
+
+		private bool TryReceive(out string result)
+		{
+			lock (_queue)
+			{
+				result = null;
+				if (_queue.Count <= 0)
+					return false;
+
+				result = _queue.Dequeue();
+				return true;
+			}
 		}
 
 		public void Dispose()

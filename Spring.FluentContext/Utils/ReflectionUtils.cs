@@ -52,7 +52,7 @@ namespace Spring.FluentContext.Utils
 
 		public static MethodInfo GetMethodInfo<TObject, TResult>(Expression<Func<TObject, TResult>> methodCallExpression)
 		{
-			return ((MethodCallExpression) methodCallExpression.Body).Method;
+			return ((MethodCallExpression)methodCallExpression.Body).Method;
 		}
 
 		public static MethodInfo GetMethodInfo<TObject>(Expression<Action<TObject>> methodCallExpression)
@@ -64,7 +64,7 @@ namespace Spring.FluentContext.Utils
 		{
 			if (!methodInfo.IsGenericMethod)
 				return methodInfo.Name;
-			return string.Format("{0}<{1}>", methodInfo.Name, string.Join(",", methodInfo.GetGenericArguments().Select(GetTypeFullName)));
+			return string.Format("{0}<{1}>", methodInfo.Name, string.Join(",", methodInfo.GetGenericArguments().Select(GetTypeFullName).ToArray()));
 		}
 
 		public static string GetTypeFullName(Type type)
@@ -77,7 +77,7 @@ namespace Spring.FluentContext.Utils
 			if (type.Namespace != null)
 				sb.Append(type.Namespace).Append('.');
 
-			sb.AppendFormat("{0}<{1}>", type.Name.Substring(0, type.Name.IndexOf('`')), string.Join(",", type.GetGenericArguments().Select(GetTypeFullName)));
+			sb.AppendFormat("{0}<{1}>", type.Name.Substring(0, type.Name.IndexOf('`')), string.Join(",", type.GetGenericArguments().Select(GetTypeFullName).ToArray()));
 			return sb.ToString();
 		}
 	}

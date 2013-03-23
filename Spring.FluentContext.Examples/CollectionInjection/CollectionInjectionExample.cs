@@ -75,7 +75,7 @@ namespace Spring.FluentContext.Examples.CollectionInjection
 			factory.Create("Motorcycle");
 			factory.Create("Luxury Car");
 
-			var shopsInContext = ctx.GetObjectsOfType(typeof(Shop)).Values.OfType<Shop>();
+			var shopsInContext = ctx.GetObjectsOfType(typeof(Shop)).Values.OfType<Shop>().Select(s => s.ToString()).ToArray();
 			Console.WriteLine("Shops available in context: {0}", string.Join(",", shopsInContext));
 			Console.WriteLine("Done...");
 		}

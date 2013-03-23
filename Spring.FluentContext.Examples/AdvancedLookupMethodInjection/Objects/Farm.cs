@@ -26,6 +26,7 @@
 //
 
 using System;
+using System.Linq;
 
 namespace Spring.FluentContext.Examples.AdvancedLookupMethodInjection.Objects
 {
@@ -37,14 +38,14 @@ namespace Spring.FluentContext.Examples.AdvancedLookupMethodInjection.Objects
 		public void RunFarm()
 		{
 			var shelter = CreateShelter();
-			while(!shelter.IsFull)
+			while (!shelter.IsFull)
 			{
 				IAnimal animal = CreateAnimal();
 				Console.WriteLine("Breeding {0}...", animal);
 				shelter.Add(animal);
 			}
 
-			Console.WriteLine("{0} is now full of animals: {1}", shelter.GetType().Name, string.Join(", ", shelter.Animals));
+			Console.WriteLine("{0} is now full of animals: {1}", shelter.GetType().Name, string.Join(", ", shelter.Animals.Select(a => a.ToString()).ToArray()));
 		}
 	}
 }
