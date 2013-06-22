@@ -50,7 +50,7 @@ namespace Spring.FluentContext.BuildingStages.Objects
 		/// <typeparam name="TFactoryObject">Type of factory object.</typeparam>
 		/// <param name="factoryMethodSelector">Lambda expression to select method to call.</param>
 		/// <returns>Next build stage (omits IMethodConfigurationBuildStage).</returns>
-		IFactoryMethodDefinitionBuilder<TFactoryObject, TObject> UseFactoryMethod<TFactoryObject>(Expression<Func<TFactoryObject, TObject>> factoryMethodSelector);
+		IFactoryMethodDefinitionBuilder<IAutoConfigurationBuildStage<TObject>, TFactoryObject> UseFactoryMethod<TFactoryObject>(Expression<Func<TFactoryObject, TObject>> factoryMethodSelector);
 
 		/// <summary>
 		/// Specifies that object should be instantiated by calling constructor specified by <c>constructorSelector</c>.

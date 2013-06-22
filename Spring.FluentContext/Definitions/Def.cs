@@ -28,11 +28,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Spring.FluentContext.Builders;
 using Spring.FluentContext.BuildingStages.Objects;
 using Spring.FluentContext.Impl;
 using Spring.FluentContext.Utils;
 using Spring.Objects.Factory.Config;
+using Spring.Objects.Factory.Support;
 
 namespace Spring.FluentContext.Definitions
 {
@@ -131,6 +133,22 @@ namespace Spring.FluentContext.Definitions
 			var builder = new DictionaryDefinitionBuilder<TKey, TValue>();
 			dictionaryBuilder(builder);
 			return new Definition<Dictionary<TKey, TValue>>(builder.Dictionary);
+		}
+
+		/// <summary>
+		/// Creates definition of property retriever that returns property value of <c>target</c> object, where property is specified by <c>propertySelector</c>.
+		/// </summary>
+		/// <typeparam name="TTargetObject">Type of target object.</typeparam>
+		/// <typeparam name="TPropertyType">Type of property value.</typeparam>
+		/// <param name="target">Target object which property should be accessed.</param>
+		/// <param name="propertySelector">Property selector.</param>
+		/// <returns>Property retriever definition.</returns>
+		public static IDefinition<TPropertyType> ObjectProperty<TTargetObject, TPropertyType>(IDefinition<TTargetObject> target, Expression<Func<TTargetObject, TPropertyType>> propertySelector)
+		{
+			var factoryDef = new GenericObjectDefinition { ObjectType = typeof(PropertyRetrievingFactoryObject) };
+			factoryDef.PropertyValues.Add("TargetObject", target.DefinitionObject);
+			factoryDef.PropertyValues.Add("TargetProperty", ReflectionUtils.GetPropertyPath(propertySelector));
+			return new Definition<TPropertyType>(factoryDef);
 		}
 
 		private static IManagedCollection ToList<TTargetType>(IEnumerable<IDefinition<TTargetType>> items)

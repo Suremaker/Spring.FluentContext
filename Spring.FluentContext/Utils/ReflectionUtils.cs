@@ -26,6 +26,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -79,6 +80,23 @@ namespace Spring.FluentContext.Utils
 
 			sb.AppendFormat("{0}<{1}>", type.Name.Substring(0, type.Name.IndexOf('`')), string.Join(",", type.GetGenericArguments().Select(GetTypeFullName).ToArray()));
 			return sb.ToString();
+		}
+
+		public static string GetPropertyPath<TObject, TResult>(Expression<Func<TObject, TResult>> propertySelector)
+		{
+			var path = new LinkedList<string>();
+
+			var expression = propertySelector.Body;
+			while (expression != null && expression.NodeType != ExpressionType.Parameter)
+			{
+				var memberExpression = expression as MemberExpression;
+				if (memberExpression == null || !(memberExpression.Member is PropertyInfo))
+					throw new ArgumentException("Lambda expression can contain only property access expressions.", "propertySelector");
+
+				path.AddFirst(memberExpression.Member.Name);
+				expression = memberExpression.Expression;
+			}
+			return string.Join(".", path.ToArray());
 		}
 	}
 }

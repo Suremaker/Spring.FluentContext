@@ -26,32 +26,33 @@
 //
 
 using Spring.FluentContext.Builders;
-using Spring.FluentContext.BuildingStages.Objects;
 using Spring.FluentContext.Utils;
 
 namespace Spring.FluentContext.Impl
 {
-	internal class FactoryMethodDefinitionBuilder<TFactory,TObject> : IFactoryMethodDefinitionBuilder<TFactory,TObject>
+	internal class FactoryMethodDefinitionBuilder<TBuilder, TFactory, TObject> : IFactoryMethodDefinitionBuilder<TBuilder, TFactory>
 	{
-		private readonly ObjectDefinitionBuilder<TObject> _builder;
+		private readonly ObjectDefinitionBuilder<TObject> _holder;
+		private readonly TBuilder _builder;
 
-		public FactoryMethodDefinitionBuilder(ObjectDefinitionBuilder<TObject> builder)
+		public FactoryMethodDefinitionBuilder(ObjectDefinitionBuilder<TObject> holder, TBuilder builder)
 		{
+			_holder = holder;
 			_builder = builder;
 		}
 
-		public IAutoConfigurationBuildStage<TObject> OfRegisteredDefault()
+		public TBuilder OfRegisteredDefault()
 		{
 			return OfRegistered(IdGenerator<TFactory>.GetDefaultId());
 		}
 
-		public IAutoConfigurationBuildStage<TObject> OfRegistered(string objectId)
+		public TBuilder OfRegistered(string objectId)
 		{
-			_builder.Definition.FactoryObjectName = objectId;
+			_holder.Definition.FactoryObjectName = objectId;
 			return _builder;
 		}
 
-		public IAutoConfigurationBuildStage<TObject> OfRegistered(IObjectRef<TFactory> reference)
+		public TBuilder OfRegistered(IObjectRef<TFactory> reference)
 		{
 			return OfRegistered(reference.Id);
 		}

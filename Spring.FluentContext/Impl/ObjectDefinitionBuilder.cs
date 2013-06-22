@@ -120,11 +120,11 @@ namespace Spring.FluentContext.Impl
 			return this;
 		}
 
-		public IFactoryMethodDefinitionBuilder<TFactory, TObject> UseFactoryMethod<TFactory>(Expression<Func<TFactory, TObject>> factoryMethodSelector)
+		public IFactoryMethodDefinitionBuilder<IAutoConfigurationBuildStage<TObject>, TFactoryObject> UseFactoryMethod<TFactoryObject>(Expression<Func<TFactoryObject, TObject>> factoryMethodSelector)
 		{
-			_definition.ObjectType = typeof(TFactory);
+			_definition.ObjectType = typeof(TFactoryObject);
 			_definition.FactoryMethodName = ReflectionUtils.GetMethodName(factoryMethodSelector);
-			return new FactoryMethodDefinitionBuilder<TFactory, TObject>(this);
+			return new FactoryMethodDefinitionBuilder<IAutoConfigurationBuildStage<TObject>, TFactoryObject, TObject>(this, this);
 		}
 
 		public ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>(int argIndex)

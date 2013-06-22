@@ -392,5 +392,19 @@ namespace Spring.FluentContext.UnitTests
 
 			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.InstanceOf<DerivedFromSimpleType>());
 		}
+
+		[Test]
+		public void Bind_property_to_property_value_of_other_object()
+		{
+			var nestingRef = _ctx.RegisterUniquelyNamed<NestingType>()
+				.BindProperty(n => n.Simple).To(Def.Object<SimpleType>()).GetReference();
+
+			_ctx.RegisterDefault<NestingType>()
+				.BindProperty(n => n.Simple).To(Def.ObjectProperty(
+					nestingRef,
+					n => n.Simple));
+
+			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.SameAs(_ctx.GetObject(nestingRef).Simple));
+		}
 	}
 }

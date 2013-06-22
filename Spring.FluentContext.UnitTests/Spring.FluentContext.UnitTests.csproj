@@ -81,6 +81,7 @@
     <Compile Include="ObjectInitDestroyMethodTests.cs" />
     <Compile Include="TestTypes\TypeWithInitDestroyMethods.cs" />
     <Compile Include="TestTypes\InitDestroyCallReport.cs" />
+    <Compile Include="Utils\ReflectionUtilsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

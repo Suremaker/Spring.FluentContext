@@ -1,6 +1,10 @@
 Spring.FluentContext
 ===========================================
 
+Version 1.0.9
+-------------------------------------------
++ Added Def.ObjectProperty allowing to retrieve object property value
+
 Version 1.0.8
 -------------------------------------------
 + Adjusted code to run on .NET3.5 framework

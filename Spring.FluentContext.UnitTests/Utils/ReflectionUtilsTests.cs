@@ -1,8 +1,8 @@
-//
+﻿//
 //  Author:
 //    Wojciech Kotlarski
 //
-//  Copyright (c) 2012, Wojciech Kotlarski
+//  Copyright (c) 2013, Wojciech Kotlarski
 //
 //  All rights reserved.
 //
@@ -25,33 +25,37 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-namespace Spring.FluentContext.Builders
+using System;
+using NUnit.Framework;
+using Spring.FluentContext.UnitTests.TestTypes;
+using Spring.FluentContext.Utils;
+
+namespace Spring.FluentContext.UnitTests.Utils
 {
-	/// <summary>
-	/// Interface for factory method definition builder.
-	/// </summary>
-	/// <typeparam name="TFactoryObject">Type of factory object.</typeparam>
-	/// <typeparam name="TBuilder">Type of builder returned after binding.</typeparam>
-	public interface IFactoryMethodDefinitionBuilder<out TBuilder, in TFactoryObject>
+	[TestFixture]
+	public class ReflectionUtilsTests
 	{
-		/// <summary>
-		/// Specifies object with default id for <c>TObject</c> type to be factory object on which factory method would be executed.
-		/// </summary>
-		/// <returns>Next build stage.</returns>
-		TBuilder OfRegisteredDefault();
+		class NestingHolder { public NestingType Nested { get; set; } }
 
-		/// <summary>
-		/// Specifies object with <c>objectId</c> id to be factory object on which factory method would be executed.
-		/// </summary>
-		/// <param name="objectId">Object definition id.</param>
-		/// <returns>Next build stage.</returns>
-		TBuilder OfRegistered(string objectId);
+		[Test]
+		public void Get_property_path_returns_selected_property_path()
+		{
+			var path = ReflectionUtils.GetPropertyPath((NestingHolder n) => n.Nested.Other.Text);
+			Assert.That(path, Is.EqualTo("Nested.Other.Text"));
+		}
 
-		/// <summary>
-		/// Specifies object referenced with <c>reference</c> id to be factory object on which factory method would be executed.
-		/// </summary>
-		/// <param name="reference">Object definition reference.</param>
-		/// <returns>Next build stage.</returns>
-		TBuilder OfRegistered(IObjectRef<TFactoryObject> reference);
+		[Test]
+		public void Get_property_path_throws_if_unsupported_expression_is_used_in_selector()
+		{
+			var ex = Assert.Throws<ArgumentException>(() => ReflectionUtils.GetPropertyPath((NestingHolder n) => n.Nested.Other.ToString()));
+			Assert.That(ex.Message, Is.StringStarting("Lambda expression can contain only property access expressions."));
+		}
+
+		[Test]
+		public void Get_property_path_throws_if_unsupported_expression_is_used_in_any_part_of_selector()
+		{
+			var ex = Assert.Throws<ArgumentException>(() => ReflectionUtils.GetPropertyPath((DateTime d) => d.AddDays(1).Second));
+			Assert.That(ex.Message, Is.StringStarting("Lambda expression can contain only property access expressions."));
+		}
 	}
 }
