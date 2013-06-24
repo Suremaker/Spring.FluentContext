@@ -1,5 +1,3 @@
-using Spring.FluentContext.Definitions;
-
 namespace Spring.FluentContext.Binders
 {
 	/// <summary>
