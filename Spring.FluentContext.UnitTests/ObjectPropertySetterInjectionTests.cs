@@ -379,5 +379,19 @@ namespace Spring.FluentContext.UnitTests
 
 			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.SameAs(_ctx.GetObject(nestingRef).Simple));
 		}
+
+		[Test]
+		public void Bind_property_to_property_value_of_other_object_using_extension_method()
+		{
+			var nestingRef = _ctx.RegisterUniquelyNamed<NestingType>()
+				.BindProperty(n => n.Simple).To(Def.Object<SimpleType>()).GetReference();
+
+			_ctx.RegisterDefault<NestingType>()
+				.BindProperty(n => n.Simple).ToObjectProperty(
+					nestingRef,
+					n => n.Simple);
+
+			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.SameAs(_ctx.GetObject(nestingRef).Simple));
+		}
 	}
 }

@@ -38,6 +38,11 @@ or compile from sources available on Git: `git clone git://github.com/Suremaker/
 	* with registered objects
 	* with inline object definition
 	* with collections (if it is applicable to constructor parameter type)
+* [Static factory method / factory object parameters injection](https://github.com/Suremaker/Spring.FluentContext/wiki/Object-instantiation):
+	* with constants
+	* with registered objects
+	* with inline object definition
+	* with collections (if it is applicable to constructor parameter type)
 * [Setter injection](https://github.com/Suremaker/Spring.FluentContext/wiki/Setter-Injection):
 	* with constants
 	* with registered objects
@@ -45,6 +50,7 @@ or compile from sources available on Git: `git clone git://github.com/Suremaker/
 	* with collections (if it is applicable to property type)
 * [Lookup Method injection with registered objects](https://github.com/Suremaker/Spring.FluentContext/wiki/Lookup-Method-Injection)
 * [Collection injection (array/list/dictionary) with possibility to mix values, object references and inline object definitions](https://github.com/Suremaker/Spring.FluentContext/wiki/Collection-injection)
+* [Dependency injection via property value of other registered object](https://github.com/Suremaker/Spring.FluentContext/wiki/General-definition-binding)
 * [Autowiring](https://github.com/Suremaker/Spring.FluentContext/wiki/Autowiring)
 * [Aliasing](https://github.com/Suremaker/Spring.FluentContext/wiki/Aliasing)
 * [Indirect dependencies creation](https://github.com/Suremaker/Spring.FluentContext/wiki/Indirect-dependencies) (allowing to specify order of objects creation / destruction)
