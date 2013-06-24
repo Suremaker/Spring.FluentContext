@@ -4,6 +4,7 @@ Spring.FluentContext
 Version 1.0.9
 -------------------------------------------
 + Added Def.ObjectProperty allowing to retrieve object property value
++ Added UseStaticFactoryMethod() / UseFactoryMethod() overloads allowing to configure factory methods accepting up to 3 parameters.
 
 Version 1.0.8
 -------------------------------------------

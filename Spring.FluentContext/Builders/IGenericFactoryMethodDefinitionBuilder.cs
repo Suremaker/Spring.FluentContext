@@ -2,7 +2,7 @@
 //  Author:
 //    Wojciech Kotlarski
 //
-//  Copyright (c) 2012, Wojciech Kotlarski
+//  Copyright (c) 2013, Wojciech Kotlarski
 //
 //  All rights reserved.
 //
@@ -24,30 +24,33 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-
-using Spring.FluentContext.Builders;
-
-namespace Spring.FluentContext.BuildingStages.Objects
+namespace Spring.FluentContext.Builders
 {
 	/// <summary>
-	/// Interface for loose constructor definition build stage.
+	/// Interface for factory method definition builder.
 	/// </summary>
-	/// <typeparam name="TObject"></typeparam>
-	public interface ILooseCtorDefinitionBuildStage<TObject> : IMethodConfigurationBuildStage<TObject>
+	/// <typeparam name="TFactoryObject">Type of factory object.</typeparam>
+	/// <typeparam name="TBuilder">Type of builder returned after binding.</typeparam>
+	public interface IGenericFactoryMethodDefinitionBuilder<TBuilder, TFactoryObject>
 	{
 		/// <summary>
-		/// Binds constructor argument with <c>argIndex</c> index.
+		/// Specifies object with default id for <c>TObject</c> type to be factory object on which factory method would be executed.
 		/// </summary>
-		/// <typeparam name="TArgument">Type of argument.</typeparam>
-		/// <param name="argIndex">Index of argument.</param>
-		/// <returns>Constructor argument definition builder.</returns>
-		IMethodArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TArgument> BindConstructorArg<TArgument>(int argIndex);
+		/// <returns>Next build stage.</returns>
+		TBuilder OfRegisteredDefault();
 
 		/// <summary>
-		/// Binds constructor argument of <c>TProperty</c> type.
+		/// Specifies object with <c>objectId</c> id to be factory object on which factory method would be executed.
 		/// </summary>
-		/// <typeparam name="TArgument">Type of argument.</typeparam>
-		/// <returns>Constructor argument definition builder.</returns>
-		IMethodArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TArgument> BindConstructorArg<TArgument>();
+		/// <param name="objectId">Object definition id.</param>
+		/// <returns>Next build stage.</returns>
+		TBuilder OfRegistered(string objectId);
+
+		/// <summary>
+		/// Specifies object referenced with <c>reference</c> id to be factory object on which factory method would be executed.
+		/// </summary>
+		/// <param name="reference">Object definition reference.</param>
+		/// <returns>Next build stage.</returns>
+		TBuilder OfRegistered(IObjectRef<TFactoryObject> reference);
 	}
 }

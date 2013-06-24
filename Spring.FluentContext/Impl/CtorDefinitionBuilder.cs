@@ -36,9 +36,9 @@ namespace Spring.FluentContext.Impl
 
 		protected TBuilder Builder { private get; set; }
 
-		public ICtorArgumentDefinitionBuilder<TBuilder, TArgument> BindConstructorArg()
+		public IMethodArgumentDefinitionBuilder<TBuilder, TArgument> BindConstructorArg()
 		{
-			return new CtorArgumentDefinitionBuilder<TBuilder,TArgument>(Holder, Builder);
+			return new MethodArgumentDefinitionBuilder<TBuilder,TArgument>(Holder, Builder);
 		}
 	}
 

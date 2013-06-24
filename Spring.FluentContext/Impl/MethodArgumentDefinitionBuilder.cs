@@ -34,20 +34,20 @@ using Spring.Objects.Factory.Config;
 
 namespace Spring.FluentContext.Impl
 {
-	internal class CtorArgumentDefinitionBuilder<TBuilder, TArgument> : ICtorArgumentDefinitionBuilder<TBuilder, TArgument>
+	internal class MethodArgumentDefinitionBuilder<TBuilder, TArgument> : IMethodArgumentDefinitionBuilder<TBuilder, TArgument>
 	{
 		private readonly IDefinitionHolder _holder;
 		private readonly TBuilder _builder;
 		private readonly Action<ConstructorArgumentValues, object> _insertCtorArgAction;
 
-		public CtorArgumentDefinitionBuilder(IDefinitionHolder holder, TBuilder builder, int argIndex)
+		public MethodArgumentDefinitionBuilder(IDefinitionHolder holder, TBuilder builder, int argIndex)
 		{
 			_holder = holder;
 			_builder = builder;
 			_insertCtorArgAction = (list, value) => list.AddIndexedArgumentValue(argIndex, value, typeof(TArgument).FullName);
 		}
 
-		public CtorArgumentDefinitionBuilder(IDefinitionHolder holder, TBuilder builder)
+		public MethodArgumentDefinitionBuilder(IDefinitionHolder holder, TBuilder builder)
 		{
 			_holder = holder;
 			_builder = builder;

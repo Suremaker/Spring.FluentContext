@@ -51,6 +51,7 @@
     <Compile Include="Binders\IValueBinder.cs" />
     <Compile Include="Builders\IAliasDefinitionBuilder.cs" />
     <Compile Include="Builders\IDictionaryDefinitionBuilder.cs" />
+    <Compile Include="Builders\IGenericFactoryMethodDefinitionBuilder.cs" />
     <Compile Include="Builders\ILookupMethodDefinitionBuilder.cs" />
     <Compile Include="Builders\IObjectDefinitionBuilder.cs" />
     <Compile Include="Builders\IPropertyDefinitionBuilder.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="BuildingStages\Objects\IAutoConfigurationBuildStage.cs" />
     <Compile Include="BuildingStages\Objects\ICtorDefinitionBuildStage.cs" />
     <Compile Include="BuildingStages\Objects\IDestroyBehaviorBuildStage.cs" />
+    <Compile Include="BuildingStages\Objects\IFactoryMethodArgBuildStage.cs" />
     <Compile Include="BuildingStages\Objects\IIndirectDependencyBuildStage.cs" />
     <Compile Include="BuildingStages\Objects\IInitBehaviorBuildStage.cs" />
     <Compile Include="BuildingStages\Objects\IInstantiationBuildStage.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="IFluentApplicationContext.cs" />
     <Compile Include="Impl\Definition.cs" />
     <Compile Include="Impl\DictionaryDefinitionBuilder.cs" />
+    <Compile Include="Impl\FactoryMethodArgDefinitionBuilder.cs" />
     <Compile Include="Impl\IDefinitionHolder.cs" />
     <Compile Include="Impl\LookupMethodDefinitionBuilder.cs" />
     <Compile Include="Impl\ObjectDefinitionBuilder.cs" />
@@ -89,8 +92,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\IdGenerator.cs" />
     <Compile Include="Utils\ReflectionUtils.cs" />
-    <Compile Include="Builders\ICtorArgumentDefinitionBuilder.cs" />
-    <Compile Include="Impl\CtorArgumentDefinitionBuilder.cs" />
+    <Compile Include="Builders\IMethodArgumentDefinitionBuilder.cs" />
+    <Compile Include="Impl\MethodArgumentDefinitionBuilder.cs" />
     <Compile Include="Impl\CtorDefinitionBuilder.cs" />
     <Compile Include="Builders\IFactoryMethodDefinitionBuilder.cs" />
     <Compile Include="Impl\FactoryMethodDefinitionBuilder.cs" />

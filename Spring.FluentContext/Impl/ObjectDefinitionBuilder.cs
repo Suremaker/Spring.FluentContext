@@ -103,7 +103,8 @@ namespace Spring.FluentContext.Impl
 			return this;
 		}
 
-		public IPropertyDefinitionBuilder<TObject, TProperty> BindProperty<TProperty>(Expression<Func<TObject, TProperty>> propertySelector)
+		public IPropertyDefinitionBuilder<TObject, TProperty> BindProperty<TProperty>(
+			Expression<Func<TObject, TProperty>> propertySelector)
 		{
 			return new PropertyDefinitionBuilder<TObject, TProperty>(this, ReflectionUtils.GetPropertyName(propertySelector));
 		}
@@ -120,21 +121,70 @@ namespace Spring.FluentContext.Impl
 			return this;
 		}
 
-		public IFactoryMethodDefinitionBuilder<IAutoConfigurationBuildStage<TObject>, TFactoryObject> UseFactoryMethod<TFactoryObject>(Expression<Func<TFactoryObject, TObject>> factoryMethodSelector)
+		public IFactoryMethodArgBuildStage<TObject, TArg1> UseStaticFactoryMethod<TArg1>(Expression<Func<TArg1, TObject>> factoryMethodSelector)
+		{
+			var methodInfo = ReflectionUtils.GetMethodInfo(factoryMethodSelector);
+			_definition.ObjectType = methodInfo.DeclaringType;
+			_definition.FactoryMethodName = ReflectionUtils.GetMethodName(methodInfo);
+			return new FactoryMethodArgDefinitionBuilder<TObject, TArg1>(this);
+		}
+
+		public IFactoryMethodArgBuildStage<TObject, TArg1, TArg2> UseStaticFactoryMethod<TArg1, TArg2>(Expression<Func<TArg1, TArg2, TObject>> factoryMethodSelector)
+		{
+			var methodInfo = ReflectionUtils.GetMethodInfo(factoryMethodSelector);
+			_definition.ObjectType = methodInfo.DeclaringType;
+			_definition.FactoryMethodName = ReflectionUtils.GetMethodName(methodInfo);
+			return new FactoryMethodArgDefinitionBuilder<TObject, TArg1, TArg2>(this);
+		}
+
+		public IFactoryMethodArgBuildStage<TObject, TArg1, TArg2, TArg3> UseStaticFactoryMethod<TArg1, TArg2, TArg3>(Expression<Func<TArg1, TArg2, TArg3, TObject>> factoryMethodSelector)
+		{
+			var methodInfo = ReflectionUtils.GetMethodInfo(factoryMethodSelector);
+			_definition.ObjectType = methodInfo.DeclaringType;
+			_definition.FactoryMethodName = ReflectionUtils.GetMethodName(methodInfo);
+			return new FactoryMethodArgDefinitionBuilder<TObject, TArg1, TArg2, TArg3>(this);
+		}
+
+		public IFactoryMethodDefinitionBuilder<TFactoryObject, TObject> UseFactoryMethod<TFactoryObject>(Expression<Func<TFactoryObject, TObject>> factoryMethodSelector)
 		{
 			_definition.ObjectType = typeof(TFactoryObject);
 			_definition.FactoryMethodName = ReflectionUtils.GetMethodName(factoryMethodSelector);
-			return new FactoryMethodDefinitionBuilder<IAutoConfigurationBuildStage<TObject>, TFactoryObject, TObject>(this, this);
+			return new FactoryMethodDefinitionBuilder<TFactoryObject, TObject>(this);
 		}
 
-		public ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>(int argIndex)
+		public IFactoryMethodDefinitionBuilder<TFactoryObject, TObject, TArg1> UseFactoryMethod<TFactoryObject, TArg1>(
+			Expression<Func<TFactoryObject, TArg1, TObject>> factoryMethodSelector)
 		{
-			return new CtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty>(this, this, argIndex);
+			_definition.ObjectType = typeof(TFactoryObject);
+			_definition.FactoryMethodName = ReflectionUtils.GetMethodName(factoryMethodSelector);
+			return new FactoryMethodDefinitionBuilder<TFactoryObject, TObject, TArg1>(this);
 		}
 
-		public ICtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>()
+		public IFactoryMethodDefinitionBuilder<TFactoryObject, TObject, TArg1, TArg2> UseFactoryMethod
+			<TFactoryObject, TArg1, TArg2>(Expression<Func<TFactoryObject, TArg1, TArg2, TObject>> factoryMethodSelector)
 		{
-			return new CtorArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty>(this, this);
+			_definition.ObjectType = typeof(TFactoryObject);
+			_definition.FactoryMethodName = ReflectionUtils.GetMethodName(factoryMethodSelector);
+			return new FactoryMethodDefinitionBuilder<TFactoryObject, TObject, TArg1, TArg2>(this);
+		}
+
+		public IFactoryMethodDefinitionBuilder<TFactoryObject, TObject, TArg1, TArg2, TArg3> UseFactoryMethod
+			<TFactoryObject, TArg1, TArg2, TArg3>(
+			Expression<Func<TFactoryObject, TArg1, TArg2, TArg3, TObject>> factoryMethodSelector)
+		{
+			_definition.ObjectType = typeof(TFactoryObject);
+			_definition.FactoryMethodName = ReflectionUtils.GetMethodName(factoryMethodSelector);
+			return new FactoryMethodDefinitionBuilder<TFactoryObject, TObject, TArg1, TArg2, TArg3>(this);
+		}
+
+		public IMethodArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>(int argIndex)
+		{
+			return new MethodArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty>(this, this, argIndex);
+		}
+
+		public IMethodArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty> BindConstructorArg<TProperty>()
+		{
+			return new MethodArgumentDefinitionBuilder<ILooseCtorDefinitionBuildStage<TObject>, TProperty>(this, this);
 		}
 
 		public ICtorDefinitionBuildStage<TObject, TArg> UseConstructor<TArg>(Func<TArg, TObject> constructorSelector)
@@ -163,9 +213,10 @@ namespace Spring.FluentContext.Impl
 
 			if (methodInfo.IsGenericMethod)
 				throw new InvalidOperationException(
-					string.Format("Lookup method binding for {0}() in object named '{1}' is not supported, because target method is generic.",
-					ReflectionUtils.GetMethodName(methodInfo),
-					IdGenerator<TObject>.GetDefaultId()));
+					string.Format(
+						"Lookup method binding for {0}() in object named '{1}' is not supported, because target method is generic.",
+						ReflectionUtils.GetMethodName(methodInfo),
+						IdGenerator<TObject>.GetDefaultId()));
 
 			return new LookupMethodDefinitionBuilder<TObject, TResult>(this, methodInfo.Name);
 		}
@@ -197,5 +248,4 @@ namespace Spring.FluentContext.Impl
 			_definition.ObjectType = typeof(TObject);
 		}
 	}
-
 }

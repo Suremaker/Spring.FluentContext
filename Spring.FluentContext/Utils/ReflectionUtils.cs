@@ -36,27 +36,17 @@ namespace Spring.FluentContext.Utils
 {
 	internal static class ReflectionUtils
 	{
-		public static string GetPropertyName<TObject, TProperty>(Expression<Func<TObject, TProperty>> propertySelector)
+		public static string GetPropertyName<T>(Expression<T> propertySelector)
 		{
 			return ((MemberExpression)propertySelector.Body).Member.Name;
 		}
 
-		public static string GetMethodName<TObject, TResult>(Expression<Func<TObject, TResult>> methodCallExpression)
+		public static string GetMethodName<T>(Expression<T> methodCallExpression)
 		{
 			return GetMethodName(GetMethodInfo(methodCallExpression));
 		}
 
-		public static string GetMethodName<TObject>(Expression<Action<TObject>> methodCallExpression)
-		{
-			return GetMethodName(GetMethodInfo(methodCallExpression));
-		}
-
-		public static MethodInfo GetMethodInfo<TObject, TResult>(Expression<Func<TObject, TResult>> methodCallExpression)
-		{
-			return ((MethodCallExpression)methodCallExpression.Body).Method;
-		}
-
-		public static MethodInfo GetMethodInfo<TObject>(Expression<Action<TObject>> methodCallExpression)
+		public static MethodInfo GetMethodInfo<T>(Expression<T> methodCallExpression)
 		{
 			return ((MethodCallExpression)methodCallExpression.Body).Method;
 		}
@@ -82,7 +72,7 @@ namespace Spring.FluentContext.Utils
 			return sb.ToString();
 		}
 
-		public static string GetPropertyPath<TObject, TResult>(Expression<Func<TObject, TResult>> propertySelector)
+		public static string GetPropertyPath<T>(Expression<T> propertySelector)
 		{
 			var path = new LinkedList<string>();
 

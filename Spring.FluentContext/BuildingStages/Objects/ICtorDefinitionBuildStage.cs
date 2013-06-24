@@ -39,8 +39,8 @@ namespace Spring.FluentContext.BuildingStages.Objects
 		/// <summary>
 		/// Binds constructor argument.
 		/// </summary>
-		/// <returns>ICtorArgumentDefinitionBuilder instance.</returns>
-		ICtorArgumentDefinitionBuilder<IMethodConfigurationBuildStage<TObject>, TArg> BindConstructorArg();
+		/// <returns>Constructor argument definition builder instance.</returns>
+		IMethodArgumentDefinitionBuilder<IMethodConfigurationBuildStage<TObject>, TArg> BindConstructorArg();
 	}
 
 	/// <summary>
@@ -54,8 +54,8 @@ namespace Spring.FluentContext.BuildingStages.Objects
 		/// <summary>
 		/// Binds constructor arguments.
 		/// </summary>
-		/// <returns>ICtorArgumentDefinitionBuilder instance.</returns>
-		ICtorArgumentDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2>, TArg1> BindConstructorArg();
+		/// <returns>Constructor argument definition builder instance.</returns>
+		IMethodArgumentDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2>, TArg1> BindConstructorArg();
 	}
 
 	/// <summary>
@@ -70,8 +70,8 @@ namespace Spring.FluentContext.BuildingStages.Objects
 		/// <summary>
 		/// Binds constructor arguments.
 		/// </summary>
-		/// <returns>ICtorArgumentDefinitionBuilder instance.</returns>
-		ICtorArgumentDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2, TArg3>, TArg1> BindConstructorArg();
+		/// <returns>Constructor argument definition builder instance.</returns>
+		IMethodArgumentDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2, TArg3>, TArg1> BindConstructorArg();
 	}
 
 	/// <summary>
@@ -87,7 +87,7 @@ namespace Spring.FluentContext.BuildingStages.Objects
 		/// <summary>
 		/// Binds constructor arguments.
 		/// </summary>
-		/// <returns>ICtorArgumentDefinitionBuilder instance.</returns>
-		ICtorArgumentDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2, TArg3, TArg4>, TArg1> BindConstructorArg();
+		/// <returns>Constructor argument definition builder instance.</returns>
+		IMethodArgumentDefinitionBuilder<ICtorDefinitionBuildStage<TObject, TArg2, TArg3, TArg4>, TArg1> BindConstructorArg();
 	}
 }
