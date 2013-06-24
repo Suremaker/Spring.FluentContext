@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.FluentContext", "Spring.FluentContext\Spring.FluentContext.csproj", "{166FE8E4-E3E6-4A01-9D73-890E6E0F31A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.FluentContext.UnitTests", "Spring.FluentContext.UnitTests\Spring.FluentContext.UnitTests.csproj", "{4397BF4A-8180-4F06-91BC-7AC387E53C45}"
@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AF807B3F-7ABB-4503-AB5C-7DD532960395}"
 	ProjectSection(SolutionItems) = preProject
 		Changelog.txt = Changelog.txt
+		LICENSE.txt = LICENSE.txt
 		README.md = README.md
 	EndProjectSection
 EndProject
