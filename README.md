@@ -8,6 +8,10 @@ Allows creating Spring.NET IoC container from code using fluent API:
 * with type-safe injections
 * with possibility to integrate with other contexts (like XML ones) using hierarchical context construction
 
+## Badges
+Build: [![Build status](https://ci.appveyor.com/api/projects/status/ustjsudvd27p8rxs/branch/master?svg=true)](https://ci.appveyor.com/project/Suremaker/spring-fluentcontext/branch/master)
+Spring.FluentContext | [![NuGet Badge](https://buildstats.info/nuget/Spring.FluentContext?includePreReleases=true)](https://www.nuget.org/packages/Spring.FluentContext/)
+
 ## Download
 It is possible to download package using [NuGet](http://nuget.org): `PM> Install-Package Spring.FluentContext`
 
