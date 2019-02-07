@@ -26,7 +26,7 @@ namespace Spring.FluentContext.UnitTests
 		public void Register_default_object()
 		{
 			_ctx.RegisterDefault<SimpleType>();
-			Assert.That(_ctx.GetObject<SimpleType>(), Is.Not.Null);
+			Assert.That(_ctx.GetDefaultObject<SimpleType>(), Is.Not.Null);
 		}
 
 		[Test]
@@ -59,7 +59,7 @@ namespace Spring.FluentContext.UnitTests
 			var reference = _ctx.RegisterDefault<SimpleType>().GetReference();
 
 			var actual = _ctx.GetObject<SimpleType>(reference.Id);
-			var expected = _ctx.GetObject<SimpleType>();
+			var expected = _ctx.GetDefaultObject<SimpleType>();
 			Assert.That(actual, Is.SameAs(expected));
 		}
 
@@ -69,7 +69,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<Calculator>();
 			_ctx.RegisterDefaultAlias<ICalculator>().ToRegisteredDefault<Calculator>();
 
-			Assert.That(_ctx.GetObject<ICalculator>(), Is.TypeOf<Calculator>());
+			Assert.That(_ctx.GetDefaultObject<ICalculator>(), Is.TypeOf<Calculator>());
 		}
 
 		[Test]
@@ -106,7 +106,7 @@ namespace Spring.FluentContext.UnitTests
 			SimpleType type = new SimpleType();
 			_ctx.RegisterDefaultSingleton(type);
 			
-			Assert.That(_ctx.GetObject<SimpleType>(), Is.SameAs(type));
+			Assert.That(_ctx.GetDefaultObject<SimpleType>(), Is.SameAs(type));
 		}
 
 		[Test]

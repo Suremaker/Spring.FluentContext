@@ -23,8 +23,8 @@ namespace Spring.FluentContext.UnitTests
 				.Autowire()
 				.CallOnInit(t => t.Init());
 
-			_ctx.GetObject<TypeWithInitDestroyMethods>();
-			Assert.That(_ctx.GetObject<InitDestroyCallReport>().InitCalled);
+			_ctx.GetDefaultObject<TypeWithInitDestroyMethods>();
+			Assert.That(_ctx.GetDefaultObject<InitDestroyCallReport>().InitCalled);
 		}
 
 		[Test]
@@ -36,8 +36,8 @@ namespace Spring.FluentContext.UnitTests
 				.Autowire()
 				.CallOnDestroy(t => t.Destroy());
 			
-			_ctx.GetObject<TypeWithInitDestroyMethods>();
-			var report = _ctx.GetObject<InitDestroyCallReport>();
+			_ctx.GetDefaultObject<TypeWithInitDestroyMethods>();
+			var report = _ctx.GetDefaultObject<InitDestroyCallReport>();
 			_ctx.Dispose();
 			Assert.That(report.DestroyCalled);
 		}

@@ -21,7 +21,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<ComplexType>()
 				.UseStaticFactoryMethod(ComplexTypeFactory.CreateInstance);
 
-			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(ComplexTypeFactory.DefaultInstanceText));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Text, Is.EqualTo(ComplexTypeFactory.DefaultInstanceText));
 		}
 
 		[Test]
@@ -32,7 +32,7 @@ namespace Spring.FluentContext.UnitTests
 				.UseStaticFactoryMethod((string text) => ComplexTypeFactory.CreateInstance(text))
 				.BindMethodArg().ToValue(expectedText1);
 
-			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedText1));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Text, Is.EqualTo(expectedText1));
 		}
 
 		[Test]
@@ -45,8 +45,8 @@ namespace Spring.FluentContext.UnitTests
 				.BindMethodArg().ToValue(expectedText1)
 				.BindMethodArg().ToValue(expectedText2);
 
-			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedText1));
-			Assert.That(_ctx.GetObject<ComplexType>().Simple.Text, Is.EqualTo(expectedText2));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Text, Is.EqualTo(expectedText1));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Simple.Text, Is.EqualTo(expectedText2));
 		}
 
 		[Test]
@@ -61,9 +61,9 @@ namespace Spring.FluentContext.UnitTests
 				.BindMethodArg().ToValue(expectedText2)
 				.BindMethodArg().ToValue(expectedValue);
 
-			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedText1));
-			Assert.That(_ctx.GetObject<ComplexType>().Simple.Text, Is.EqualTo(expectedText2));
-			Assert.That(_ctx.GetObject<ComplexType>().Simple.Value, Is.EqualTo(expectedValue));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Text, Is.EqualTo(expectedText1));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Simple.Text, Is.EqualTo(expectedText2));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Simple.Value, Is.EqualTo(expectedValue));
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<ComplexType>()
 				.UseFactoryMethod<ComplexTypeFactory>(f => f.Create()).OfRegisteredDefault();
 
-			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedValue));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Text, Is.EqualTo(expectedValue));
 		}
 
 		[Test]
@@ -89,7 +89,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<ComplexType>()
 				.UseFactoryMethod<ComplexTypeFactory>(f => f.Create()).OfRegistered("factory");
 
-			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedValue));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Text, Is.EqualTo(expectedValue));
 		}
 
 		[Test]
@@ -103,7 +103,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<ComplexType>()
 				.UseFactoryMethod<ComplexTypeFactory>(f => f.Create()).OfRegistered(reference);
 
-			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedValue));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Text, Is.EqualTo(expectedValue));
 		}
 
 		[Test]
@@ -117,7 +117,7 @@ namespace Spring.FluentContext.UnitTests
 				.UseFactoryMethod((ComplexTypeFactory factory, string text) => factory.Create(text)).OfRegistered(reference)
 				.BindMethodArg().ToValue(expectedValue);
 
-			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedValue));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Text, Is.EqualTo(expectedValue));
 		}
 
 		[Test]
@@ -133,8 +133,8 @@ namespace Spring.FluentContext.UnitTests
 				.BindMethodArg().ToValue(expectedValue)
 				.BindMethodArg().ToValue(expectedValue2);
 
-			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedValue));
-			Assert.That(_ctx.GetObject<ComplexType>().Simple.Text, Is.EqualTo(expectedValue2));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Text, Is.EqualTo(expectedValue));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Simple.Text, Is.EqualTo(expectedValue2));
 		}
 
 		[Test]
@@ -152,9 +152,9 @@ namespace Spring.FluentContext.UnitTests
 				.BindMethodArg().ToValue(expectedValue2)
 				.BindMethodArg().ToValue(expectedValue3);
 
-			Assert.That(_ctx.GetObject<ComplexType>().Text, Is.EqualTo(expectedValue));
-			Assert.That(_ctx.GetObject<ComplexType>().Simple.Text, Is.EqualTo(expectedValue2));
-			Assert.That(_ctx.GetObject<ComplexType>().Simple.Value, Is.EqualTo(expectedValue3));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Text, Is.EqualTo(expectedValue));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Simple.Text, Is.EqualTo(expectedValue2));
+			Assert.That(_ctx.GetDefaultObject<ComplexType>().Simple.Value, Is.EqualTo(expectedValue3));
 		}
 
 		[Test]
@@ -165,7 +165,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<ComplexType>()
 				.UseFactoryMethod<GenericTypeFactory>(f => f.Create<ComplexType>()).OfRegistered(reference);
 
-			Assert.That(_ctx.GetObject<ComplexType>(), Is.Not.Null);
+			Assert.That(_ctx.GetDefaultObject<ComplexType>(), Is.Not.Null);
 		}
 
 		[Test]
@@ -174,7 +174,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<ComplexType>()
 				.UseStaticFactoryMethod(GenericTypeFactory.CreateInstance<ComplexType>);
 
-			Assert.That(_ctx.GetObject<ComplexType>(), Is.Not.Null);
+			Assert.That(_ctx.GetDefaultObject<ComplexType>(), Is.Not.Null);
 		}
 
 		[Test]
@@ -183,7 +183,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<List<int>>()
 				.UseStaticFactoryMethod(GenericTypeFactory.CreateInstance<List<int>>);
 
-			Assert.That(_ctx.GetObject<List<int>>(), Is.Not.Null);
+			Assert.That(_ctx.GetDefaultObject<List<int>>(), Is.Not.Null);
 		}
 	}
 }

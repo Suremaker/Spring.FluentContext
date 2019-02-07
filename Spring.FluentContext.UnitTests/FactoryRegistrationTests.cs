@@ -88,7 +88,7 @@ namespace Spring.FluentContext.UnitTests
 				.TargetingDefault<Calculator>()
 				.InterceptedByDefault<MultiplingInterceptor>();
 
-			Assert.That(_ctx.GetObject<ICalculator>().Add(3, 5), Is.EqualTo(80));
+			Assert.That(_ctx.GetDefaultObject<ICalculator>().Add(3, 5), Is.EqualTo(80));
 		}
 
 		[Test]
@@ -112,8 +112,8 @@ namespace Spring.FluentContext.UnitTests
 				.TargetingDefault<Calculator>()
 				.ReturningPrototypes();
 
-			var proxy1 = _ctx.GetObject<ICalculator>();
-			var proxy2 = _ctx.GetObject<ICalculator>();
+			var proxy1 = _ctx.GetDefaultObject<ICalculator>();
+			var proxy2 = _ctx.GetDefaultObject<ICalculator>();
 
 			Assert.That(proxy1, Is.Not.SameAs(proxy2));
 		}
@@ -126,8 +126,8 @@ namespace Spring.FluentContext.UnitTests
 				.TargetingDefault<Calculator>()
 				.ReturningSingleton();
 			
-			var proxy1 = _ctx.GetObject<ICalculator>();
-			var proxy2 = _ctx.GetObject<ICalculator>();
+			var proxy1 = _ctx.GetDefaultObject<ICalculator>();
+			var proxy2 = _ctx.GetDefaultObject<ICalculator>();
 			
 			Assert.That(proxy1, Is.SameAs(proxy2));
 		}
@@ -139,8 +139,8 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefaultProxyFactory<ICalculator>()
 				.TargetingDefault<Calculator>();
 			
-			var proxy1 = _ctx.GetObject<ICalculator>();
-			var proxy2 = _ctx.GetObject<ICalculator>();
+			var proxy1 = _ctx.GetDefaultObject<ICalculator>();
+			var proxy2 = _ctx.GetDefaultObject<ICalculator>();
 			
 			Assert.That(proxy1, Is.SameAs(proxy2));
 		}
@@ -153,7 +153,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<SimpleType>()
 				.DependingOnDefault<CountingType>();
 
-			_ctx.GetObject<SimpleType>();
+			_ctx.GetDefaultObject<SimpleType>();
 			Assert.That(CountingType.Count, Is.EqualTo(1));
 		}
 
@@ -165,7 +165,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<SimpleType>()
 				.DependingOn<CountingType>("counting");
 			
-			_ctx.GetObject<SimpleType>();
+			_ctx.GetDefaultObject<SimpleType>();
 			Assert.That(CountingType.Count, Is.EqualTo(1));
 		}
 
@@ -177,7 +177,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<SimpleType>()
 				.DependingOn<CountingType>(reference);
 			
-			_ctx.GetObject<SimpleType>();
+			_ctx.GetDefaultObject<SimpleType>();
 			Assert.That(CountingType.Count, Is.EqualTo(1));
 		}
 
@@ -194,7 +194,7 @@ namespace Spring.FluentContext.UnitTests
 			Assert.That(CountingType.Count, Is.EqualTo(0));
 			Assert.That(OtherCountingType.Count, Is.EqualTo(0));
 
-			_ctx.GetObject<SimpleType>();
+			_ctx.GetDefaultObject<SimpleType>();
 
 			Assert.That(CountingType.Count, Is.EqualTo(1));
 			Assert.That(OtherCountingType.Count, Is.EqualTo(1));

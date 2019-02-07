@@ -43,7 +43,7 @@ namespace Spring.FluentContext.Examples.CollectionInjection
 
 		protected override void RunExample(IApplicationContext ctx)
 		{
-			var factory = ctx.GetObject<Factory>();
+			var factory = ctx.GetDefaultObject<Factory>();
 			factory.Create("Car");
 			factory.Create("Motorcycle");
 			factory.Create("Luxury Car");

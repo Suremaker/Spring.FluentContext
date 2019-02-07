@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.FluentContext", "Spring.FluentContext\Spring.FluentContext.csproj", "{166FE8E4-E3E6-4A01-9D73-890E6E0F31A6}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spring.FluentContext", "Spring.FluentContext\Spring.FluentContext.csproj", "{166FE8E4-E3E6-4A01-9D73-890E6E0F31A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.FluentContext.UnitTests", "Spring.FluentContext.UnitTests\Spring.FluentContext.UnitTests.csproj", "{4397BF4A-8180-4F06-91BC-7AC387E53C45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.FluentContext.Examples", "Spring.FluentContext.Examples\Spring.FluentContext.Examples.csproj", "{7D461C3F-F00E-4F67-A083-7184ED2E8128}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spring.FluentContext.Examples", "Spring.FluentContext.Examples\Spring.FluentContext.Examples.csproj", "{7D461C3F-F00E-4F67-A083-7184ED2E8128}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AF807B3F-7ABB-4503-AB5C-7DD532960395}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,14 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "net35", "net35", "{EB78084A-C54B-4ED4-BF8C-D197BCC2F83F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.FluentContext", "net35\Spring.FluentContext\Spring.FluentContext.csproj", "{D807FE64-2112-4977-9BFE-2B0D879C5CAB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.FluentContext.UnitTests", "net35\Spring.FluentContext.UnitTests\Spring.FluentContext.UnitTests.csproj", "{F6B4F58A-676D-4089-9B62-A14B29BD459A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.FluentContext.Examples", "net35\Spring.FluentContext.Examples\Spring.FluentContext.Examples.csproj", "{08F8ED71-D9B6-4A1C-9AA7-3183E4C82452}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,44 +56,12 @@ Global
 		{7D461C3F-F00E-4F67-A083-7184ED2E8128}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{7D461C3F-F00E-4F67-A083-7184ED2E8128}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{7D461C3F-F00E-4F67-A083-7184ED2E8128}.Release|x86.ActiveCfg = Release|Any CPU
-		{D807FE64-2112-4977-9BFE-2B0D879C5CAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D807FE64-2112-4977-9BFE-2B0D879C5CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D807FE64-2112-4977-9BFE-2B0D879C5CAB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{D807FE64-2112-4977-9BFE-2B0D879C5CAB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{D807FE64-2112-4977-9BFE-2B0D879C5CAB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D807FE64-2112-4977-9BFE-2B0D879C5CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D807FE64-2112-4977-9BFE-2B0D879C5CAB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D807FE64-2112-4977-9BFE-2B0D879C5CAB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{D807FE64-2112-4977-9BFE-2B0D879C5CAB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{D807FE64-2112-4977-9BFE-2B0D879C5CAB}.Release|x86.ActiveCfg = Release|Any CPU
-		{F6B4F58A-676D-4089-9B62-A14B29BD459A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6B4F58A-676D-4089-9B62-A14B29BD459A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6B4F58A-676D-4089-9B62-A14B29BD459A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{F6B4F58A-676D-4089-9B62-A14B29BD459A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{F6B4F58A-676D-4089-9B62-A14B29BD459A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F6B4F58A-676D-4089-9B62-A14B29BD459A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6B4F58A-676D-4089-9B62-A14B29BD459A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6B4F58A-676D-4089-9B62-A14B29BD459A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{F6B4F58A-676D-4089-9B62-A14B29BD459A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{F6B4F58A-676D-4089-9B62-A14B29BD459A}.Release|x86.ActiveCfg = Release|Any CPU
-		{08F8ED71-D9B6-4A1C-9AA7-3183E4C82452}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{08F8ED71-D9B6-4A1C-9AA7-3183E4C82452}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{08F8ED71-D9B6-4A1C-9AA7-3183E4C82452}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{08F8ED71-D9B6-4A1C-9AA7-3183E4C82452}.Debug|x86.ActiveCfg = Debug|x86
-		{08F8ED71-D9B6-4A1C-9AA7-3183E4C82452}.Debug|x86.Build.0 = Debug|x86
-		{08F8ED71-D9B6-4A1C-9AA7-3183E4C82452}.Release|Any CPU.ActiveCfg = Release|x86
-		{08F8ED71-D9B6-4A1C-9AA7-3183E4C82452}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{08F8ED71-D9B6-4A1C-9AA7-3183E4C82452}.Release|Mixed Platforms.Build.0 = Release|x86
-		{08F8ED71-D9B6-4A1C-9AA7-3183E4C82452}.Release|x86.ActiveCfg = Release|x86
-		{08F8ED71-D9B6-4A1C-9AA7-3183E4C82452}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{D807FE64-2112-4977-9BFE-2B0D879C5CAB} = {EB78084A-C54B-4ED4-BF8C-D197BCC2F83F}
-		{F6B4F58A-676D-4089-9B62-A14B29BD459A} = {EB78084A-C54B-4ED4-BF8C-D197BCC2F83F}
-		{08F8ED71-D9B6-4A1C-9AA7-3183E4C82452} = {EB78084A-C54B-4ED4-BF8C-D197BCC2F83F}
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7744C9E-9E0F-478B-8731-22B5B1609E34}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Spring.FluentContext.Examples\Spring.FluentContext.Examples.csproj

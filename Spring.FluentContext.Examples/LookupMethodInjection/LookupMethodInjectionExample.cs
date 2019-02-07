@@ -26,7 +26,7 @@ namespace Spring.FluentContext.Examples.LookupMethodInjection
 
 		protected override void RunExample(IApplicationContext ctx)
 		{
-			var calc = ctx.GetObject<ICreditsCalculator>();
+			var calc = ctx.GetDefaultObject<ICreditsCalculator>();
 			CalculateCredits(calc, "Josh", 2.4, 4.3, 5.8);
 			CalculateCredits(calc, "John", 2.4, 1.3, 3.2);
 		}
