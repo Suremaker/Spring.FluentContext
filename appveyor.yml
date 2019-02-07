@@ -1,0 +1,22 @@
+image: Visual Studio 2017
+version: '{build}'
+skip_tags: false
+clone_depth: 1
+test: off
+
+build_script:
+- cmd: dotnet build --configuration Release /nologo /m
+- cmd: dotnet test --configuration Release --no-build --no-restore
+
+artifacts:
+  - path: 'output\*.*'
+    name: packages
+
+deploy:
+  provider: NuGet
+  api_key:
+    secure: x
+  skip_symbols: false
+  on:
+    branch: master
+    appveyor_repo_tag: true
