@@ -100,8 +100,8 @@ namespace Spring.FluentContext.UnitTests
 
 			_ctx.RegisterDefault<NestingType>();
 
-			NestingType actual = _ctx.GetObject<CtorHavingType>().Nesting;
-			NestingType expected = _ctx.GetObject<NestingType>();
+			NestingType actual = _ctx.GetDefaultObject<CtorHavingType>().Nesting;
+			NestingType expected = _ctx.GetDefaultObject<NestingType>();
 
 			Assert.That(actual, Is.SameAs(expected));
 		}
@@ -115,7 +115,7 @@ namespace Spring.FluentContext.UnitTests
 				.BindConstructorArg<NestingType>().ToRegistered(nestedRef);
 
 
-			NestingType actual = _ctx.GetObject<CtorHavingType>().Nesting;
+			NestingType actual = _ctx.GetDefaultObject<CtorHavingType>().Nesting;
 			NestingType expected = _ctx.GetObject<NestingType>("nested");
 
 			Assert.That(actual, Is.SameAs(expected));
@@ -129,7 +129,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<CtorHavingType>()
 				.BindConstructorArg<NestingType>().ToRegistered(nestedRef);
 
-			var actual = _ctx.GetObject<CtorHavingType>();
+			var actual = _ctx.GetDefaultObject<CtorHavingType>();
 
 			Assert.That(actual.Nesting, Is.TypeOf<DerivedFromNestingType>());
 		}
@@ -142,7 +142,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<CtorHavingType>()
 				.BindConstructorArg<NestingType>().ToRegisteredDefaultOf<DerivedFromNestingType>();
 
-			var actual = _ctx.GetObject<CtorHavingType>();
+			var actual = _ctx.GetDefaultObject<CtorHavingType>();
 
 			Assert.That(actual.Nesting, Is.TypeOf<DerivedFromNestingType>());
 		}
@@ -206,8 +206,8 @@ namespace Spring.FluentContext.UnitTests
 				.AsPrototype()
 				.BindConstructorArg<NestingType>().ToInlineDefinition<NestingType>();
 
-			var nesting1 = _ctx.GetObject<CtorHavingType>();
-			var nesting2 = _ctx.GetObject<CtorHavingType>();
+			var nesting1 = _ctx.GetDefaultObject<CtorHavingType>();
+			var nesting2 = _ctx.GetDefaultObject<CtorHavingType>();
 
 			Assert.That(nesting1.Nesting, Is.Not.SameAs(nesting2.Nesting));
 		}
@@ -220,7 +220,7 @@ namespace Spring.FluentContext.UnitTests
 				.UseConstructor((string text) => new CtorHavingType(text))
 				.BindConstructorArg().ToValue(expectedText);
 
-			Assert.That(_ctx.GetObject<CtorHavingType>().Text, Is.EqualTo(expectedText));
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().Text, Is.EqualTo(expectedText));
 		}
 
 		[Test]
@@ -234,8 +234,8 @@ namespace Spring.FluentContext.UnitTests
 					.BindConstructorArg().ToValue(expectedText)
 					.BindConstructorArg().ToValue(expectedValue);
 
-			Assert.That(_ctx.GetObject<CtorHavingType>().Text, Is.EqualTo(expectedText));
-			Assert.That(_ctx.GetObject<CtorHavingType>().Value, Is.EqualTo(expectedValue));
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().Text, Is.EqualTo(expectedText));
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().Value, Is.EqualTo(expectedValue));
 		}
 
 		[Test]
@@ -252,9 +252,9 @@ namespace Spring.FluentContext.UnitTests
 					.BindConstructorArg().ToValue(expectedText)
 					.BindConstructorArg().ToValue(expectedValue);
 
-			Assert.That(_ctx.GetObject<CtorHavingType>().Text, Is.EqualTo(expectedText));
-			Assert.That(_ctx.GetObject<CtorHavingType>().Value, Is.EqualTo(expectedValue));
-			Assert.That(_ctx.GetObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetObject<NestingType>()));
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().Text, Is.EqualTo(expectedText));
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().Value, Is.EqualTo(expectedValue));
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetDefaultObject<NestingType>()));
 		}
 
 		[Test]
@@ -272,10 +272,10 @@ namespace Spring.FluentContext.UnitTests
 					.BindConstructorArg().ToValue(expectedValue)
 					.BindConstructorArg().ToValue(expectedOther);
 
-			Assert.That(_ctx.GetObject<CtorHavingType>().Text, Is.EqualTo(expectedText));
-			Assert.That(_ctx.GetObject<CtorHavingType>().Value, Is.EqualTo(expectedValue));
-			Assert.That(_ctx.GetObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetObject<NestingType>()));
-			Assert.That(_ctx.GetObject<CtorHavingType>().OtherValue, Is.EqualTo(expectedOther));
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().Text, Is.EqualTo(expectedText));
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().Value, Is.EqualTo(expectedValue));
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetDefaultObject<NestingType>()));
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().OtherValue, Is.EqualTo(expectedOther));
 		}
 
 		[Test]
@@ -287,7 +287,7 @@ namespace Spring.FluentContext.UnitTests
 
 			_ctx.RegisterDefault<NestingType>();
 
-			Assert.That(_ctx.GetObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetObject<NestingType>()));
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetDefaultObject<NestingType>()));
 		}
 
 		[Test]
@@ -299,7 +299,7 @@ namespace Spring.FluentContext.UnitTests
 
 			_ctx.RegisterNamed<NestingType>("test");
 
-			Assert.That(_ctx.GetObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetObject<NestingType>("test")));
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().Nesting, Is.SameAs(_ctx.GetObject<NestingType>("test")));
 		}
 
 		[Test]
@@ -310,7 +310,7 @@ namespace Spring.FluentContext.UnitTests
 				.UseConstructor((string t) => new CtorHavingType(t))
 				.BindConstructorArg().To(Def.Value(expected));
 
-			Assert.That(_ctx.GetObject<CtorHavingType>().Text, Is.EqualTo(expected));
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().Text, Is.EqualTo(expected));
 		}
 
 		[Test]
@@ -329,7 +329,7 @@ namespace Spring.FluentContext.UnitTests
 						Def.Reference<SimpleType>("test"),
 						Def.Value(new SimpleType { Text = "3" })));
 
-			Assert.That(_ctx.GetObject<CollectionHolder>().Array.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().Array.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
 
 		[Test]
@@ -348,7 +348,7 @@ namespace Spring.FluentContext.UnitTests
 						Def.Reference<OtherType>("test"),
 						Def.Value(new OtherType { Text = "3" })));
 
-			Assert.That(_ctx.GetObject<CollectionHolder>().List.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().List.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
 
 		[Test]
@@ -367,7 +367,7 @@ namespace Spring.FluentContext.UnitTests
 						Def.Reference<DerivedFromSimpleType>("test"),
 						Def.Value(new DerivedFromSimpleType { Text = "3" })));
 
-			Assert.That(_ctx.GetObject<CollectionHolder>().Collection.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().Collection.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
 
 		[Test]
@@ -379,8 +379,8 @@ namespace Spring.FluentContext.UnitTests
 						def => def.BindProperty(n => n.Simple).ToRegisteredDefault()));
 			_ctx.RegisterDefault<SimpleType>();
 
-			Assert.That(_ctx.GetObject<CtorHavingType>().Nesting.Simple, Is.SameAs(_ctx.GetObject<SimpleType>()));
-			Assert.Throws<NoSuchObjectDefinitionException>(() => _ctx.GetObject<NestingType>());
+			Assert.That(_ctx.GetDefaultObject<CtorHavingType>().Nesting.Simple, Is.SameAs(_ctx.GetDefaultObject<SimpleType>()));
+			Assert.Throws<NoSuchObjectDefinitionException>(() => _ctx.GetDefaultObject<NestingType>());
 		}
 	}
 }

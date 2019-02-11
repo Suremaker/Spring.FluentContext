@@ -63,7 +63,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<NestingType>()
 				.BindProperty(n => n.Simple).ToRegistered(derivedRef);
 
-			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.TypeOf<DerivedFromSimpleType>());
+			Assert.That(_ctx.GetDefaultObject<NestingType>().Simple, Is.TypeOf<DerivedFromSimpleType>());
 		}
 
 		[Test]
@@ -73,7 +73,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<NestingType>()
 				.BindProperty(n => n.Simple).ToRegisteredDefaultOf<DerivedFromSimpleType>();
 
-			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.TypeOf<DerivedFromSimpleType>());
+			Assert.That(_ctx.GetDefaultObject<NestingType>().Simple, Is.TypeOf<DerivedFromSimpleType>());
 		}
 
 		[Test]
@@ -119,8 +119,8 @@ namespace Spring.FluentContext.UnitTests
 				.AsPrototype()
 				.BindProperty(n => n.Simple).ToInlineDefinition<SimpleType>();
 
-			var nesting1 = _ctx.GetObject<NestingType>();
-			var nesting2 = _ctx.GetObject<NestingType>();
+			var nesting1 = _ctx.GetDefaultObject<NestingType>();
+			var nesting2 = _ctx.GetDefaultObject<NestingType>();
 
 			Assert.That(nesting1.Simple, Is.Not.SameAs(nesting2.Simple));
 		}
@@ -134,9 +134,9 @@ namespace Spring.FluentContext.UnitTests
 				.BindProperty(t => t.Other).ToRegisteredDefault()
 				.BindProperty(t => t.Simple).ToRegisteredDefault();
 
-			var actual = _ctx.GetObject<NestingType>();
-			Assert.That(actual.Simple, Is.SameAs(_ctx.GetObject<SimpleType>()));
-			Assert.That(actual.Other, Is.SameAs(_ctx.GetObject<OtherType>()));
+			var actual = _ctx.GetDefaultObject<NestingType>();
+			Assert.That(actual.Simple, Is.SameAs(_ctx.GetDefaultObject<SimpleType>()));
+			Assert.That(actual.Other, Is.SameAs(_ctx.GetDefaultObject<OtherType>()));
 		}
 
 		[Test]
@@ -160,9 +160,9 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterNamed<SimpleType>("simple");
 			_ctx.RegisterDefault<OtherType>();
 
-			var actual = _ctx.GetObject<NestingType>();
+			var actual = _ctx.GetDefaultObject<NestingType>();
 			Assert.That(actual.Simple, Is.SameAs(_ctx.GetObject<SimpleType>("simple")));
-			Assert.That(actual.Other, Is.SameAs(_ctx.GetObject<OtherType>()));
+			Assert.That(actual.Other, Is.SameAs(_ctx.GetDefaultObject<OtherType>()));
 		}
 
 		[Test]
@@ -172,7 +172,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<SimpleType>()
 				.BindProperty(s => s.Text).To(Def.Value(expected));
 
-			var actual = _ctx.GetObject<SimpleType>();
+			var actual = _ctx.GetDefaultObject<SimpleType>();
 			Assert.That(actual.Text, Is.EqualTo(expected));
 		}
 
@@ -183,7 +183,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<NestingType>()
 				.BindProperty(n => n.Simple).To(reference);
 
-			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.SameAs(_ctx.GetObject<SimpleType>()));
+			Assert.That(_ctx.GetDefaultObject<NestingType>().Simple, Is.SameAs(_ctx.GetDefaultObject<SimpleType>()));
 		}
 
 		[Test]
@@ -201,7 +201,7 @@ namespace Spring.FluentContext.UnitTests
 					Def.Reference<SimpleType>("test"),
 					Def.Value(new SimpleType { Text = "3" })));
 
-			Assert.That(_ctx.GetObject<CollectionHolder>().Array.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().Array.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
 
 		[Test]
@@ -219,7 +219,7 @@ namespace Spring.FluentContext.UnitTests
 					Def.Reference<SimpleType>("test"),
 					Def.Value(new SimpleType { Text = "3" }));
 
-			Assert.That(_ctx.GetObject<CollectionHolder>().Array.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().Array.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
 
 		[Test]
@@ -237,7 +237,7 @@ namespace Spring.FluentContext.UnitTests
 					Def.Reference<OtherType>("test"),
 					Def.Value(new OtherType { Text = "3" })));
 
-			Assert.That(_ctx.GetObject<CollectionHolder>().List.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().List.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
 
 		[Test]
@@ -255,7 +255,7 @@ namespace Spring.FluentContext.UnitTests
 					Def.Reference<DerivedFromSimpleType>("test"),
 					Def.Value(new DerivedFromSimpleType { Text = "3" })));
 
-			Assert.That(_ctx.GetObject<CollectionHolder>().Collection.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().Collection.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
 
 		[Test]
@@ -275,8 +275,8 @@ namespace Spring.FluentContext.UnitTests
 					dict[Def.Value(3)] = Def.Value(new SimpleType { Text = "3" });
 				}));
 
-			Assert.That(_ctx.GetObject<CollectionHolder>().Dictionary.Keys, Is.EquivalentTo(new[] { 1, 2, 3 }));
-			Assert.That(_ctx.GetObject<CollectionHolder>().Dictionary.Values.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().Dictionary.Keys, Is.EquivalentTo(new[] { 1, 2, 3 }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().Dictionary.Values.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
 
 		[Test]
@@ -289,8 +289,8 @@ namespace Spring.FluentContext.UnitTests
 					dict[Def.Value(1)] = Def.Value(new SimpleType { Text = "abc" });
 				});
 
-			Assert.That(_ctx.GetObject<CollectionHolder>().Dictionary.Keys, Is.EquivalentTo(new[] { 1 }));
-			Assert.That(_ctx.GetObject<CollectionHolder>().Dictionary.Values.Select(v => v.Text), Is.EquivalentTo(new[] { "abc" }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().Dictionary.Keys, Is.EquivalentTo(new[] { 1 }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().Dictionary.Values.Select(v => v.Text), Is.EquivalentTo(new[] { "abc" }));
 		}
 
 		[Test]
@@ -310,8 +310,8 @@ namespace Spring.FluentContext.UnitTests
 					dict[Def.Value(3)] = Def.Value(new SimpleType { Text = "3" });
 				});
 
-			Assert.That(_ctx.GetObject<CollectionHolder>().Dictionary.Keys, Is.EquivalentTo(new[] { 1, 2, 3 }));
-			Assert.That(_ctx.GetObject<CollectionHolder>().Dictionary.Values.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().Dictionary.Keys, Is.EquivalentTo(new[] { 1, 2, 3 }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().Dictionary.Values.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2", "3" }));
 		}
 
 		[Test]
@@ -332,9 +332,9 @@ namespace Spring.FluentContext.UnitTests
 					Def.Value(new SimpleType { Text = "1" }),
 					Def.Reference<SimpleType>());
 
-			Assert.That(_ctx.GetObject<CollectionHolder>().Collection.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2" }));
-			Assert.That(_ctx.GetObject<CollectionHolder>().Array.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2" }));
-			Assert.That(_ctx.GetObject<CollectionHolder>().List.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2" }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().Collection.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2" }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().Array.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2" }));
+			Assert.That(_ctx.GetDefaultObject<CollectionHolder>().List.Select(v => v.Text), Is.EquivalentTo(new[] { "1", "2" }));
 		}
 
 		[Test]
@@ -363,7 +363,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<NestingType>()
 				.BindProperty(n => n.Simple).To(Def.Object<DerivedFromSimpleType>());
 
-			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.InstanceOf<DerivedFromSimpleType>());
+			Assert.That(_ctx.GetDefaultObject<NestingType>().Simple, Is.InstanceOf<DerivedFromSimpleType>());
 		}
 
 		[Test]
@@ -377,7 +377,7 @@ namespace Spring.FluentContext.UnitTests
 					nestingRef,
 					n => n.Simple));
 
-			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.SameAs(_ctx.GetObject(nestingRef).Simple));
+			Assert.That(_ctx.GetDefaultObject<NestingType>().Simple, Is.SameAs(_ctx.GetObject(nestingRef).Simple));
 		}
 
 		[Test]
@@ -391,7 +391,7 @@ namespace Spring.FluentContext.UnitTests
 					nestingRef,
 					n => n.Simple);
 
-			Assert.That(_ctx.GetObject<NestingType>().Simple, Is.SameAs(_ctx.GetObject(nestingRef).Simple));
+			Assert.That(_ctx.GetDefaultObject<NestingType>().Simple, Is.SameAs(_ctx.GetObject(nestingRef).Simple));
 		}
 	}
 }

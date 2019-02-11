@@ -21,14 +21,14 @@ namespace Spring.FluentContext.UnitTests.Utils
 		public void Get_property_path_throws_if_unsupported_expression_is_used_in_selector()
 		{
 			var ex = Assert.Throws<ArgumentException>(() => ReflectionUtils.GetPropertyPath<Func<NestingHolder, string>>(n => n.Nested.Other.ToString()));
-			Assert.That(ex.Message, Is.StringStarting("Lambda expression can contain only property access expressions."));
+			Assert.That(ex.Message, Does.StartWith("Lambda expression can contain only property access expressions."));
 		}
 
 		[Test]
 		public void Get_property_path_throws_if_unsupported_expression_is_used_in_any_part_of_selector()
 		{
 			var ex = Assert.Throws<ArgumentException>(() => ReflectionUtils.GetPropertyPath<Func<DateTime, int>>(d => d.AddDays(1).Second));
-			Assert.That(ex.Message, Is.StringStarting("Lambda expression can contain only property access expressions."));
+			Assert.That(ex.Message, Does.StartWith("Lambda expression can contain only property access expressions."));
 		}
 	}
 }

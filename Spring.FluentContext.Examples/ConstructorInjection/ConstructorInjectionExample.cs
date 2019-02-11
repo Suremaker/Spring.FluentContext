@@ -22,7 +22,7 @@ namespace Spring.FluentContext.Examples.ConstructorInjection
 
 		protected override void RunExample(IApplicationContext ctx)
 		{
-			ctx.GetObject<PersonWithCat>().Introduce();
+			ctx.GetDefaultObject<PersonWithCat>().Introduce();
 		}
 	}
 }

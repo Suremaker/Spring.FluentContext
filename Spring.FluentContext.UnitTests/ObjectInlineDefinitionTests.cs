@@ -21,8 +21,8 @@ namespace Spring.FluentContext.UnitTests
 				.AsPrototype()
 				.BindProperty(n => n.Simple).ToInlineDefinition<SimpleType>(def => { });
 
-			var nesting1 = _ctx.GetObject<NestingType>();
-			var nesting2 = _ctx.GetObject<NestingType>();
+			var nesting1 = _ctx.GetDefaultObject<NestingType>();
+			var nesting2 = _ctx.GetDefaultObject<NestingType>();
 
 			Assert.That(nesting1.Simple, Is.Not.SameAs(nesting2.Simple));
 		}

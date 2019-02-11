@@ -6,3 +6,6 @@ obj
 build/Output
 *.userprefs
 test-results
+.idea
+output/
+.vs

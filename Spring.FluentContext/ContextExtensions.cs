@@ -8,17 +8,6 @@ namespace Spring.FluentContext
 	/// </summary>
 	public static class ContextExtensions
 	{
-		/// <summary>
-		/// Returns object of <c>T</c> type, registered with specified <c>name</c>/id.
-		/// </summary>
-		/// <typeparam name="T">Type of object.</typeparam>
-		/// <param name="ctx">Context.</param>
-		/// <param name="name">Object name/id.</param>
-		/// <returns>Registered object.</returns>
-		public static T GetObject<T>(this IApplicationContext ctx, string name)
-		{
-			return (T)ctx.GetObject(name, typeof(T));
-		}
 
 		/// <summary>
 		/// Returns object of <c>T</c> type, registered with default name/id.
@@ -26,7 +15,7 @@ namespace Spring.FluentContext
 		/// <typeparam name="T">Type of object.</typeparam>
 		/// <param name="ctx">Context.</param>
 		/// <returns>Registered object.</returns>
-		public static T GetObject<T>(this IApplicationContext ctx)
+		public static T GetDefaultObject<T>(this IApplicationContext ctx)
 		{
 			return ctx.GetObject<T>(IdGenerator<T>.GetDefaultId());
 		}

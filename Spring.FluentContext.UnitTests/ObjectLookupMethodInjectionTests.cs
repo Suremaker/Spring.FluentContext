@@ -58,7 +58,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<TypeWithFactoryMethod>()
 				.BindLookupMethod(t => t.CreateType()).ToRegisteredDefault();
 
-			Assert.That(_ctx.GetObject<TypeWithFactoryMethod>().CreateType().CurrentCount, Is.EqualTo(1));
+			Assert.That(_ctx.GetDefaultObject<TypeWithFactoryMethod>().CreateType().CurrentCount, Is.EqualTo(1));
 		}
 
 		[Test]
@@ -69,7 +69,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<TypeWithFactoryMethod>()
 				.BindLookupMethod(t => t.CreateType()).ToRegistered(countingRef);
 
-			Assert.That(_ctx.GetObject<TypeWithFactoryMethod>().CreateType().CurrentCount, Is.EqualTo(1));
+			Assert.That(_ctx.GetDefaultObject<TypeWithFactoryMethod>().CreateType().CurrentCount, Is.EqualTo(1));
 		}
 
 		[Test]
@@ -80,7 +80,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<TypeWithFactoryMethod>()
 				.BindLookupMethod(t => t.CreateType()).ToRegistered(countingRef);
 
-			Assert.That(_ctx.GetObject<TypeWithFactoryMethod>().CreateType(), Is.TypeOf<DerivedFromCountingType>());
+			Assert.That(_ctx.GetDefaultObject<TypeWithFactoryMethod>().CreateType(), Is.TypeOf<DerivedFromCountingType>());
 		}
 
 		[Test]
@@ -91,7 +91,7 @@ namespace Spring.FluentContext.UnitTests
 			_ctx.RegisterDefault<TypeWithFactoryMethod>()
 				.BindLookupMethod(t => t.CreateType()).ToRegisteredDefaultOf<DerivedFromCountingType>();
 
-			Assert.That(_ctx.GetObject<TypeWithFactoryMethod>().CreateType(), Is.TypeOf<DerivedFromCountingType>());
+			Assert.That(_ctx.GetDefaultObject<TypeWithFactoryMethod>().CreateType(), Is.TypeOf<DerivedFromCountingType>());
 		}
 
 		[Test]
