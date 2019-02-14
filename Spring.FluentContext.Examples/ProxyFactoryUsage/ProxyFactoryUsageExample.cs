@@ -22,7 +22,7 @@ namespace Spring.FluentContext.Examples.ProxyFactoryUsage
 
 		protected override void RunExample(IApplicationContext ctx)
 		{
-			Console.WriteLine("Result = {0}", ctx.GetObject<ICalculator>().Add(3, 5));
+			Console.WriteLine("Result = {0}", ctx.GetDefaultObject<ICalculator>().Add(3, 5));
 		}
 	}
 }

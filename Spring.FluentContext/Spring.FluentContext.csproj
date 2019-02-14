@@ -1,24 +1,39 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <ProjectGuid>{166FE8E4-E3E6-4A01-9D73-890E6E0F31A6}</ProjectGuid>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyTitle>Spring.FluentContext</AssemblyTitle>
-    <Product>Spring.FluentContext</Product>
+    <TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
     <Description>Allows creating Spring.NET IoC container from code using fluent API</Description>
-    <Copyright>Copyright © 2012-2013, Wojciech Kotlarski</Copyright>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <DocumentationFile>bin\$(Configuration)\Spring.FluentContext.XML</DocumentationFile>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <Copyright>Copyright © 2012-2019, Wojciech Kotlarski</Copyright>
+    <Authors>Wojciech Kotlarski</Authors>
+    <PackageProjectUrl>https://github.com/Suremaker/Spring.FluentContext</PackageProjectUrl>
+    <Version>2.0-pre</Version>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/LightBDD/LightBDD</RepositoryUrl>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <IncludeSymbols>True</IncludeSymbols>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageOutputPath>$(SolutionDir)\output</PackageOutputPath>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-  </PropertyGroup>
-  <ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="D3S.Spring.Aop" Version="3.0.0-pre" />
     <PackageReference Include="D3S.Spring.Core" Version="3.0.0-pre" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
+    <PackageReference Include="Spring.Aop" Version="2.0.1" />
+    <PackageReference Include="Spring.Core" Version="2.0.1" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(EnableSourceLink)' != 'no'">
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EnableSourceLink)' != 'no'">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All"/>
   </ItemGroup>
 </Project>

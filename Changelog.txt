@@ -1,6 +1,12 @@
 Spring.FluentContext
 ===========================================
 
+Version 2.0.0-pre
+-------------------------------------------
++ Updated Spring.Aop/Spring.Core to 2.0.1 for NET 45
++ Added NetStandard 2.0 target, referring to D3S.Spring.Aop/D3S.Spring.Core 3.0.0-pre
++ Renamed GetObject<T>() to GetDefaultObject<T>() to avoid conflict with Spring 2X series
+
 Version 1.0.9
 -------------------------------------------
 + Added Def.ObjectProperty() and ToObjectProperty() extension method allowing to retrieve object property value

@@ -39,7 +39,7 @@ namespace Spring.FluentContext.Examples.Complex
 
 		protected override void RunExample(IApplicationContext ctx)
 		{
-			var sender = ctx.GetObject<Sender>();
+			var sender = ctx.GetDefaultObject<Sender>();
 			sender.Run();
 			//to let background tasks to finish
 			Thread.Sleep(3000);

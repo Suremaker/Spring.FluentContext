@@ -31,7 +31,7 @@ namespace Spring.FluentContext.Examples.VariousCreationMethods
 		
 		protected override void RunExample(IApplicationContext ctx)
 		{
-			ctx.GetObject<IWindow>().SimulateGuiActions();
+			ctx.GetDefaultObject<IWindow>().SimulateGuiActions();
 		}
 	}
 }

@@ -23,7 +23,7 @@ namespace Spring.FluentContext.Examples.PropertyInjection
 
 		protected override void RunExample(IApplicationContext ctx)
 		{
-			ctx.GetObject<Person>().ShowDetails();
+			ctx.GetDefaultObject<Person>().ShowDetails();
 		}
 	}
 }

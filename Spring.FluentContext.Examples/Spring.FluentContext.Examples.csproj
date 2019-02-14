@@ -1,43 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <ProjectGuid>{7D461C3F-F00E-4F67-A083-7184ED2E8128}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <StartupObject>Spring.FluentContext.Examples.Program</StartupObject>
-    <TargetFramework>net461</TargetFramework>
-    <AssemblyTitle>Spring.FluentContext.Examples</AssemblyTitle>
-    <Product>Spring.FluentContext.Examples</Product>
-    <Copyright>Copyright © 2012-2013, Wojciech Kotlarski</Copyright>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <DebugType>full</DebugType>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <DebugType>pdbonly</DebugType>
+    <TargetFrameworks>net461;netcoreapp2.2</TargetFrameworks>
+    <Copyright>Copyright © 2012-2019, Wojciech Kotlarski</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spring.FluentContext\Spring.FluentContext.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="D3S.Spring.Aop" Version="3.0.0-pre" />
   </ItemGroup>
 </Project>
