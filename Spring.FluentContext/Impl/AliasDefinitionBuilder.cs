@@ -8,9 +8,9 @@ namespace Spring.FluentContext.Impl
 	internal class AliasDefinitionBuilder<TObject> : IAliasLinkingBuildStage<TObject>, IReferencingStage<TObject>
 	{
 		private readonly string _alias;
-		private readonly GenericApplicationContext _ctx;
+		private readonly AbstractApplicationContext _ctx;
 
-		public AliasDefinitionBuilder(GenericApplicationContext ctx, string alias)
+		public AliasDefinitionBuilder(AbstractApplicationContext ctx, string alias)
 		{
 			_ctx = ctx;
 			_alias = alias;
@@ -38,7 +38,15 @@ namespace Spring.FluentContext.Impl
 
 		private IReferencingStage<TObject> MakeAlias(string objectId)
 		{
-			_ctx.RegisterAlias(objectId, _alias);
+			if (_ctx is IFluentConfigurableApplicationContext fcac)
+			{
+				fcac.TemporaryInitObjectFactory.RegisterAlias(objectId, _alias);
+			}
+			else
+			{
+				_ctx.RegisterAlias(objectId, _alias);				
+			}
+			
 			return this;
 		}
 	}
