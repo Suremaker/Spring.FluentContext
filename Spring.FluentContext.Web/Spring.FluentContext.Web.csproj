@@ -1,27 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{9FC6E664-D984-4D1F-B637-79709F958CA2}</ProjectGuid>
-    <TargetFramework>net461</TargetFramework>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <TargetFramework>net40</TargetFramework>
+    <Description>Allows creating Spring.NET IoC container from code using fluent API</Description>
+    <Copyright>Copyright © 2012-2019, Wojciech Kotlarski</Copyright>
+    <Authors>Wojciech Kotlarski</Authors>
+    <PackageProjectUrl>https://github.com/Suremaker/Spring.FluentContext</PackageProjectUrl>
+    <Version>2.0-pre</Version>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Suremaker/Spring.FluentContext</RepositoryUrl>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <IncludeSymbols>True</IncludeSymbols>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageOutputPath>$(SolutionDir)\output</PackageOutputPath>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="D3S.Spring.Web" Version="3.0.0-pre" />
+    <PackageReference Include="Spring.Web" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spring.FluentContext\Spring.FluentContext.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="dummy.xml" />
-    <EmbeddedResource Include="dummy.xml" />
+    <None Remove="emptyContext.xml" />
+    <EmbeddedResource Include="emptyContext.xml" />
   </ItemGroup>
 </Project>

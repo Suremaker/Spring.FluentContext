@@ -60,7 +60,7 @@ namespace Spring.FluentContext.Web
                 if (ConfigurationLocations[i].StartsWith(prefix))
                 {
                     string configuratorName = ConfigurationLocations[i].Substring(prefix.Length);
-                    ConfigurationLocations[i] = "assembly://Spring.FluentContext.Web/Spring.FluentContext.Web/dummy.xml";
+                    ConfigurationLocations[i] = "assembly://Spring.FluentContext.Web/Spring.FluentContext.Web/emptyContext.xml";
                     _configurator = (IContextConfigurator) Activator.CreateInstance(Type.GetType(configuratorName));
                     break; // only one configurator supported
                 }
