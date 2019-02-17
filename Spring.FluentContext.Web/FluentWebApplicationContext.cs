@@ -6,7 +6,7 @@ using Spring.Objects.Factory.Support;
 
 namespace Spring.FluentContext.Web
 {
-    public class FluentWebApplicationContext : WebApplicationContext, IFluentConfigurableApplicationContext
+    public class FluentWebApplicationContext : WebApplicationContext
     {
         public const string SpringConfiguratorKey = "SpringConfigurator";
         private IContextConfigurator _configurator;
@@ -49,8 +49,6 @@ namespace Spring.FluentContext.Web
         { }
         #endregion
         
-        public IConfigurableListableObjectFactory TemporaryInitObjectFactory { get; set; }
-
         protected override void OnPreRefresh()
         {
             const string prefix = SpringConfiguratorKey + ProtocolSeparator;
@@ -68,12 +66,14 @@ namespace Spring.FluentContext.Web
             base.OnPreRefresh();
         }
 
-        protected override void LoadObjectDefinitions(DefaultListableObjectFactory objectFactory)
+        /// <summary>
+        /// This method registers Fluent objects and calls base post processing
+        /// </summary>
+        /// <param name="objectFactory"></param>
+        protected override void PostProcessObjectFactory(IConfigurableListableObjectFactory objectFactory)
         {
-            base.LoadObjectDefinitions(objectFactory);
-
-            TemporaryInitObjectFactory = objectFactory;
             _configurator?.LoadObjectDefinitions(this);
+            base.PostProcessObjectFactory(objectFactory);
         }
     }
 }

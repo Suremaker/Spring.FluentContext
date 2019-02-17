@@ -38,15 +38,7 @@ namespace Spring.FluentContext.Impl
 
 		private IReferencingStage<TObject> MakeAlias(string objectId)
 		{
-			if (_ctx is IFluentConfigurableApplicationContext fcac)
-			{
-				fcac.TemporaryInitObjectFactory.RegisterAlias(objectId, _alias);
-			}
-			else
-			{
-				_ctx.RegisterAlias(objectId, _alias);				
-			}
-			
+			_ctx.RegisterAlias(objectId, _alias);
 			return this;
 		}
 	}
