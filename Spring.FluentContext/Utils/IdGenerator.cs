@@ -14,8 +14,7 @@ namespace Spring.FluentContext.Utils
 		/// <returns>Generated id.</returns>
 		public static string GetDefaultId()
 		{
-			var type = typeof(T);
-			return string.Format("_def_{0}_{1}", type.Name, (uint)type.GetHashCode());
+			return IdGenerator.GetDefaultId(typeof(T));
 		}
 
 		/// <summary>
@@ -24,7 +23,31 @@ namespace Spring.FluentContext.Utils
 		/// <returns>Generated id.</returns>
 		public static string GetUniqueId()
 		{
-			return string.Format("_uni_{0}_{1}", typeof(T).Name, Guid.NewGuid());
+			return IdGenerator.GetUniqueId(typeof(T));
+		}
+	}
+	
+	/// <summary>
+	/// Object definition id generator.
+	/// </summary>
+	public static class IdGenerator
+	{
+		/// <summary>
+		/// Generates default id for type.
+		/// </summary>
+		/// <returns>Generated id.</returns>
+		public static string GetDefaultId(Type type)
+		{
+			return string.Format("_def_{0}_{1}", type.Name, (uint)type.GetHashCode());
+		}
+
+		/// <summary>
+		/// Generates unique id for type.
+		/// </summary>
+		/// <returns>Generated id.</returns>
+		public static string GetUniqueId(Type type)
+		{
+			return string.Format("_uni_{0}_{1}", type.Name, Guid.NewGuid());
 		}
 	}
 }

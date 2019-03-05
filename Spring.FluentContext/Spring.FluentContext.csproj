@@ -7,7 +7,7 @@
     <PackageProjectUrl>https://github.com/Suremaker/Spring.FluentContext</PackageProjectUrl>
     <Version>2.0-pre</Version>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/LightBDD/LightBDD</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Suremaker/Spring.FluentContext</RepositoryUrl>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <IncludeSymbols>True</IncludeSymbols>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
