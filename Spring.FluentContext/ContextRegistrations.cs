@@ -74,6 +74,18 @@ namespace Spring.FluentContext
 		{
 			return RegisterNamed<T>(ctx, IdGenerator<T>.GetDefaultId());
 		}
+		
+		/// <summary>
+		/// Registers object definition with default id for <c>T</c> type.
+		/// </summary>
+		/// <typeparam name="TService">Type of registered interface (name).</typeparam>
+		/// <typeparam name="TImplementation">Type of configured object.</typeparam>
+		/// <param name="ctx">Context for the registration</param>
+		/// <returns>Next build stage.</returns>
+		public static IScopeBuildStage<TImplementation> RegisterDefault<TService, TImplementation>(this IConfigurableApplicationContext ctx)
+		{
+			return RegisterNamed<TImplementation>(ctx, IdGenerator<TService>.GetDefaultId());
+		}
 
 		/// <summary>
 		/// Registers object definition with unique id for <c>T</c> type.
