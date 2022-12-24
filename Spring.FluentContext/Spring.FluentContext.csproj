@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
     <Description>Allows creating Spring.NET IoC container from code using fluent API</Description>
     <Copyright>Copyright © 2012-2019, Wojciech Kotlarski</Copyright>
     <Authors>Wojciech Kotlarski</Authors>
     <PackageProjectUrl>https://github.com/Suremaker/Spring.FluentContext</PackageProjectUrl>
-    <Version>2.0-pre</Version>
+    <Version>3.0.0</Version>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Suremaker/Spring.FluentContext</RepositoryUrl>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
@@ -17,14 +17,9 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="D3S.Spring.Aop" Version="3.0.0-pre" />
-    <PackageReference Include="D3S.Spring.Core" Version="3.0.0-pre" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
-    <PackageReference Include="Spring.Aop" Version="2.0.1" />
-    <PackageReference Include="Spring.Core" Version="2.0.1" />
+  <ItemGroup>
+    <PackageReference Include="Spring.Aop" Version="3.0.1" />
+    <PackageReference Include="Spring.Core" Version="3.0.1" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(EnableSourceLink)' != 'no'">
@@ -34,6 +29,6 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(EnableSourceLink)' != 'no'">
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 </Project>

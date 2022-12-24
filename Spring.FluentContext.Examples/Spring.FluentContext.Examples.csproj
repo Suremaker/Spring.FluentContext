@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net461;netcoreapp2.2</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0</TargetFrameworks>
     <Copyright>Copyright © 2012-2019, Wojciech Kotlarski</Copyright>
   </PropertyGroup>
   <ItemGroup>

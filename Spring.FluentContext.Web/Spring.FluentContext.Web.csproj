@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net40</TargetFramework>
+    <TargetFramework>net462</TargetFramework>
     <Description>Allows creating Spring.NET IoC container from code using fluent API</Description>
     <Copyright>Copyright © 2012-2019, Wojciech Kotlarski</Copyright>
     <Authors>Wojciech Kotlarski</Authors>
     <PackageProjectUrl>https://github.com/Suremaker/Spring.FluentContext</PackageProjectUrl>
-    <Version>2.0-pre</Version>
+    <Version>3.0.0</Version>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Suremaker/Spring.FluentContext</RepositoryUrl>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
@@ -17,7 +17,7 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Spring.Web" Version="2.0.1" />
+    <PackageReference Include="Spring.Web" Version="3.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration" />
