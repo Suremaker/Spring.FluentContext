@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
+    <TargetFramework>net462</TargetFramework>
     <Description>Allows creating Spring.NET IoC container from code using fluent API</Description>
     <Copyright>Copyright © 2012-2019, Wojciech Kotlarski</Copyright>
     <Authors>Wojciech Kotlarski</Authors>
@@ -16,19 +16,18 @@
     <IsPackable>true</IsPackable>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Spring.Aop" Version="3.0.1" />
-    <PackageReference Include="Spring.Core" Version="3.0.1" />
+    <PackageReference Include="Spring.Web" Version="3.0.1" />
   </ItemGroup>
-
-  <PropertyGroup Condition="'$(EnableSourceLink)' != 'no'">
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-  </PropertyGroup>
-
-  <ItemGroup Condition="'$(EnableSourceLink)' != 'no'">
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Spring.FluentContext\Spring.FluentContext.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="emptyContext.xml" />
+    <EmbeddedResource Include="emptyContext.xml" />
   </ItemGroup>
 </Project>

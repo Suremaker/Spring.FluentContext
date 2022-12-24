@@ -63,6 +63,28 @@ or compile from sources available on Git: `git clone git://github.com/Suremaker/
 * [Dependency check](https://github.com/Suremaker/Spring.FluentContext/wiki/Dependency-checking)
 * [Type-safe, literal-less references](https://github.com/Suremaker/Spring.FluentContext/wiki/Object-definition-registration)
 
+## Extenstion methods
+
+Fluent configuration extracted to extension methods, so it can be used with any context implementing `IConfigurableApplicationContext`. Unfortunately, most of them have their core logic in constructors so simply registering objects is not enoguh.
+Eg. for proper usage of `XmlApplicationContext` you need to instantiate `FluentXmlApplicationContext` with a configurator class implementing `IContextConfigurator` which is called during building base context. Not a nice solution, but only possible without changing core *Spring.Net* repo.
+
+## Web support
+
+Inside `Spring.FluentContext.Web` project there is a `FluentWebApplicationContext` which can be initialized using `FluentWebContextHandler`. Sample configuration in *web.config*:
+
+```xml
+<configuration>
+  <configSections>
+    <sectionGroup name="spring">
+       <section name="context" type="Spring.FluentContext.Web.FluentWebContextHandler, Spring.FluentContext.Web" /> 
+    </sectionGroup>
+  </configSections>
+  <appSettings>
+    <add key="SpringConfigurator" value="WebClient.Mobile.Config.SpringFluentConfig, WebClient.Mobile" />
+  </appSettings>
+</configuration>
+```
+
 ## Not Implemented Features
 * lazy and non-lazy initialization (now everything is initialized lazily)
 
